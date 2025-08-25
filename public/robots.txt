@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://agendados.es/sitemap-index.xml

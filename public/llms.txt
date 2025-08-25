@@ -1,0 +1,61 @@
+name: Agendados
+description: Agendados es una aplicación web para gestionar eventos de juegos de mesa, con un enfoque en la comunidad y la organización de torneos.
+url: https://agendados.es
+contact: contacto@agendados.es
+
+section: Eventos
+description: Los eventos están organizados cronológicamente por año
+years: 2024, 2025, 2026
+
+subsection: Estructura de Eventos
+format: Cada evento contiene información estructurada
+required_fields:
+  - title: Título del evento (string)
+  - description: Descripción detallada del evento (string)
+  - start: Fecha de inicio (formato: YYYY-MM-DD)
+optional_fields:
+  - end: Fecha de finalización (formato: YYYY-MM-DD)
+  - location: Ubicación del evento (string)
+  - province: Provincia donde se celebra (string)
+  - color: Color hexadecimal para identificación visual (string)
+  - url: URL oficial del evento (string)
+  - image: URL de la imagen representativa (string)
+  - tags: Array de etiquetas categorizando el evento
+  - daysOfWeek: Array de números para eventos recurrentes
+  - startTime: Hora de inicio (string)
+  - endTime: Hora de finalización (string)
+
+subsection: Categorías de Eventos
+tags_disponibles:
+  - "Juegos de mesa"
+  - "Rol"
+  - "Wargames"
+  - "Torneos"
+  - "Simulación histórica"
+  - "Trading Card Games"
+  - "Miniaturas"
+  - "Familiar"
+  - "Competitivo"
+
+subsection: Provincias
+note: Los eventos están categorizados por provincias españolas para facilitar la búsqueda geográfica
+ejemplos: Navarra, Badajoz, Madrid, Barcelona, Valencia, Sevilla, etc.
+
+subsection: Organización por Fechas
+current_year: 2025
+note: Los eventos se organizan cronológicamente y se pueden filtrar por proximidad temporal
+
+subsection: APIs Disponibles
+endpoints:
+  - /api/eventos: Lista todos los eventos
+  - /api/mcp: Endpoint para Model Context Protocol
+  - /rss.xml: Feed RSS de eventos
+
+subsection: Filtrado y Búsqueda
+capacidades:
+  - Filtrado por provincia
+  - Filtrado por año
+  - Filtrado por etiquetas/categorías
+  - Búsqueda por proximidad temporal
+  - Vista de calendario
+  - Lista de próximos eventos
