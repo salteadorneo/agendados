@@ -24,6 +24,7 @@ const {
         color,
         url,
         email,
+        province,
     },
 } = Astro.props;
 
@@ -33,7 +34,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
 <Layout title={title} description={description}>
     <HeaderEvent title={title} color={color} />
     <main>
-        <article>
+        <article itemscope itemtype="https://schema.org/Event">
             <div
                 class={`relative flex items-end py-6 bg-primary bg-center bg-cover bg-no-repeat ${!image && "overflow-hidden"}`}
                 style={`background-color: ${color};`}
@@ -62,6 +63,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                                     src={image.toString()}
                                     alt={title}
                                     class="-rotate-y-6"
+                                    itemprop="image"
                                 />
                             </div>
                         )
@@ -80,6 +82,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                     <h1
                         class="sm:pr-56 text-5xl md:text-6xl text-balance text-white font-medium"
                         transition:name={`title-${id}`}
+                        itemprop="name"
                     >
                         {title}
                     </h1>
@@ -106,6 +109,9 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                                     onmouseover={`this.style.color='${color}'`}
                                     onmouseout={`this.style.color='inherit'`}
                                     transition:name={`location-${id}`}
+                                    itemprop="location"
+                                    itemscope
+                                    itemtype="https://schema.org/Place"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -126,9 +132,27 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                                         <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
                                         <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
                                     </svg>
-                                    <span class="max-sm:truncate max-sm:max-w-xs">
+                                    <span
+                                        class="max-sm:truncate max-sm:max-w-xs"
+                                        itemprop="name"
+                                    >
                                         {location}
                                     </span>
+                                    <div
+                                        itemprop="address"
+                                        itemscope
+                                        itemtype="https://schema.org/PostalAddress"
+                                        style="display: none;"
+                                    >
+                                        <meta
+                                            itemprop="addressLocality"
+                                            content={province || "España"}
+                                        />
+                                        <meta
+                                            itemprop="addressCountry"
+                                            content="ES"
+                                        />
+                                    </div>
                                 </a>
                             )
                         }
@@ -141,6 +165,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                                     class="flex items-center gap-2 hover:text-primary transition-colors"
                                     onmouseover={`this.style.color='${color}'`}
                                     onmouseout={`this.style.color='inherit'`}
+                                    itemprop="url"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -173,6 +198,9 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                                     class="flex items-center gap-2 hover:text-primary transition-colors"
                                     onmouseover={`this.style.color='${color}'`}
                                     onmouseout={`this.style.color='inherit'`}
+                                    itemprop="organizer"
+                                    itemscope
+                                    itemtype="https://schema.org/Organization"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -193,7 +221,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                                         <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
                                         <path d="M3 7l9 6l9 -6" />
                                     </svg>
-                                    {email}
+                                    <span itemprop="email">{email}</span>
                                 </a>
                             )
                         }
@@ -202,52 +230,10 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                         {...Astro.props}
                         class="flex flex-col sm:flex-row flex-wrap gap-3"
                     />
-                    <!-- <button
-                        class="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer"
-                        onclick={`addToFavorites('${id}')`}
-                        onmouseover={`this.style.color='${color}'`}
-                        onmouseout={`this.style.color='inherit'`}
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><path stroke="none" d="M0 0h24v24H0z" fill="none"
-                            ></path><path
-                                d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"
-                            ></path></svg
-                        >
-                        Añadir a favoritos
-                    </button>
-                    <script is:inline>
-                        function addToFavorites(eventId) {
-                            let favorites =
-                                JSON.parse(localStorage.getItem("favorites")) ||
-                                [];
-                            if (favorites.includes(eventId)) {
-                                favorites = favorites.filter(
-                                    (fav) => fav !== eventId,
-                                );
-                                // alert("Evento eliminado de favoritos");
-                            } else {
-                                favorites.push(eventId);
-                                // alert("Evento añadido a favoritos");
-                            }
-                            localStorage.setItem(
-                                "favorites",
-                                JSON.stringify(favorites),
-                            );
-                        }
-                    </script> -->
                 </div>
             </div>
             <div class="w-full max-w-6xl mx-auto py-6 px-4 md:pr-56 space-y-4">
+                <meta itemprop="description" content={description} />
                 <Tags {...Astro.props} />
                 <section class="content">
                     <slot />

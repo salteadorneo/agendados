@@ -12,18 +12,32 @@ const isSameMonth = start.getMonth() === (end?.getMonth() ?? start.getMonth());
 const isSameYear =
     start.getFullYear() === (end?.getFullYear() ?? start.getFullYear());
 const isSameDay = start.getDate() === (end?.getDate() ?? start.getDate());
+
+const startDateTime = startTime
+    ? `${start.toISOString().split("T")[0]}T${startTime}:00`
+    : start.toISOString();
+const endDateTime =
+    end && endTime
+        ? `${end.toISOString().split("T")[0]}T${endTime}:00`
+        : end?.toISOString() || start.toISOString();
 ---
 
 {
     !isSameDay && isSameMonth && isSameYear ? (
         <>
-            <time datetime={start.toISOString()}>
+            <time datetime={startDateTime} itemprop="startDate">
                 {start.toLocaleDateString("es-ES", {
                     day: "numeric",
                 })}
             </time>{" "}
             al{" "}
-            <time datetime={end?.toISOString()}>
+            <time
+                datetime={end?.toISOString()}
+                {...(endDateTime !== startDateTime && {
+                    itemprop: "endDate",
+                    datetime: endDateTime,
+                })}
+            >
                 {end?.toLocaleDateString("es-ES", {
                     day: "numeric",
                 })}
@@ -33,10 +47,13 @@ const isSameDay = start.getDate() === (end?.getDate() ?? start.getDate());
                 month: "long",
                 year: "numeric",
             })}
+            {endDateTime !== startDateTime && (
+                <meta itemprop="endDate" content={endDateTime} />
+            )}
         </>
     ) : isSameDay && isSameMonth && isSameYear ? (
         <>
-            <time datetime={start.toISOString()}>
+            <time datetime={startDateTime} itemprop="startDate">
                 {start.toLocaleDateString("es-ES", {
                     day: "numeric",
                 })}
@@ -46,10 +63,13 @@ const isSameDay = start.getDate() === (end?.getDate() ?? start.getDate());
                 month: "long",
                 year: "numeric",
             })}
+            {endDateTime !== startDateTime && (
+                <meta itemprop="endDate" content={endDateTime} />
+            )}
         </>
     ) : isSameYear ? (
         <>
-            <time datetime={start.toISOString()}>
+            <time datetime={startDateTime} itemprop="startDate">
                 {start.toLocaleDateString("es-ES", {
                     day: "numeric",
                     month: "long",
@@ -59,7 +79,7 @@ const isSameDay = start.getDate() === (end?.getDate() ?? start.getDate());
                 <>
                     {" "}
                     -{" "}
-                    <time datetime={end.toISOString()}>
+                    <time datetime={endDateTime} itemprop="endDate">
                         {end.toLocaleDateString("es-ES", {
                             day: "numeric",
                             month: "long",
@@ -68,10 +88,13 @@ const isSameDay = start.getDate() === (end?.getDate() ?? start.getDate());
                 </>
             )}{" "}
             de {start.getFullYear()}
+            {!end && endDateTime !== startDateTime && (
+                <meta itemprop="endDate" content={endDateTime} />
+            )}
         </>
     ) : (
         <>
-            <time datetime={start.toISOString()}>
+            <time datetime={startDateTime} itemprop="startDate">
                 {start.toLocaleDateString("es-ES", {
                     day: "numeric",
                     month: "long",
@@ -82,7 +105,7 @@ const isSameDay = start.getDate() === (end?.getDate() ?? start.getDate());
                 <>
                     {" "}
                     -{" "}
-                    <time datetime={end.toISOString()}>
+                    <time datetime={endDateTime} itemprop="endDate">
                         {end.toLocaleDateString("es-ES", {
                             day: "numeric",
                             month: "long",
@@ -90,6 +113,9 @@ const isSameDay = start.getDate() === (end?.getDate() ?? start.getDate());
                         })}
                     </time>
                 </>
+            )}
+            {!end && endDateTime !== startDateTime && (
+                <meta itemprop="endDate" content={endDateTime} />
             )}
         </>
     )
