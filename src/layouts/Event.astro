@@ -204,6 +204,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                             email && (
                                 <a
                                     href={`mailto:${email}`}
+                                    data-simple-event="event_mailto"
                                     class="flex items-center gap-2 hover:text-primary transition-colors"
                                     onmouseover={`this.style.color='${color}'`}
                                     onmouseout={`this.style.color='inherit'`}
@@ -286,6 +287,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                     > o escríbenos a
                     <a
                         href="mailto:contacto@agendados.es"
+                        data-simple-event="footer_event_mailto"
                         class="text-primary underline hover:no-underline"
                         >contacto@agendados.es</a
                     >. Como la web es de código abierto, podrías editarlo en
