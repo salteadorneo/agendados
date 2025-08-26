@@ -19,4 +19,15 @@ const { id, data, class: classes } = Astro.props;
             </a>
         ))
     }
+    {
+        data.province && (
+            <a
+                href={`/eventos/${slugify(data.province)}`}
+                class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
+                style={`background-color: ${data.color};`}
+            >
+                {data.province}
+            </a>
+        )
+    }
 </div>
