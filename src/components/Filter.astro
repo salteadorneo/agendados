@@ -5,25 +5,50 @@ import { slugify } from "@/utils";
 const events = await getCollection("event");
 
 const provinces = new Set<string>();
+const tags = new Set<string>();
 events.forEach((event: CollectionEntry<"event">) => {
     if (event.data.province) {
         provinces.add(event.data.province);
     }
+    event.data.tags?.forEach((tag) => {
+        tags.add(tag);
+    });
 });
 ---
 
-<select class="p-2 bg-white" onchange="location = this.value">
-    <option value="/eventos">Todos los eventos</option>
-    {
-        Array.from(provinces)
-            .sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }))
-            .map((province) => (
-                <option
-                    value={`/eventos/${slugify(province)}`}
-                    selected={Astro.params.province === slugify(province)}
-                >
-                    {province}
-                </option>
-            ))
-    }
-</select>
+<section>
+    <select class="p-2 bg-white" onchange="location = this.value">
+        <option value="/eventos">Todos los eventos</option>
+        {
+            Array.from(provinces)
+                .sort((a, b) =>
+                    a.localeCompare(b, "es", { sensitivity: "base" }),
+                )
+                .map((province) => (
+                    <option
+                        value={`/eventos/${slugify(province)}`}
+                        selected={Astro.params.province === slugify(province)}
+                    >
+                        {province}
+                    </option>
+                ))
+        }
+    </select>
+    <select class="p-2 bg-white" onchange="location = this.value">
+        <option value="/eventos">Todos los tipos</option>
+        {
+            Array.from(tags)
+                .sort((a, b) =>
+                    a.localeCompare(b, "es", { sensitivity: "base" }),
+                )
+                .map((tag) => (
+                    <option
+                        value={`/eventos/tag/${slugify(tag)}`}
+                        selected={Astro.params.tag === slugify(tag)}
+                    >
+                        {tag}
+                    </option>
+                ))
+        }
+    </select>
+</section>

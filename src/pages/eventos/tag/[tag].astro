@@ -7,6 +7,7 @@ import { slugify } from "@/utils";
 import List from "@/components/List.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
+import Filter from "@/components/Filter.astro";
 
 export async function getStaticPaths() {
     const events = await getCollection("event");
@@ -45,7 +46,9 @@ const past = events
 >
     <Header />
     <main class="flex-1 mb-6">
-        <Title title={`Etiqueta: ${tag}`} />
+        <Title title={`Etiqueta: ${tag}`}>
+            <Filter />
+        </Title>
         <section
             class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8"
         >
