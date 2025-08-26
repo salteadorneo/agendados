@@ -1,69 +1,15 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import { slugify } from "@/utils";
+import { provinces, slugify } from "@/utils";
 import List from "@/components/List.astro";
 import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
 
 export async function getStaticPaths() {
-    const provinces = [
-        "Álava",
-        "Albacete",
-        "Alicante",
-        "Almería",
-        "Asturias",
-        "Ávila",
-        "Badajoz",
-        "Baleares",
-        "Barcelona",
-        "Burgos",
-        "Cáceres",
-        "Cádiz",
-        "Cantabria",
-        "Castellón",
-        "Ciudad Real",
-        "Córdoba",
-        "Cuenca",
-        "Girona",
-        "Granada",
-        "Guadalajara",
-        "Guipúzcoa",
-        "Huelva",
-        "Huesca",
-        "Jaén",
-        "A Coruña",
-        "La Rioja",
-        "Las Palmas",
-        "León",
-        "Lleida",
-        "Lugo",
-        "Madrid",
-        "Málaga",
-        "Murcia",
-        "Navarra",
-        "Orense",
-        "Palencia",
-        "Pontevedra",
-        "Salamanca",
-        "Santa Cruz de Tenerife",
-        "Segovia",
-        "Sevilla",
-        "Soria",
-        "Tarragona",
-        "Teruel",
-        "Toledo",
-        "Valencia",
-        "Valladolid",
-        "Bizkaia",
-        "Zamora",
-        "Zaragoza",
-        "Ceuta",
-        "Melilla",
-    ];
     return Array.from(provinces).map((province) => ({
         params: { province: slugify(province) },
         props: { province },

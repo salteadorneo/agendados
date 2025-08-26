@@ -1,15 +1,11 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
-import { slugify } from "@/utils";
+import { provinces, slugify } from "@/utils";
 
 const events = await getCollection("event");
 
-const provinces = new Set<string>();
 const tags = new Set<string>();
 events.forEach((event: CollectionEntry<"event">) => {
-    if (event.data.province) {
-        provinces.add(event.data.province);
-    }
     event.data.tags?.forEach((tag) => {
         tags.add(tag);
     });

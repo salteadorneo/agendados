@@ -1,17 +1,13 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
-import { slugify } from "@/utils";
+import { provinces, slugify } from "@/utils";
 
 const events = await getCollection("event");
 
-const provinces = new Set<string>();
 const tags = new Set<string>();
 const years = new Set<string>();
 events.forEach((event: CollectionEntry<"event">) => {
-    if (event.data.province) {
-        provinces.add(event.data.province);
-    }
     event.data.tags?.forEach((tag) => {
         tags.add(tag);
     });
@@ -20,8 +16,8 @@ events.forEach((event: CollectionEntry<"event">) => {
 ---
 
 <footer class="bg-primary text-white py-6">
-    <section class="md:flex w-full max-w-6xl mx-auto px-4 space-y-6">
-        <div class="flex-6/12">
+    <section class="md:flex gap-6 w-full max-w-6xl mx-auto px-4 space-y-6">
+        <div class="flex-7/12">
             <p class="text-xl mb-2">Eventos por provincia</p>
             <ul class="grid grid-cols-2 sm:grid-cols-3 gap-x-5">
                 {
@@ -63,7 +59,7 @@ events.forEach((event: CollectionEntry<"event">) => {
                 }
             </ul>
         </div>
-        <div class="flex-2/12 md:text-right">
+        <div class="flex-1/12 md:text-right">
             <p class="text-xl font-light mb-2">
                 AGEN<span class="font-normal">DADOS</span>
             </p>
