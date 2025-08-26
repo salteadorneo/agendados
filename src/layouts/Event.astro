@@ -36,10 +36,10 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
     <main>
         <article itemscope itemtype="https://schema.org/Event">
             <div
-                class={`relative flex items-end py-6 bg-primary bg-center bg-cover bg-no-repeat ${!image && "overflow-hidden"}`}
+                class={`relative flex items-end py-6 bg-primary bg-center bg-cover bg-no-repeat ${!image && "overflow-hidden2"}`}
                 style={`background-color: ${color};`}
             >
-                {
+                <!-- {
                     !image && (
                         <div class="max-sm:hidden absolute -right-20 -bottom-46 text-white">
                             <svg
@@ -54,17 +54,29 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                             </svg>
                         </div>
                     )
-                }
+                } -->
                 <div class="relative w-full max-w-6xl mx-auto px-4 space-y-2">
                     {
                         image && (
                             <div class="sm:absolute top-0 mx-auto right-6 z-30 w-[40dvw] sm:w-48 perspective-dramatic max-sm:mb-6">
                                 <img
                                     src={image.toString()}
-                                    alt={title}
+                                    alt={description || title}
                                     class="-rotate-y-6"
                                     itemprop="image"
                                 />
+                            </div>
+                        )
+                    }
+                    {
+                        !image && (
+                            <div class="sm:absolute top-0 mx-auto right-6 z-30 w-[40dvw] sm:w-48 perspective-dramatic max-sm:mb-6">
+                                <div
+                                    class="aspect-[9/14] bg-white text-sm p-6 -rotate-y-6"
+                                    style={`background-color2: ${color};`}
+                                >
+                                    {description}
+                                </div>
                             </div>
                         )
                     }
@@ -103,11 +115,8 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                     <div class="flex flex-col sm:flex-row flex-wrap gap-3">
                         {
                             location && (
-                                <a
-                                    href="#map"
-                                    class="flex items-center gap-2 hover:text-primary transition-colors"
-                                    onmouseover={`this.style.color='${color}'`}
-                                    onmouseout={`this.style.color='inherit'`}
+                                <p
+                                    class="flex items-center gap-2"
                                     transition:name={`location-${id}`}
                                     itemprop="location"
                                     itemscope
@@ -153,7 +162,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                                             content="ES"
                                         />
                                     </div>
-                                </a>
+                                </p>
                             )
                         }
                         {
@@ -232,13 +241,26 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                     />
                 </div>
             </div>
+            {
+                location && (
+                    <iframe
+                        id="map"
+                        width="100%"
+                        class="h-48 shadow-lg"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${encodeURIComponent(location)}`}
+                    />
+                )
+            }
             <div class="w-full max-w-6xl mx-auto py-6 px-4 md:pr-56 space-y-4">
                 <meta itemprop="description" content={description} />
                 <Tags {...Astro.props} />
                 <section class="content">
                     <slot />
                 </section>
-                <section class="flex flex-wrap items-center gap-2 mb-6">
+                <section class="flex flex-wrap items-center gap-2">
                     <AddToCalendarButton
                         client:only
                         label="Añadir al calendario"
@@ -254,19 +276,6 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                     />
                 </section>
             </div>
-            {
-                location && (
-                    <iframe
-                        id="map"
-                        width="100%"
-                        class="h-96"
-                        loading="lazy"
-                        allowfullscreen
-                        referrerpolicy="no-referrer-when-downgrade"
-                        src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${encodeURIComponent(location)}`}
-                    />
-                )
-            }
             <div class="w-full max-w-6xl mx-auto py-6 px-4">
                 <p class="text-sm opacity-80">
                     Si tienes más datos sobre este evento, por favor
