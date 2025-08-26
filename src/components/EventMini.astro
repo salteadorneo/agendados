@@ -5,8 +5,8 @@ const { id, data } = Astro.props;
 ---
 
 <article
-    class="relative max-w-[98vw] p-4 border-l-10 bg-center bg-cover bg-no-repeat"
-    style={`border-color: ${data.color}`}
+    class="relative max-w-[98vw] p-4 border-l-10 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
+    style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
 >
     <a href={`/evento/${id}/`}>
         <p class="font-medium" transition:name={`date-${id}`}>

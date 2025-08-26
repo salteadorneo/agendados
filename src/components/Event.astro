@@ -6,8 +6,8 @@ const { id, data } = Astro.props;
 ---
 
 <article
-    class="relative max-w-[98vw] p-4 border-l-20 bg-center bg-cover bg-no-repeat"
-    style={`border-color: ${data.color}`}
+    class="relative max-w-[98vw] p-4 border-l-20 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
+    style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
 >
     {
         data.image && (
