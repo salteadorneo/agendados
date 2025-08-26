@@ -1,13 +1,15 @@
 ---
-title: 'ROL: Iniciación a Percy Jackson (10-14 años) - Jueganess'
+title: 'Iniciación a Percy Jackson'
 description: 'Partida de introducción al juego de rol de Percy Jackson para jóvenes de 10-14 años en el campamento mestizo adaptado a Madrid'
 start: '2025-08-31'
 startTime: '10:00'
 location: 'Centro Comercial José Saramago, Leganés'
 province: 'Madrid'
 color: '#4561AA'
-email: 'jueganess@gmail.com'
+email: 'info@jueganess.org'
 tags: ['Rol', 'Infantil', 'Iniciación']
+twitter: 'https://twitter.com/AJueganess'
+instagram: 'https://www.instagram.com/jueganess'
 ---
 
 ### El Campamento Mestizo llega a Madrid
