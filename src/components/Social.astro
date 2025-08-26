@@ -7,7 +7,7 @@ const {
 } = Astro.props;
 ---
 
-<div class={classes}>
+<section class={`flex flex-row flex-wrap gap-3 ${classes}`}>
     {
         instagram && (
             <SocialLink
@@ -82,4 +82,4 @@ const {
             </SocialLink>
         )
     }
-</div>
+</section>
