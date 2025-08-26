@@ -11,10 +11,6 @@ tags: ['Juegos de mesa', 'Torneos']
 
 ## Evento Virus! Marvel
 
-**Fecha:** Jueves 19 de junio de 2025  
-**Lugar:** Casa del Libro - Gran Vía, Madrid  
-**Organizador:** Tranjis Games  
-
 ### Descripción
 
 El próximo jueves 19 de junio tienes una cita con el evento más superheroico del momento. En plena Gran Vía de Madrid, en la Casa del Libro, podrás unirte a una tarde llena de acción, juegos, creatividad y muchas sorpresas. Si te apasiona Virus! o no te pierdes una del Universo Marvel, este evento está hecho para ti.
@@ -29,10 +25,6 @@ El próximo jueves 19 de junio tienes una cita con el evento más superheroico d
 Ven, juega, comparte y celebra con nosotras este nuevo lanzamiento que une el juego más viral con los superhéroes más icónicos.
 
 ## Evento Virus! Marvel
-
-**Fecha:** Jueves 19 de junio de 2025  
-**Lugar:** Casa del Libro - Gran Vía, Madrid  
-**Organizador:** Tranjis Games  
 
 ### Descripción
 

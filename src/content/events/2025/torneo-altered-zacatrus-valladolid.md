@@ -2,6 +2,8 @@
 title: 'Torneo Altered TCG - Zacatrus Valladolid'
 description: 'Torneo de Altered TCG en formato Standard en la tienda Zacatrus de Valladolid.'
 start: '2025-02-08'
+startTime: '17:30'
+endTime: '20:30'
 location: 'Valladolid'
 province: 'Valladolid'
 color: '#FF9800'
@@ -10,10 +12,6 @@ tags: ['Torneos', 'TCG']
 ---
 
 ## Torneo Altered TCG - Zacatrus Valladolid
-
-**Fecha:** 8 de febrero de 2025  
-**Horario:** 17:30 a 20:30  
-**Lugar:** Tienda Zacatrus Valladolid  
 
 ### Descripción
 

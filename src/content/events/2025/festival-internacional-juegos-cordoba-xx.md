@@ -14,9 +14,6 @@ tags: ['Juegos de mesa']
 
 ## XX Festival Internacional de Juegos Córdoba 2025
 
-**Fecha:** 10-13 de octubre de 2025  
-**Lugar:** Palacio de la Merced, Córdoba  
-**Organizador:** Asociación Cultural Jugamos Tod@s  
 **Hashtag oficial:** #FestivalJT25
 
 ### Descripción
