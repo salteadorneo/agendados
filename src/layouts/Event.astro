@@ -39,40 +39,29 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                 class={`relative flex items-end py-6 bg-primary bg-center bg-cover bg-no-repeat ${!image && "overflow-hidden2"}`}
                 style={`background-color: ${color};`}
             >
-                <!-- {
-                    !image && (
-                        <div class="max-sm:hidden absolute -right-20 -bottom-46 text-white">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                version="1.1"
-                                width="400"
-                                viewBox="0 0 24 18.18"
-                                fill="currentColor"
-                            >
-                                <path d="M14.45 5.68c-1.56 4.7-2.35 7.06-3.91 11.76 3.64.23 5.47.35 9.11.59 1.63-4.7 2.44-7.05 4.07-11.75l-9.27-.6Zm-1.43 10.07c-.49-.03-.73-.55-.53-1.16.2-.61.77-1.08 1.27-1.05.5.03.73.55.53 1.16-.21.61-.77 1.08-1.27 1.05Zm3.7-3.04c-.5-.03-.73-.55-.53-1.16s.78-1.08 1.27-1.05c.5.03.73.55.53 1.16-.21.61-.78 1.08-1.27 1.05Zm3.72-3.05c-.5-.03-.73-.55-.53-1.16.21-.61.78-1.08 1.28-1.04.5.03.74.55.53 1.16-.21.61-.78 1.08-1.28 1.04ZM6.93.93S4.42 6.32.3 7.73l6.57 5.32s4.75-2.17 6.41-7.68L6.93.93ZM7.59.41l8.52.55 7.1 4.49-9.27-.6L7.59.41z" />
-                                <path d="m7.01 14.23-3.23-2.62-.37 1.21 6.42 4.44 3.48-10.38c-1.75 5.26-6.3 7.34-6.3 7.34Z" />
-                            </svg>
-                        </div>
-                    )
-                } -->
                 <div class="relative w-full max-w-6xl mx-auto px-4 space-y-2">
                     {
                         image && (
-                            <div class="sm:absolute top-0 mx-auto right-6 z-30 w-[40dvw] sm:w-48 perspective-dramatic max-sm:mb-6">
+                            <a
+                                href={image.toString()}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="block sm:absolute top-0 mx-auto right-6 z-30 w-[40dvw] sm:w-52 perspective-dramatic max-sm:mb-6"
+                            >
                                 <img
                                     src={image.toString()}
                                     alt={description || title}
-                                    class="-rotate-y-6"
+                                    class="-rotate-y-4 hover:-rotate-y-2 hover:scale-110 transition-all shadow-md"
                                     itemprop="image"
                                 />
-                            </div>
+                            </a>
                         )
                     }
                     {
                         !image && (
-                            <div class="sm:absolute top-0 mx-auto right-6 z-30 w-[40dvw] sm:w-48 perspective-dramatic max-sm:mb-6">
+                            <div class="max-sm:hidden absolute top-0 mx-auto right-6 z-30 w-[40dvw] sm:w-52 perspective-dramatic max-sm:mb-6">
                                 <div
-                                    class="aspect-[9/14] bg-white text-sm p-6 -rotate-y-6"
+                                    class="aspect-[9/14] bg-white text-sm p-6 -rotate-y-4 shadow-md"
                                     style={`background-color2: ${color};`}
                                 >
                                     {description}
@@ -277,26 +266,27 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                     />
                 </section>
             </div>
-            <div class="w-full max-w-6xl mx-auto py-6 px-4">
-                <p class="text-sm opacity-80">
-                    Si tienes más datos sobre este evento, por favor
-                    <a
-                        href="/contacto"
-                        class="text-primary underline hover:no-underline"
+            <div class="w-full max-w-6xl mx-auto pb-6 px-4">
+                <p
+                    class="bg-primary/70 text-white text-center text-sm p-4 [clip-path:polygon(1%_0,100%_0,99%_100%,0_100%)]"
+                >
+                    Si tienes más datos sobre este evento, por favor,
+                    <a href="/contacto" class="underline hover:no-underline"
                         >contáctanos</a
-                    > o escríbenos a
+                    >, escríbenos a
                     <a
                         href="mailto:contacto@agendados.es"
                         data-simple-event="footer_event_mailto"
-                        class="text-primary underline hover:no-underline"
+                        class="underline hover:no-underline"
                         >contacto@agendados.es</a
-                    >. Como la web es de código abierto, podrías editarlo en
+                    >
+                    o edítalo en
                     <a
                         href={`https://github.com/salteadorneo/agendados/blob/main/src/content/events/${id}.md`}
-                        class="text-primary underline hover:no-underline"
+                        class="underline hover:no-underline"
                         target="_blank"
                         rel="noopener noreferrer">GitHub</a
-                    >.
+                    >
                 </p>
             </div>
         </article>
