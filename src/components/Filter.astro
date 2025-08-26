@@ -12,39 +12,47 @@ events.forEach((event: CollectionEntry<"event">) => {
 });
 ---
 
-<section>
-    <select class="p-2 bg-white" onchange="location = this.value">
-        <option value="/eventos">Todos los eventos</option>
-        {
-            Array.from(provinces)
-                .sort((a, b) =>
-                    a.localeCompare(b, "es", { sensitivity: "base" }),
-                )
-                .map((province) => (
-                    <option
-                        value={`/eventos/${slugify(province)}`}
-                        selected={Astro.params.province === slugify(province)}
-                    >
-                        {province}
-                    </option>
-                ))
-        }
-    </select>
-    <select class="p-2 bg-white" onchange="location = this.value">
-        <option value="/eventos">Todos los tipos</option>
-        {
-            Array.from(tags)
-                .sort((a, b) =>
-                    a.localeCompare(b, "es", { sensitivity: "base" }),
-                )
-                .map((tag) => (
-                    <option
-                        value={`/eventos/tag/${slugify(tag)}`}
-                        selected={Astro.params.tag === slugify(tag)}
-                    >
-                        {tag}
-                    </option>
-                ))
-        }
+<section class="flex flex-wrap justify-end gap-2">
+    <select
+        class="p-2 border text-white w-auto"
+        onchange="location = this.value"
+    >
+        <option value="/" class="text-black">Filtro</option>
+        <optgroup label="Provincias" class="text-black">
+            {
+                Array.from(provinces)
+                    .sort((a, b) =>
+                        a.localeCompare(b, "es", { sensitivity: "base" }),
+                    )
+                    .map((province) => (
+                        <option
+                            value={`/eventos/${slugify(province)}`}
+                            class="text-black"
+                            selected={
+                                Astro.params.province === slugify(province)
+                            }
+                        >
+                            {province}
+                        </option>
+                    ))
+            }
+        </optgroup>
+        <optgroup label="Por tipo" class="text-black">
+            {
+                Array.from(tags)
+                    .sort((a, b) =>
+                        a.localeCompare(b, "es", { sensitivity: "base" }),
+                    )
+                    .map((tag) => (
+                        <option
+                            value={`/eventos/tag/${slugify(tag)}`}
+                            class="text-black"
+                            selected={Astro.params.tag === slugify(tag)}
+                        >
+                            {tag}
+                        </option>
+                    ))
+            }
+        </optgroup>
     </select>
 </section>
