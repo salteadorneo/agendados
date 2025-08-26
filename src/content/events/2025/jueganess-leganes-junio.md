@@ -4,16 +4,12 @@ description: 'Jornadas de juegos de mesa gratuitas organizadas por la Asociació
 start: '2025-06-21'
 location: 'Leganés'
 province: 'Madrid'
-color: '#38A169'
+color: '#4561AA'
 url: 'https://tranjisgames.com/ferias-y-eventos'
 tags: ['Juegos de mesa']
 ---
 
 ## Jueganess - Jornadas de Juegos de Mesa
-
-**Fecha:** 21 de junio de 2025  
-**Lugar:** Leganés, Madrid  
-**Organizador:** Asociación Cultural Jueganess  
 
 ### Descripción
 
