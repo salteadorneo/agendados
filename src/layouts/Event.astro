@@ -73,12 +73,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                         class="text-xl text-white"
                         transition:name={`date-${id}`}
                     >
-                        <Dates
-                            start={start}
-                            end={end}
-                            startTime={startTime}
-                            endTime={endTime}
-                        />
+                        <Dates {...Astro.props.data} />
                     </div>
                     <h1
                         class="sm:pr-60 text-5xl md:text-6xl text-balance text-white font-medium"
