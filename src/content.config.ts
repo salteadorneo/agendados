@@ -31,4 +31,26 @@ const event = defineCollection({
         }),
 });
 
-export const collections = { event };
+const organizer = defineCollection({
+    loader: glob({ base: './src/content/organizers', pattern: '**/*.{md,mdx}' }),
+    schema: ({ image }) =>
+        z.object({
+            name: z.string(),
+            description: z.string().optional(),
+            image: image().optional(),
+            location: z.string().optional(),
+            province: z.string().optional(),
+            color: z.string().optional(),
+            url: z.string().url().optional(),
+            email: z.string().email().optional(),
+            facebook: z.string().url().optional(),
+            instagram: z.string().url().optional(),
+            twitter: z.string().url().optional(),
+            youtube: z.string().url().optional(),
+            tiktok: z.string().url().optional(),
+            mastodon: z.string().url().optional(),
+            discord: z.string().url().optional(),
+        }),
+});
+
+export const collections = { event, organizer };
