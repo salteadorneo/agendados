@@ -1,38 +1,23 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import Footer from "@/components/Footer.astro";
-import Dates from "@/components/Dates.astro";
 import Layout from "./Layout.astro";
-import { AddToCalendarButton } from "add-to-calendar-button-react";
 import HeaderEvent from "@/components/HeaderEvent.astro";
 import Tags from "@/components/Tags.astro";
 import Social from "@/components/Social.astro";
 
-type Props = CollectionEntry<"event">;
+type Props = CollectionEntry<"organizer">;
 
 const {
     id,
-    data: {
-        title,
-        description,
-        start,
-        end,
-        startTime,
-        endTime,
-        image,
-        location,
-        color,
-        url,
-        email,
-        province,
-    },
+    data: { name, description, image, location, color, url, email, province },
 } = Astro.props;
 
 const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
 ---
 
-<Layout title={title} description={description}>
-    <HeaderEvent title={title} color={color} />
+<Layout title={name} description={description}>
+    <HeaderEvent title={name} color={color} />
     <main>
         <article itemscope itemtype="https://schema.org/Event">
             <div
@@ -50,7 +35,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                             >
                                 <img
                                     src={image.toString()}
-                                    alt={description || title}
+                                    alt={description || name}
                                     class="-rotate-y-4 hover:-rotate-y-2 hover:scale-110 transition-all shadow-md"
                                     itemprop="image"
                                 />
@@ -69,23 +54,12 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                             </div>
                         )
                     }
-                    <div
-                        class="text-xl text-white"
-                        transition:name={`date-${id}`}
-                    >
-                        <Dates
-                            start={start}
-                            end={end}
-                            startTime={startTime}
-                            endTime={endTime}
-                        />
-                    </div>
                     <h1
                         class="sm:pr-60 text-5xl md:text-6xl text-balance text-white font-medium"
                         transition:name={`title-${id}`}
                         itemprop="name"
                     >
-                        {title}
+                        {name}
                     </h1>
                 </div>
             </div>
@@ -249,21 +223,6 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                 <Tags {...Astro.props} />
                 <section class="content">
                     <slot />
-                </section>
-                <section class="flex flex-wrap items-center gap-2">
-                    <AddToCalendarButton
-                        client:only
-                        label="Añadir al calendario"
-                        language="es"
-                        name={title}
-                        options="'Apple','Google','iCal','Outlook.com','Yahoo'"
-                        location={location}
-                        startDate={start.toISOString().split("T")[0]}
-                        endDate={end?.toISOString().split("T")[0]}
-                        startTime={startTime}
-                        endTime={endTime}
-                        timeZone="Europe/Madrid"
-                    />
                 </section>
             </div>
             <div class="w-full max-w-6xl mx-auto pb-6 px-4">

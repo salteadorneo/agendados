@@ -1,0 +1,20 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import Organizer from "@/layouts/Organizer.astro";
+
+export async function getStaticPaths() {
+    const list = await getCollection("organizer");
+    return list.map((organizer) => ({
+        params: { slug: organizer.id },
+        props: organizer,
+    }));
+}
+type Props = CollectionEntry<"organizer">;
+
+const organizer = Astro.props;
+const { Content } = await render(organizer);
+---
+
+<Organizer {...organizer}>
+    <Content />
+</Organizer>

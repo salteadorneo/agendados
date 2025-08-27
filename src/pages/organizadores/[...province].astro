@@ -1,0 +1,121 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { provinces, slugify } from "@/utils";
+import Filter from "@/components/Filter.astro";
+import Title from "@/components/Title.astro";
+
+export async function getStaticPaths() {
+    return Array.from(provinces).map((province) => ({
+        params: { province: slugify(province) },
+        props: { province },
+    }));
+}
+
+const { province } = Astro.props;
+
+const organizers = await getCollection(
+    "organizer",
+    ({ data }) =>
+        data.province && Astro.params.province.match(slugify(data.province)),
+);
+---
+
+<Layout
+    title={`Organizadores en ${province}`}
+    description={`Listado de organizadores de eventos en ${province}.`}
+>
+    <Header />
+    <main class="flex-1 mb-6">
+        <Title title={`Organizadores en ${province}`}>
+            <Filter />
+        </Title>
+        <section
+            class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8"
+        >
+            <section class="flex-1 py-6">
+                <ul>
+                    {
+                        organizers.map(({ id, data }) => (
+                            <li>
+                                <article
+                                    class="relative max-w-[98vw] p-4 border-l-20 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
+                                    style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
+                                >
+                                    {data.image && (
+                                        <div class="max-sm:hidden sm:absolute top-1/2 right-8 -translate-y-1/2 z-30 w-24 perspective-dramatic">
+                                            <img
+                                                src={data.image.toString()}
+                                                alt={data.name}
+                                                class="-rotate-y-6"
+                                            />
+                                        </div>
+                                    )}
+                                    <a href={`/org/${id}/`}>
+                                        <h3
+                                            class="sm:pr-32 text-2xl md:text-3xl font-medium text-balance"
+                                            style={`color: ${data.color}`}
+                                            transition:name={`title-${id}`}
+                                        >
+                                            {data.name}
+                                        </h3>
+                                        <p class="sm:pr-32 text-sm mt-2 line-clamp-4">
+                                            {data.description}
+                                        </p>
+                                        {data.location && (
+                                            <p
+                                                class="flex items-center gap-1 mt-2"
+                                                transition:name={`location-${id}`}
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                >
+                                                    <path
+                                                        stroke="none"
+                                                        d="M0 0h24v24H0z"
+                                                        fill="none"
+                                                    />
+                                                    <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                                                    <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+                                                </svg>
+                                                <span class="truncate">
+                                                    {data.location}
+                                                </span>
+                                            </p>
+                                        )}
+                                        <div
+                                            class={`flex flex-wrap items-center gap-2 mt-4`}
+                                            transition:name={`tags-${id}`}
+                                        >
+                                            {data.province && (
+                                                <a
+                                                    href={`/organizadores/${slugify(data.province)}`}
+                                                    class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
+                                                    style={`background-color: ${data.color};`}
+                                                >
+                                                    {data.province}
+                                                </a>
+                                            )}
+                                        </div>
+                                    </a>
+                                </article>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
+            <section></section>
+        </section>
+    </main>
+    <Footer />
+</Layout>
