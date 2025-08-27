@@ -1,10 +1,13 @@
 import { defineConfig } from 'astro/config';
+import deno from '@deno/astro-adapter';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+  output: 'server',
+  adapter: deno(),
   site: 'https://agendados.es',
   integrations: [mdx(), sitemap(), react()],
   vite: {
