@@ -8,15 +8,11 @@ import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
 import EventMini from "@/components/EventMini.astro";
 import Map from "@/components/Map.astro";
+import { getFutureEvents } from "@/utils";
 
 const events = await getCollection("event");
 
-const futures = events
-	.filter((event) => {
-		const today = new Date();
-		return event.data.start >= today;
-	})
-	.sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
+const futures = getFutureEvents(events);
 ---
 
 <Layout>
@@ -34,10 +30,11 @@ const futures = events
 			<section class="lg:basis-1/4 pb-6 lg:py-6">
 				<h2 class="text-2xl mb-4">Próximos eventos</h2>
 				<div class="space-y-4">
-					<EventMini {...futures?.[0]} />
-					<EventMini {...futures?.[1]} />
-					<EventMini {...futures?.[2]} />
-					<EventMini {...futures?.[3]} />
+					{
+						futures
+							.slice(0, 4)
+							.map((event) => <EventMini {...event} />)
+					}
 				</div>
 			</section>
 		</section>
