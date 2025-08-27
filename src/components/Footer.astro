@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import { provinces, slugify } from "@/utils";
+import Newsletter from "./Newsletter.astro";
 
 const events = await getCollection("event");
 
@@ -126,5 +127,8 @@ events.forEach((event: CollectionEntry<"event">) => {
                 </a>
             </div>
         </div>
+    </section>
+    <section class="w-full max-w-6xl mx-auto px-4 pt-8">
+        <Newsletter />
     </section>
 </footer>

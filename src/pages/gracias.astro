@@ -1,0 +1,21 @@
+---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import Title from "@/components/Title.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Gracias">
+    <Header />
+    <main class="flex-1">
+        <Title title="Newsletter" />
+        <section class="w-full max-w-6xl mx-auto px-4 py-8">
+            <p>
+                Gracias por suscribirte a nuestro newsletter. ¡Estamos
+                emocionados de tenerte con nosotros! Pronto recibirás
+                actualizaciones y noticias.
+            </p>
+        </section>
+    </main>
+    <Footer />
+</Layout>
