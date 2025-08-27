@@ -4,14 +4,26 @@ interface Props {
     end?: Date;
     startTime?: string;
     endTime?: string;
+    daysOfWeek?: number[];
+    startRecur?: Date;
+    endRecur?: Date;
 }
 
-const { start, end, startTime, endTime } = Astro.props;
+const { start, end, startTime, endTime, daysOfWeek, startRecur, endRecur } =
+    Astro.props;
 
-const isSameMonth = start.getMonth() === (end?.getMonth() ?? start.getMonth());
+const isRecurringEvent =
+    startRecur && endRecur && daysOfWeek && daysOfWeek.length > 0;
+
+const effectiveEnd = isRecurringEvent && !end ? endRecur : end;
+
+const isSameMonth =
+    start.getMonth() === (effectiveEnd?.getMonth() ?? start.getMonth());
 const isSameYear =
-    start.getFullYear() === (end?.getFullYear() ?? start.getFullYear());
-const isSameDay = start.getDate() === (end?.getDate() ?? start.getDate());
+    start.getFullYear() ===
+    (effectiveEnd?.getFullYear() ?? start.getFullYear());
+const isSameDay =
+    start.getDate() === (effectiveEnd?.getDate() ?? start.getDate());
 
 const startDateTime = startTime
     ? `${start.toISOString().split("T")[0]}T${startTime}:00`
@@ -20,6 +32,32 @@ const endDateTime =
     end && endTime
         ? `${end.toISOString().split("T")[0]}T${endTime}:00`
         : end?.toISOString() || start.toISOString();
+const effectiveEndDateTime =
+    isRecurringEvent && !end && endRecur ? endRecur.toISOString() : endDateTime;
+
+const getDayName = (dayNumber: number): string => {
+    const days = [
+        "domingos",
+        "lunes",
+        "martes",
+        "miércoles",
+        "jueves",
+        "viernes",
+        "sábados",
+    ];
+    return days[dayNumber];
+};
+
+const formatDaysOfWeek = (days: number[]): string => {
+    if (days.length === 0) return "";
+    if (days.length === 1) return getDayName(days[0]);
+    if (days.length === 2)
+        return `${getDayName(days[0])} y ${getDayName(days[1])}`;
+
+    const sortedDays = [...days].sort();
+    const lastDay = sortedDays.pop()!;
+    return `${sortedDays.map(getDayName).join(", ")} y ${getDayName(lastDay)}`;
+};
 ---
 
 {
@@ -32,13 +70,13 @@ const endDateTime =
             </time>{" "}
             al{" "}
             <time
-                datetime={end?.toISOString()}
-                {...(endDateTime !== startDateTime && {
+                datetime={effectiveEnd?.toISOString()}
+                {...(effectiveEndDateTime !== startDateTime && {
                     itemprop: "endDate",
-                    datetime: endDateTime,
+                    datetime: effectiveEndDateTime,
                 })}
             >
-                {end?.toLocaleDateString("es-ES", {
+                {effectiveEnd?.toLocaleDateString("es-ES", {
                     day: "numeric",
                 })}
             </time>{" "}
@@ -47,8 +85,8 @@ const endDateTime =
                 month: "long",
                 year: "numeric",
             })}
-            {endDateTime !== startDateTime && (
-                <meta itemprop="endDate" content={endDateTime} />
+            {effectiveEndDateTime !== startDateTime && (
+                <meta itemprop="endDate" content={effectiveEndDateTime} />
             )}
         </>
     ) : isSameDay && isSameMonth && isSameYear ? (
@@ -58,13 +96,23 @@ const endDateTime =
                     day: "numeric",
                 })}
             </time>{" "}
+            {effectiveEnd && !isSameDay ? (
+                <>
+                    al{" "}
+                    <time datetime={effectiveEndDateTime} itemprop="endDate">
+                        {effectiveEnd.toLocaleDateString("es-ES", {
+                            day: "numeric",
+                        })}
+                    </time>{" "}
+                </>
+            ) : null}
             de{" "}
             {start.toLocaleDateString("es-ES", {
                 month: "long",
                 year: "numeric",
             })}
-            {endDateTime !== startDateTime && (
-                <meta itemprop="endDate" content={endDateTime} />
+            {effectiveEndDateTime !== startDateTime && (
+                <meta itemprop="endDate" content={effectiveEndDateTime} />
             )}
         </>
     ) : isSameYear ? (
@@ -75,12 +123,12 @@ const endDateTime =
                     month: "long",
                 })}
             </time>
-            {end && (
+            {effectiveEnd && (
                 <>
                     {" "}
                     -{" "}
-                    <time datetime={endDateTime} itemprop="endDate">
-                        {end.toLocaleDateString("es-ES", {
+                    <time datetime={effectiveEndDateTime} itemprop="endDate">
+                        {effectiveEnd.toLocaleDateString("es-ES", {
                             day: "numeric",
                             month: "long",
                         })}
@@ -88,8 +136,8 @@ const endDateTime =
                 </>
             )}{" "}
             de {start.getFullYear()}
-            {!end && endDateTime !== startDateTime && (
-                <meta itemprop="endDate" content={endDateTime} />
+            {!effectiveEnd && effectiveEndDateTime !== startDateTime && (
+                <meta itemprop="endDate" content={effectiveEndDateTime} />
             )}
         </>
     ) : (
@@ -101,12 +149,12 @@ const endDateTime =
                     year: "numeric",
                 })}
             </time>
-            {end && (
+            {effectiveEnd && (
                 <>
                     {" "}
                     -{" "}
-                    <time datetime={endDateTime} itemprop="endDate">
-                        {end.toLocaleDateString("es-ES", {
+                    <time datetime={effectiveEndDateTime} itemprop="endDate">
+                        {effectiveEnd.toLocaleDateString("es-ES", {
                             day: "numeric",
                             month: "long",
                             year: "numeric",
@@ -114,8 +162,8 @@ const endDateTime =
                     </time>
                 </>
             )}
-            {!end && endDateTime !== startDateTime && (
-                <meta itemprop="endDate" content={endDateTime} />
+            {!effectiveEnd && effectiveEndDateTime !== startDateTime && (
+                <meta itemprop="endDate" content={effectiveEndDateTime} />
             )}
         </>
     )
@@ -129,4 +177,4 @@ const endDateTime =
             <> a las {startTime}</>
         ) : null
     ) : null
-}
+}{isRecurringEvent ? <> ({formatDaysOfWeek(daysOfWeek!)})</> : null}
