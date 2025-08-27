@@ -46,80 +46,40 @@ import Layout from "@/layouts/Layout.astro";
             function formSubmit(e) {
                 e.preventDefault();
                 const formData = new FormData(e.target);
+                const button = e.target.querySelector("button");
+                const originalText = button.textContent;
 
-                fetch("https://getform.io/f/aejereqb", {
+                button.textContent = "Enviando...";
+                button.disabled = true;
+
+                fetch("https://formail.onrender.com", {
                     method: "POST",
                     body: formData,
-                    headers: {
-                        Accept: "application/json",
-                    },
                 })
-                    .then((response) => console.log(response))
-                    .catch((error) => console.log(error));
-            }
-        </script>
-
-        <!-- <form
-            class="w-full max-w-sm mx-auto space-y-4 flex flex-col p-4"
-            id="my-form"
-            action="https://formspree.io/f/mvgqnjdz"
-            method="POST"
-        >
-            <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                class="border p-2"
-                required
-            />
-            <textarea
-                name="message"
-                placeholder="Mensaje"
-                class="border p-2"
-                rows="4"
-                required></textarea>
-            <button class="bg-primary text-white p-2">Enviar</button>
-            <p id="my-form-status"></p>
-        </form>
-
-        <script is:inline>
-            var form = document.getElementById("my-form");
-
-            async function handleSubmit(event) {
-                event.preventDefault();
-                var status = document.getElementById("my-form-status");
-                var data = new FormData(event.target);
-                fetch(event.target.action, {
-                    method: form.method,
-                    body: data,
-                    headers: {
-                        Accept: "application/json",
-                    },
-                })
-                    .then((response) => {
-                        if (response.ok) {
-                            status.innerHTML = "¡Gracias por tu mensaje!";
-                            form.reset();
+                    .then(async (response) => {
+                        const data = await response.json();
+                        if (response.ok && data.success) {
+                            alert("¡Mensaje enviado correctamente!");
+                            e.target.reset();
                         } else {
-                            response.json().then((data) => {
-                                if (Object.hasOwn(data, "errors")) {
-                                    status.innerHTML = data["errors"]
-                                        .map((error) => error["message"])
-                                        .join(", ");
-                                } else {
-                                    status.innerHTML =
-                                        "Oops! Hubo un problema al enviar el mensaje.";
-                                }
-                            });
+                            alert(
+                                "Error al enviar el mensaje: " +
+                                    (data.message || "Error desconocido"),
+                            );
                         }
                     })
                     .catch((error) => {
-                        status.innerHTML =
-                            "Oops! Hubo un problema al enviar el mensaje.";
+                        console.error("Error:", error);
+                        alert(
+                            "Error de conexión. Verifica que el servidor esté ejecutándose.",
+                        );
+                    })
+                    .finally(() => {
+                        button.textContent = originalText;
+                        button.disabled = false;
                     });
             }
-            form.addEventListener("submit", handleSubmit);
-        </script> -->
+        </script>
     </main>
     <Footer />
 </Layout>
