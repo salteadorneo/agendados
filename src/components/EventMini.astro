@@ -4,23 +4,25 @@ import Dates from "./Dates.astro";
 const { id, data } = Astro.props;
 ---
 
-<article
-    class="relative max-w-[98vw] p-4 border-l-10 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
-    style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
->
-    <a href={`/evento/${id}/`}>
-        <p class="font-medium" transition:name={`date-${id}`}>
-            <Dates {...data} />
-        </p>
-        <h3
-            class="text-lg md:text-xl font-medium text-balance"
-            style={`color: ${data.color}`}
-            transition:name={`title-${id}`}
+{
+    data && (
+        <article
+            class="relative max-w-[98vw] p-4 border-l-10 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
+            style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
         >
-            {data.title}
-        </h3>
-        <p class="text-sm mt-1 line-clamp-2">
-            {data.description}
-        </p>
-    </a>
-</article>
+            <a href={`/evento/${id}/`}>
+                <p class="font-medium" transition:name={`date-${id}`}>
+                    <Dates {...data} />
+                </p>
+                <h3
+                    class="text-lg md:text-xl font-medium text-balance"
+                    style={`color: ${data.color}`}
+                    transition:name={`title-${id}`}
+                >
+                    {data.title}
+                </h3>
+                <p class="text-sm mt-1 line-clamp-2">{data.description}</p>
+            </a>
+        </article>
+    )
+}
