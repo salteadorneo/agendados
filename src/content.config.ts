@@ -61,6 +61,7 @@ const shop = defineCollection({
             url: z.string().url().optional(),
             image: image().optional(),
             color: z.string().optional(),
+            provinces: z.array(z.string()).optional(),
         }),
 });
 

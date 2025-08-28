@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import { provinces, slugify } from "@/utils";
+import { getFutureEvents, provinces, slugify } from "@/utils";
 import List from "@/components/List.astro";
 import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
@@ -24,12 +24,15 @@ const events = await getCollection(
         data.province && Astro.params.province.match(slugify(data.province)),
 );
 
-const future = events
-    .filter((event) => event.data.start > new Date())
-    .sort((a, b) => a.data.start.getTime() - b.data.start.getTime());
+const future = getFutureEvents(events);
 const past = events
     .filter((event) => event.data.start <= new Date())
     .sort((a, b) => b.data.start.getTime() - a.data.start.getTime());
+
+const shops = await getCollection(
+    "shop",
+    ({ data }) => data.provinces && data.provinces.includes(province),
+);
 ---
 
 <Layout
@@ -42,9 +45,9 @@ const past = events
             <Filter />
         </Title>
         <section
-            class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8"
+            class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8 mt-6"
         >
-            <section class="flex-1 py-6">
+            <section class="flex-1">
                 <h2 class="text-3xl mb-4">
                     Próximos eventos en {province}
                 </h2>
@@ -73,6 +76,37 @@ const past = events
                 <Calendar events={events} className="lg:w-[400px] h-[500px]!" />
             </section>
         </section>
+
+        {
+            shops.length > 0 && (
+                <section class="w-full max-w-6xl mx-auto px-4 mt-12">
+                    <h2 class="text-3xl mb-4">
+                        Tiendas de juegos en {province}
+                    </h2>
+                    {shops.map(({ data }) => (
+                        <article
+                            class="inline-block p-4 border-l-20 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
+                            style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
+                        >
+                            <a
+                                href={data.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {data.image && (
+                                    <img
+                                        src={data.image.toString()}
+                                        alt={data.name}
+                                        class="h-12 object-contain"
+                                        itemprop="image"
+                                    />
+                                )}
+                            </a>
+                        </article>
+                    ))}
+                </section>
+            )
+        }
     </main>
     <Footer />
 </Layout>
