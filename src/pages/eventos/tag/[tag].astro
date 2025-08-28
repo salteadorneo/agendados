@@ -3,12 +3,14 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import { slugify } from "@/utils";
+import { getFutureEvents, slugify } from "@/utils";
 import List from "@/components/List.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
 import Filter from "@/components/Filter.astro";
 import EventMini from "@/components/EventMini.astro";
+import Product from "@/components/Product.astro";
+import products from "@/products.json";
 
 export async function getStaticPaths() {
     const events = await getCollection("event");
@@ -33,9 +35,7 @@ const events = await getCollection(
         data.tags.some((t) => t && Astro.params.tag.match(slugify(t))),
 );
 
-const futures = events
-    .filter((event) => event.data.start > new Date())
-    .sort((a, b) => a.data.start.getTime() - b.data.start.getTime());
+const futures = getFutureEvents(events);
 const past = events
     .filter((event) => event.data.start <= new Date())
     .sort((a, b) => b.data.start.getTime() - a.data.start.getTime());
@@ -80,6 +80,21 @@ const past = events
                 <Calendar events={events} className="h-[600px]!" />
             </section>
         </section>
+
+        {
+            tag in products && (
+                <section class="w-full max-w-6xl mx-auto px-4 mt-6">
+                    <h2 class="text-3xl mb-4">Puede que te guste...</h2>
+                    <section class="flex flex-wrap gap-0.5">
+                        {products[tag as keyof typeof products]?.map(
+                            (product: any) => (
+                                <Product data={{ ...product }} />
+                            ),
+                        )}
+                    </section>
+                </section>
+            )
+        }
     </main>
     <Footer />
 </Layout>

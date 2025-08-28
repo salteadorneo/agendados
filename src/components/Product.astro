@@ -1,0 +1,95 @@
+---
+import { getCollection } from "astro:content";
+
+const { data } = Astro.props;
+
+const slug = data.programName
+    .replace(" ES", "")
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/[^\w-]/g, "");
+
+const shop = (await getCollection("shop")).find((shop) => shop.id === slug);
+---
+
+<a
+    href={`${shop?.data.url}&url=${data.productUrl}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group w-full max-w-[222px]"
+>
+    <div class="relative h-[250px] bg-white flex items-center">
+        <div
+            class="absolute inset-0 z-10"
+            style="background-image: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.01), rgba(0,0,0,0.05), rgba(0,0,0,0.05))"
+        >
+        </div>
+        <img
+            src={data.imageUrl}
+            alt={data.productName}
+            loading="lazy"
+            decoding="async"
+            class="w-[90%] h-[90%] object-contain mix-blend-multiply mx-auto group-hover:scale-105 transition-transform duration-300"
+        />
+    </div>
+    <div class="p-2">
+        <p
+            class="inline-block mb-1 bg-primary text-white py-0.5 px-3 text-xs -ml-1 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
+        >
+            {data.programName.replace(" ES", "")}
+        </p>
+        <p class="text-sm line-clamp-2">
+            {data.productName}
+        </p>
+        <p>
+            <span class="font-semibold">
+                {
+                    new Intl.NumberFormat("es-ES", {
+                        style: "currency",
+                        currency: "EUR",
+                    }).format(data.productPrice)
+                }
+            </span>
+            <span class="line-through">
+                {
+                    new Intl.NumberFormat("es-ES", {
+                        style: "currency",
+                        currency: "EUR",
+                    }).format(data.oldPrice)
+                }
+            </span>
+        </p>
+    </div>
+</a>
+
+<!-- <article>
+    <a href={data.link} target="_blank" rel="noopener noreferrer">
+        <img src={data.image_link} alt={data.title} width="200" height="200" />
+        <h2>{data.title}</h2>
+    </a>
+</article> -->
+
+<!-- <a href={data.link} class="group w-full sm:max-w-[216px]">
+    <div class="relative h-[250px] bg-white flex items-center">
+        <div
+            class="absolute inset-0 z-10"
+            style="background-image: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.01), rgba(0,0,0,0.05), rgba(0,0,0,0.05))"
+        >
+        </div>
+        <img
+            src={data.image_link}
+            alt={data.title}
+            loading="lazy"
+            decoding="async"
+            class="w-[90%] h-[90%] object-contain mix-blend-multiply mx-auto group-hover:scale-105 transition-transform duration-300"
+        />
+    </div>
+    <div class="space-y-2 px-4 pt-2 pb-6">
+        <p class="font-semibold">
+            {data.price}
+        </p>
+        <p class="text-sm line-clamp-2">
+            {data.title}
+        </p>
+    </div>
+</a> -->
