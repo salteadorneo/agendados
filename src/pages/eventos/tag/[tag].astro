@@ -8,6 +8,7 @@ import List from "@/components/List.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
 import Filter from "@/components/Filter.astro";
+import EventMini from "@/components/EventMini.astro";
 
 export async function getStaticPaths() {
     const events = await getCollection("event");
@@ -50,9 +51,9 @@ const past = events
             <Filter />
         </Title>
         <section
-            class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8"
+            class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8 mt-6"
         >
-            <section class="flex-1 py-6">
+            <section class="flex-1">
                 <h2 class="text-3xl mb-4">Próximos eventos de {tag}</h2>
                 {
                     futures.length === 0 && (
@@ -60,16 +61,23 @@ const past = events
                     )
                 }
                 <List events={futures} />
+
                 <h2 class="text-3xl mb-4 mt-12">Eventos pasados de {tag}</h2>
                 {
                     past.length === 0 && (
                         <p class="text-gray-500">No hay eventos pasados.</p>
                     )
                 }
-                <List events={past} />
+                <section class="space-y-2">
+                    {
+                        past.map((event) => (
+                            <EventMini {...event} class="grayscale" />
+                        ))
+                    }
+                </section>
             </section>
-            <section>
-                <Calendar events={events} className="lg:w-[400px] h-[600px]!" />
+            <section class="basis-[400px]">
+                <Calendar events={events} className="h-[600px]!" />
             </section>
         </section>
     </main>

@@ -8,6 +8,7 @@ import List from "@/components/List.astro";
 import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
+import EventMini from "@/components/EventMini.astro";
 
 export async function getStaticPaths() {
     return Array.from(provinces).map((province) => ({
@@ -65,48 +66,54 @@ const shops = await getCollection(
                 </h2>
                 {
                     past.length === 0 && (
-                        <p class="text-gray-500">
-                            No hay eventos pasados en {province}.
-                        </p>
+                        <p class="text-gray-500">No hay eventos pasados.</p>
                     )
                 }
-                <List events={past} />
+                <section class="space-y-2">
+                    {
+                        past.map((event) => (
+                            <EventMini {...event} class="grayscale" />
+                        ))
+                    }
+                </section>
             </section>
-            <section>
-                <Calendar events={events} className="lg:w-[400px] h-[500px]!" />
+            <section class="basis-[400px]">
+                <Calendar events={events} className="h-[600px]!" />
+
+                {
+                    shops.length > 0 && (
+                        <section class="w-full mt-6">
+                            <h2 class="text-3xl mb-4">
+                                Tiendas de juegos en {province}
+                            </h2>
+                            <div class="space-y-2">
+                                {shops.map(({ data }) => (
+                                    <article
+                                        class="p-4 border-l-20 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
+                                        style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
+                                    >
+                                        <a
+                                            href={data.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {data.image && (
+                                                <img
+                                                    src={data.image.toString()}
+                                                    alt={data.name}
+                                                    class="h-12 object-contain"
+                                                    itemprop="image"
+                                                />
+                                            )}
+                                        </a>
+                                    </article>
+                                ))}
+                            </div>
+                        </section>
+                    )
+                }
             </section>
         </section>
-
-        {
-            shops.length > 0 && (
-                <section class="w-full max-w-6xl mx-auto px-4 mt-12">
-                    <h2 class="text-3xl mb-4">
-                        Tiendas de juegos en {province}
-                    </h2>
-                    {shops.map(({ data }) => (
-                        <article
-                            class="inline-block p-4 border-l-20 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
-                            style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
-                        >
-                            <a
-                                href={data.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {data.image && (
-                                    <img
-                                        src={data.image.toString()}
-                                        alt={data.name}
-                                        class="h-12 object-contain"
-                                        itemprop="image"
-                                    />
-                                )}
-                            </a>
-                        </article>
-                    ))}
-                </section>
-            )
-        }
     </main>
     <Footer />
 </Layout>
