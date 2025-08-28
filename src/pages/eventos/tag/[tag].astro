@@ -86,7 +86,7 @@ const shops = (await getCollection("shop")).filter(
                 {
                     shops.length > 0 && (
                         <section class="w-full mt-6">
-                            <h2 class="text-2xl mb-4">Tiendas de {tag}</h2>
+                            <h2 class="text-2xl mb-4">Tiendas</h2>
                             <div class="space-y-2">
                                 {shops.map(({ data }) => (
                                     <article
@@ -103,9 +103,11 @@ const shops = (await getCollection("shop")).filter(
                                                     src={data.image.toString()}
                                                     alt={data.name}
                                                     class="h-8 object-contain"
-                                                    itemprop="image"
                                                 />
                                             )}
+                                            <p class="ml-1 mt-1 text-sm">
+                                                Sección de {tag} en {data.name}
+                                            </p>
                                         </a>
                                     </article>
                                 ))}
