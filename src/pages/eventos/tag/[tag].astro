@@ -39,6 +39,10 @@ const futures = getFutureEvents(events);
 const past = events
     .filter((event) => event.data.start <= new Date())
     .sort((a, b) => b.data.start.getTime() - a.data.start.getTime());
+
+const shops = (await getCollection("shop")).filter(
+    (shop) => shop.data.section && shop.data.section.find((s) => s.name == tag),
+);
 ---
 
 <Layout
@@ -78,6 +82,37 @@ const past = events
             </section>
             <section class="basis-[400px]">
                 <Calendar events={events} className="h-[600px]!" />
+
+                {
+                    shops.length > 0 && (
+                        <section class="w-full mt-6">
+                            <h2 class="text-2xl mb-4">Tiendas de {tag}</h2>
+                            <div class="space-y-2">
+                                {shops.map(({ data }) => (
+                                    <article
+                                        class="p-4 border-l-6 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
+                                        style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
+                                    >
+                                        <a
+                                            href={`${data.url}&url=${data.section?.find((s) => s.name === tag)?.url}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {data.image && (
+                                                <img
+                                                    src={data.image.toString()}
+                                                    alt={data.name}
+                                                    class="h-8 object-contain"
+                                                    itemprop="image"
+                                                />
+                                            )}
+                                        </a>
+                                    </article>
+                                ))}
+                            </div>
+                        </section>
+                    )
+                }
             </section>
         </section>
 
