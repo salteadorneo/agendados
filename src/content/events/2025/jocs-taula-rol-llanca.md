@@ -6,6 +6,7 @@ startTime: '12:00'
 endTime: '20:00'
 location: 'Llançà'
 tags: ['Juegos de mesa', 'Rol']
+province: 'Girona'
 ---
 
 Evento de juegos de mesa y rol en Llançà con dos sesiones durante el día.

@@ -5,6 +5,7 @@ start: '2025-05-10'
 startTime: '10:30'
 location: 'Vitoria-Gasteiz'
 tags: ['Juegos de mesa', 'Demostraciones']
+province: 'Álava'
 ---
 
 Descubre la primera edición Jornadas de juegos de mesa de Vitoria, organizadas por la asociación Board Game Gasteiz.

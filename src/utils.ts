@@ -35,7 +35,7 @@ export const provinces = [
     "Girona",
     "Granada",
     "Guadalajara",
-    "Guipúzcoa",
+    "Gipuzkoa",
     "Huelva",
     "Huesca",
     "Jaén",
