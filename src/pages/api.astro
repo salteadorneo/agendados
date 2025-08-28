@@ -18,7 +18,7 @@ import Layout from "@/layouts/Layout.astro";
                         <span class="px-2 py-1 bg-primary text-white mr-3">
                             GET
                         </span>
-                        <h3 class="text-xl font-medium">/api/eventos</h3>
+                        <h3 class="text-xl font-medium">/api/eventos.json</h3>
                     </div>
                     <p class="mb-4">
                         Devolución de una lista de eventos con detalles básicos.
@@ -54,8 +54,8 @@ import Layout from "@/layouts/Layout.astro";
                             class="block bg-gray-200 p-2 text-xs overflow-hidden"
                         >
                             fetch('<a
-                                href={`${Astro.url}eventos.json`}
-                                target="_blank">{Astro.url}eventos.json</a
+                                href={`${Astro.site}api/eventos.json`}
+                                target="_blank">{Astro.site}api/eventos.json</a
                             >')
                         </code>
                     </div>
@@ -66,7 +66,9 @@ import Layout from "@/layouts/Layout.astro";
                         <span class="px-2 py-1 bg-primary text-white mr-3">
                             GET
                         </span>
-                        <h3 class="text-xl font-medium">/api/evento/[id]</h3>
+                        <h3 class="text-xl font-medium">
+                            /api/evento/[id].json
+                        </h3>
                     </div>
                     <p class="mb-4">
                         Devolución de los detalles de un evento específico por
@@ -128,9 +130,9 @@ import Layout from "@/layouts/Layout.astro";
                             class="block bg-gray-200 p-2 text-xs overflow-hidden"
                         >
                             fetch('<a
-                                href={`${Astro.url}evento/2025/event-name.json`}
+                                href={`${Astro.site}api/evento/2025/event-name.json`}
                                 target="_blank"
-                                >{Astro.url}evento/2025/event-name.json</a
+                                >{Astro.site}api/evento/2025/event-name.json</a
                             >')
                         </code>
                     </div>
