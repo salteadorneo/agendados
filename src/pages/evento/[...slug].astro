@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
 import Event from "@/layouts/Event.astro";
+import EventMini from "@/components/EventMini.astro";
 
 export async function getStaticPaths() {
     const events = await getCollection("event");
@@ -13,8 +14,32 @@ type Props = CollectionEntry<"event">;
 
 const event = Astro.props;
 const { Content } = await render(event);
+
+const rel = await getCollection(
+    "event",
+    ({ data }) => data.province && event.data.province?.match(data.province),
+);
 ---
 
 <Event {...event}>
     <Content />
+    <div slot="related">
+        {
+            rel.length > 1 && (
+                <section class="w-full max-w-6xl mx-auto px-4 py-8">
+                    <h2 class="text-3xl mb-4">
+                        Otros eventos en {event.data.province}
+                    </h2>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {rel
+                            .filter((e) => e.id !== event.id)
+                            .slice(0, 2)
+                            .map((event) => (
+                                <EventMini {...event} />
+                            ))}
+                    </ul>
+                </section>
+            )
+        }
+    </div>
 </Event>
