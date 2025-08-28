@@ -53,4 +53,15 @@ const organizer = defineCollection({
         }),
 });
 
-export const collections = { event, organizer };
+const shop = defineCollection({
+    loader: glob({ base: './src/content/shops', pattern: '**/*.{md,mdx}' }),
+    schema: ({ image }) =>
+        z.object({
+            name: z.string(),
+            url: z.string().url().optional(),
+            image: image().optional(),
+            color: z.string().optional(),
+        }),
+});
+
+export const collections = { event, organizer, shop };
