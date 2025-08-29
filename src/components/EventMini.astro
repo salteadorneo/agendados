@@ -1,5 +1,6 @@
 ---
 import Dates from "./Dates.astro";
+import Tags from "./Tags.astro";
 
 const { id, data } = Astro.props;
 ---
@@ -23,6 +24,7 @@ const { id, data } = Astro.props;
                 </h3>
                 <p class="text-sm mt-1 line-clamp-2">{data.description}</p>
             </a>
+            <Tags id={id} data={data} class="mt-4 text-sm gap-x-1!" />
         </article>
     )
 }

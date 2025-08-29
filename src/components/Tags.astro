@@ -1,32 +1,36 @@
 ---
 import { slugify } from "@/utils";
 
-const { id, data, class: classes } = Astro.props;
+const {
+    id,
+    data: { tags, color, province },
+    class: classes,
+} = Astro.props;
 ---
 
 <div
-    class={`flex flex-wrap items-center gap-2 ${classes}`}
+    class={`flex flex-wrap items-center gap-2 [&>a:first-child]:-ml-0.5 ${classes}`}
     transition:name={`tags-${id}`}
 >
     {
-        data.tags?.map((tag: string) => (
+        tags?.map((tag: string) => (
             <a
                 href={`/eventos/tag/${slugify(tag)}`}
                 class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
-                style={`background-color: ${data.color};`}
+                style={`background-color: ${color};`}
             >
                 {tag}
             </a>
         ))
     }
     {
-        data.province && (
+        province && (
             <a
-                href={`/eventos/${slugify(data.province)}`}
+                href={`/eventos/${slugify(province)}`}
                 class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
-                style={`background-color: ${data.color};`}
+                style={`background-color: ${color};`}
             >
-                {data.province}
+                {province}
             </a>
         )
     }
