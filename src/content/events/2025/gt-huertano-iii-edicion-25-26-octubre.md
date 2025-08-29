@@ -8,7 +8,7 @@ url: "https://laescotillajuegos.com/products/evento-gt-huertano-iii-edicion-25-y
 image: "https://agendados.es/evento/2025/gt-huertano-iii-edicion-25-26-octubre.jpg"
 start: 2025-10-25
 end: 2025-10-26
-tags: ["Warhammer", "GT", "Torneo", "Pintado"]
+tags: ["Wargames", "Torneo"]
 color: "#1B7DBF"
 ---
 

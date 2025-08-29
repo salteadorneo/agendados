@@ -6,7 +6,7 @@ end: '2025-02-15'
 location: 'Todas las tiendas Zacatrus'
 color: '#FF9800'
 url: 'https://zacatrus.es'
-tags: ['Torneos', 'Lanzamiento']
+tags: ['Torneo', 'Lanzamiento']
 ---
 
 Apúntate al Torneo de Diluvio en cualquier tienda Zacatrus. Evento especial de presentación del juego con torneo incluido en todas las tiendas de la cadena.

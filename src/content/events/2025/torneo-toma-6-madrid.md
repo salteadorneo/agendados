@@ -7,7 +7,7 @@ location: 'Tienda Zacatrus Madrid Pirámides'
 province: 'Madrid'
 color: '#FF5722'
 url: 'https://zacatrus.es'
-tags: ['Torneos', 'Competitivo']
+tags: ['Torneo', 'Competitivo']
 ---
 
 El Torneo Oficial Clasificatorio para el Nacional será en la tienda Zacatrus de Madrid Pirámides a las 11:00 horas.

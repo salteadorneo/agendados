@@ -6,7 +6,7 @@ province: "Murcia"
 url: "https://laescotillajuegos.com/products/pokemon-tcg-desafio-de-liga-30-de-agosto"
 image: "https://agendados.es/evento/2025/pokemon-tcg-desafio-de-liga-30-agosto.jpg"
 start: 2025-08-30
-tags: ["Pokemon", "TCG", "Torneo", "Oficial"]
+tags: ["TCG", "Torneo"]
 color: "#1B7DBF"
 ---
 

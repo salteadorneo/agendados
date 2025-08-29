@@ -6,7 +6,7 @@ end: '2025-06-13'
 location: 'Todas las tiendas Zacatrus'
 color: '#795548'
 url: 'https://zacatrus.es'
-tags: ['Torneos']
+tags: ['Torneo']
 ---
 
 Apúntate al Torneo de Timemit en todas las tiendas Zacatrus. Un evento simultáneo en toda la red de tiendas para celebrar este popular juego.

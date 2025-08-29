@@ -6,7 +6,7 @@ end: '2025-07-19'
 location: 'Tiendas Zacatrus (múltiples ubicaciones)'
 color: '#FF9800'
 url: 'https://zacatrus.es'
-tags: ['Torneos', 'Lanzamiento']
+tags: ['Torneo', 'Lanzamiento']
 ---
 
 Apúntate a la presentación de Cathood, el 18 será el día en el que sale a la venta. No pasa nada si no sabes jugar, ¡allí te enseñamos! Tras la explicación, habrá un torneo en el que puedes ganar algunos premios y, además, habrá un obsequio solo por participar.

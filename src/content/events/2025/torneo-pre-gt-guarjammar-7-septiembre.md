@@ -6,7 +6,7 @@ province: "Murcia"
 url: "https://laescotillajuegos.com/products/evento-torneo-pre-gt-guarjammar-7-de-septiembre"
 image: "https://agendados.es/evento/2025/torneo-pre-gt-guarjammar-7-septiembre.jpg"
 start: 2025-09-07
-tags: ["Warhammer", "Pre GT", "Preparatorio", "Torneo"]
+tags: ["Wargames", "Torneo"]
 color: "#1B7DBF"
 ---
 

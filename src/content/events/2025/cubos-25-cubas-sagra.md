@@ -5,7 +5,7 @@ start: '2025-06-07'
 location: 'Cubas de la Sagra, Madrid'
 province: 'Madrid'
 color: '#607D8B'
-tags: ['Juegos de mesa', 'Torneos']
+tags: ['Juegos de mesa', 'Torneo']
 ---
 
 Asiste a la 3º jornada de Juegos de Mesa CuBoS, para todos los públicos, en Cubas de la Sagra (Madrid). Un día para descubrir y disfrutar de los juegos de mesa en familia, con amigos, en pareja o en solitario.

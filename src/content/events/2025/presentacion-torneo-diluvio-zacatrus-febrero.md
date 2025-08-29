@@ -6,7 +6,7 @@ end: '2025-02-15'
 location: 'Todas las tiendas Zacatrus'
 color: '#2196F3'
 url: 'https://zacatrus.es'
-tags: ['Torneos', 'Lanzamiento']
+tags: ['Torneo', 'Lanzamiento']
 ---
 
 Apúntate al Torneo de Diluvio en cualquier tienda Zacatrus. Además, en Zacatrus Pirámides (Madrid), podrás conocer al autor del juego.

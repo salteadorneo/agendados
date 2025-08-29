@@ -6,7 +6,7 @@ end: '2025-07-05'
 location: 'Múltiples tiendas Zacatrus'
 color: '#607D8B'
 url: 'https://zacatrus.es'
-tags: ['Torneos', 'Lanzamiento']
+tags: ['Torneo', 'Lanzamiento']
 ---
 
 Apúntate a la presentación de Zenith, un juego que está triunfando internacionalmente. No pasa nada si no sabes jugar, ¡allí te enseñamos! Tras la explicación, habrá un torneo en el que puedes ganar algunos premios y, además, habrá un obsequio solo por participar.

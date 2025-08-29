@@ -6,7 +6,7 @@ end: '2025-03-30'
 location: 'Torrevieja, Alicante'
 province: 'Alicante'
 color: '#00BCD4'
-tags: ['Ocio alternativo', 'Juegos de mesa']
+tags: ['Juegos de mesa']
 ---
 
 Únete a las XI Jornadas de Ocio Alternativo en Torrevieja los días 29 y 30 de marzo. Organizado por @ajlacomarca, @ayuntamientotorrevieja, @torreviejajuventud, @ua_universidad y @torreviejaua. Dos días llenos de sorpresas, diversión y experiencias únicas que no querrás perderte. También podrás conocer y jugar a las novedades Zacatrus.

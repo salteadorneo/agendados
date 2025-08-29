@@ -7,7 +7,7 @@ url: "https://laescotillajuegos.com/products/ix-coliseum-murciano-11-12-de-octub
 image: "https://agendados.es/evento/2025/ix-coliseum-murciano-11-12-octubre.jpg"
 start: 2025-10-11
 end: 2025-10-12
-tags: ["Warhammer", "Gran Torneo", "Coliseum", "2 días"]
+tags: ["Wargames", "Torneo"]
 color: "#1B7DBF"
 ---
 

@@ -6,7 +6,7 @@ location: 'Barcelona'
 province: 'Barcelona'
 color: '#9C27B0'
 url: 'https://ludijocs.cat'
-tags: ['Juegos de mesa', 'Intergeneracional']
+tags: ['Juegos de mesa']
 ---
 
 Una jornada dedicada a las personas mayores, con la intención de compartir juegos, risas y momentos entrañables.

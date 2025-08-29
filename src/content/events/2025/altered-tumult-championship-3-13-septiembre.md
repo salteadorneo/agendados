@@ -7,7 +7,7 @@ province: "Murcia"
 url: "https://laescotillajuegos.com/products/evento-altered-tumult-championship-3-13-de-septiembre-de-2025"
 image: "https://agendados.es/evento/2025/altered-tumult-championship-3-13-septiembre.jpg"
 start: 2025-09-13
-tags: ["Altered", "TCG", "Tumult Championship", "Torneo"]
+tags: ["TCG", "Torneo"]
 color: "#1B7DBF"
 ---
 

@@ -6,7 +6,7 @@ province: "Murcia"
 url: "https://laescotillajuegos.com/products/evento-presentacion-lorcana-fabled"
 image: "https://agendados.es/evento/2025/presentacion-lorcana-fabled.jpg"
 start: 2025-09-01
-tags: ["Lorcana", "Disney", "Presentación", "Fabled"]
+tags: ["Presentación"]
 color: "#1B7DBF"
 ---
 

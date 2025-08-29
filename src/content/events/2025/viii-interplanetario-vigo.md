@@ -8,7 +8,7 @@ province: "Pontevedra"
 url: "https://www.interplanetario.es/"
 color: "#4A90E2"
 email: "info@feriainterocio.com"
-tags: ['Torneos', 'Miniaturas']
+tags: ['Torneo', 'Miniaturas']
 ---
 
 **VIII Interplanetario 2025 - El Evento de Corvus Belli**

@@ -4,7 +4,7 @@ description: 'Evento temático espacial organizado por Mecatol Rex Cádiz con de
 start: '2025-05-10'
 location: 'Cádiz'
 province: 'Cádiz'
-tags: ['Juegos de mesa', 'Temático']
+tags: ['Juegos de mesa']
 ---
 
 Mecatol Rex Cádiz organiza este fantástico evento donde se darán a conocer juegos de mesa relacionados con la temática espacial.

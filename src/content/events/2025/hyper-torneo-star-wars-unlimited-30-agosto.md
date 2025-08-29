@@ -6,7 +6,7 @@ province: "Murcia"
 url: "https://laescotillajuegos.com/products/evento-hyper-torneo-star-wars-unlimited-30-agosto"
 image: "https://agendados.es/evento/2025/hyper-torneo-star-wars-unlimited-30-agosto.jpg"
 start: 2025-08-30
-tags: ["Star Wars", "TCG", "Unlimited", "Hyper Torneo"]
+tags: ["TCG", "Torneo"]
 color: "#1B7DBF"
 ---
 

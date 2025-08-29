@@ -11,7 +11,7 @@ email: 'info@jueganess.org'
 instagram: 'https://www.instagram.com/jueganess'
 twitter: 'https://twitter.com/AJueganess'
 discord: 'https://discord.gg/bRGvxYTsTE'
-tags: ['Rol', 'Taller', 'Formación']
+tags: ['Rol', 'Formación']
 ---
 
 ## Escuela de Masters 2025

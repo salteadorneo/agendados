@@ -11,7 +11,7 @@ url: "https://freakwarsmadrid.com/"
 image: "https://agendados.es/evento/2025/freak-wars-madrid-10-aniversario.png"
 color: "#8B0000"
 email: "info@freakwarsmadrid.com"
-tags: ['Wargames', 'Torneos']
+tags: ['Wargames', 'Torneo']
 ---
 
 **Freak Wars Madrid 2025 - 10º Aniversario**

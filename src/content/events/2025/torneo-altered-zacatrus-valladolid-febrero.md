@@ -9,7 +9,7 @@ location: 'Tienda Zacatrus Valladolid'
 province: 'Valladolid'
 color: '#9C27B0'
 url: 'https://zacatrus.es'
-tags: ['Torneos', 'TCG']
+tags: ['Torneo', 'TCG']
 ---
 
 Torneo de Altered TCG en formato Standard donde los jugadores tienen que traer un mazo reglamentario.

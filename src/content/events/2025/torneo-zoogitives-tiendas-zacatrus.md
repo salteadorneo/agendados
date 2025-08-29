@@ -6,7 +6,7 @@ end: '2025-03-15'
 location: 'Todas las tiendas Zacatrus'
 color: '#FF9800'
 url: 'https://zacatrus.es'
-tags: ['Torneos']
+tags: ['Torneo']
 ---
 
 Apúntate al torneo gratuito que organizamos en todas las tiendas de Zacatrus de Zoogitives. Además, en la tienda de Zacatrus Barcelona, podrás conocer al autor y al ilustrador, que estarán allí en el torneo.

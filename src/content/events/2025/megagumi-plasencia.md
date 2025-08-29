@@ -6,7 +6,7 @@ end: '2025-07-12'
 location: 'Casa de la Juventud (C/ Prta de Berrozana, 3), Plasencia, Cáceres'
 province: 'Cáceres'
 color: '#673AB7'
-tags: ['Juegos de mesa', 'Torneos']
+tags: ['Juegos de mesa', 'Torneo']
 ---
 
 Apúntate a las Jornadas de Juegos de Mesa y Cartas Megagumi, que celebran su décima edición los días 11 y 12 de julio de 2025.

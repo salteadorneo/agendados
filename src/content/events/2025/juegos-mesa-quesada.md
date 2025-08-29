@@ -5,7 +5,7 @@ start: '2025-08-23'
 location: 'Quesada, Jaén'
 province: 'Jaén'
 color: '#8BC34A'
-tags: ['Juegos de mesa', 'Sorteos']
+tags: ['Juegos de mesa']
 ---
 
 ¡Conoce las novedades de los juegos de mesa del sector! Este año cuentan con grandes premios para los participantes al evento.

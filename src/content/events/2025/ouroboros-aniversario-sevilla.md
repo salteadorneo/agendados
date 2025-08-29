@@ -6,7 +6,7 @@ end: '2025-03-30'
 location: 'Cortijo del Alamillo, Parque del Alamillo, Sevilla'
 province: 'Sevilla'
 color: '#607D8B'
-tags: ['Juegos de mesa', 'Ocio alternativo']
+tags: ['Juegos de mesa']
 ---
 
 Acude a este evento sociocultural enfocado en el ocio alternativo hacia la población joven y no tan joven, promoviendo distintas formas de ocio, como los juegos de mesa. Allí se demostrarán algunos de nuestros últimos lanzamientos.

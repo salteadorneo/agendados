@@ -6,7 +6,7 @@ province: "Murcia"
 url: "https://laescotillajuegos.com/products/evento-iii-torneo-domadores-de-mumaks"
 image: "https://agendados.es/evento/2025/iii-torneo-domadores-de-mumaks.jpg"
 start: 2025-09-01
-tags: ["Warhammer", "Middle Earth", "MESBG", "Torneo"]
+tags: ["Wargames", "Torneo"]
 color: "#1B7DBF"
 ---
 
