@@ -5,6 +5,7 @@ start: 2025-08-28T18:00:00
 location: "C/San Roque nº15, bajo Izq, 19002 Guadalajara"
 province: "Guadalajara"
 url: "https://www.jupiterjuegos.com/tiendas/actividad/49/"
+image: "https://www.jupiterjuegos.com/tiendas/archivos/actividades/49/yugi.png"
 tags: ["TCG", "Torneo"]
 color: "#4B0082"
 daysOfWeek: [4]
