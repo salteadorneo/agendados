@@ -4,7 +4,6 @@ url: "https://laescotillajuegos.com"
 email: "pokemonlaescotilla@gmail.com"
 instagram: "https://www.instagram.com/laescotillamurcia/"
 location: "Murcia"
-tags: ["Tienda", "Eventos", "TCG", "Wargames"]
 ---
 
 La Escotilla es una tienda de juegos especializada en juegos de cartas coleccionables y Warhammer ubicada en Murcia.
