@@ -1,7 +1,6 @@
 ---
 title: "GT Huertano III Edición"
 description: "Gran Torneo Huertano III Edición - Evento de 2 días"
-slug: "gt-huertano-iii-edicion-25-26-octubre"
 location: "Murcia"
 province: "Murcia"
 url: "https://laescotillajuegos.com/products/evento-gt-huertano-iii-edicion-25-y-26-de-octubre"

@@ -1,7 +1,6 @@
 ---
 title: "Altered - Tumult Championship 3"
 description: "Tercera edición del Tumult Championship del juego Altered"
-slug: "altered-tumult-championship-3-13-septiembre"
 location: "Murcia"
 province: "Murcia"
 url: "https://laescotillajuegos.com/products/evento-altered-tumult-championship-3-13-de-septiembre-de-2025"
