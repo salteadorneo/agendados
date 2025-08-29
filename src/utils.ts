@@ -126,13 +126,7 @@ export const getPastEvents = (events: CollectionEntry<"event">[]) => {
     const now = new Date();
     return events
         .filter((event) => {
-            if (event.data.daysOfWeek) {
-                const endRecur = new Date(event.data.endRecur!);
-                return endRecur < now;
-            } else {
-                const end = event.data.end ? new Date(event.data.end) : new Date(event.data.start);
-                return end < now;
-            }
+            return new Date(event.data.endRecur || event.data.end || event.data.start) < now;
         })
         .sort((a, b) => {
             const aEnd = a.data.end ? new Date(a.data.end).getTime() : new Date(a.data.start).getTime();
