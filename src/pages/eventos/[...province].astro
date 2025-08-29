@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import { getFutureEvents, provinces, slugify } from "@/utils";
+import { getFutureEvents, getPastEvents, provinces, slugify } from "@/utils";
 import List from "@/components/List.astro";
 import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
@@ -25,10 +25,8 @@ const events = await getCollection(
         data.province && Astro.params.province.match(slugify(data.province)),
 );
 
-const future = getFutureEvents(events);
-const past = events
-    .filter((event) => event.data.start <= new Date())
-    .sort((a, b) => b.data.start.getTime() - a.data.start.getTime());
+const future = getFutureEvents(events, false);
+const past = getPastEvents(events);
 
 const shops = await getCollection(
     "shop",
@@ -72,7 +70,10 @@ const shops = await getCollection(
                 <section class="space-y-2">
                     {
                         past.map((event) => (
-                            <EventMini {...event} class="grayscale" />
+                            <EventMini
+                                {...event}
+                                class="grayscale hover:grayscale-0 transition-colors"
+                            />
                         ))
                     }
                 </section>

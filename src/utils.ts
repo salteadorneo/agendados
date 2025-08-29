@@ -98,7 +98,7 @@ function expandRecurringEvent(event: CollectionEntry<"event">, fromDate: Date, t
     return results;
 }
 
-export function getFutureEvents(events: CollectionEntry<"event">[]) {
+export function getFutureEvents(events: CollectionEntry<"event">[], expandRecurringEvents = true) {
     const today = new Date();
     const nextMonth = new Date();
     nextMonth.setMonth(nextMonth.getMonth() + 1);
@@ -106,7 +106,7 @@ export function getFutureEvents(events: CollectionEntry<"event">[]) {
     let allInstances: CollectionEntry<"event">[] = [];
 
     events.forEach((event) => {
-        if (event.data.daysOfWeek) {
+        if (event.data.daysOfWeek && expandRecurringEvents) {
             allInstances = allInstances.concat(
                 expandRecurringEvent(event, today, nextMonth),
             );
@@ -121,3 +121,34 @@ export function getFutureEvents(events: CollectionEntry<"event">[]) {
         (a, b) => a.data.start.getTime() - b.data.start.getTime(),
     );
 }
+
+export const getPastEvents = (events: CollectionEntry<"event">[]) => {
+    const now = new Date();
+    return events
+        .filter((event) => {
+            if (event.data.daysOfWeek) {
+                const endRecur = new Date(event.data.endRecur!);
+                return endRecur < now;
+            } else {
+                const end = event.data.end ? new Date(event.data.end) : new Date(event.data.start);
+                return end < now;
+            }
+        })
+        .sort((a, b) => {
+            const aEnd = a.data.end ? new Date(a.data.end).getTime() : new Date(a.data.start).getTime();
+            const bEnd = b.data.end ? new Date(b.data.end).getTime() : new Date(b.data.start).getTime();
+            return bEnd - aEnd;
+        });
+};
+
+export const groupEventsByMonth = (events: CollectionEntry<"event">[]) => {
+    return events.reduce((groups, event) => {
+        const date = event.data.start;
+        const month = date.toLocaleString("default", { month: "long", year: "numeric" });
+        if (!groups[month]) {
+            groups[month] = [];
+        }
+        groups[month].push(event);
+        return groups;
+    }, {} as Record<string, CollectionEntry<"event">[]>);
+};
