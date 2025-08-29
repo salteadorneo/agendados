@@ -1,6 +1,28 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const TAGS = [
+    "Ajedrez",
+    "Competitivo",
+    "Demostraciones",
+    "Desarrollo",
+    "Familiar",
+    "Feria",
+    "Festival",
+    "Formación",
+    "Infantil",
+    "Iniciación",
+    "Juegos de mesa",
+    "Lanzamiento",
+    "Miniaturas",
+    "Presentación",
+    "Rol",
+    "Simulación histórica",
+    "TCG",
+    "Torneo",
+    "Wargames",
+] as const;
+
 const event = defineCollection({
     loader: glob({ base: './src/content/events', pattern: '**/*.{md,mdx}' }),
     schema: ({ image }) =>
@@ -13,7 +35,7 @@ const event = defineCollection({
             location: z.string().optional(),
             province: z.string().optional(),
             color: z.string().optional(),
-            tags: z.array(z.string()).optional(),
+            tags: z.array(z.enum(TAGS)).optional(),
             url: z.string().url().optional(),
             daysOfWeek: z.array(z.number()).optional(),
             startTime: z.string().optional(),
@@ -26,7 +48,6 @@ const event = defineCollection({
             twitter: z.string().url().optional(),
             youtube: z.string().url().optional(),
             tiktok: z.string().url().optional(),
-            mastodon: z.string().url().optional(),
             discord: z.string().url().optional(),
         }),
 });
@@ -48,7 +69,6 @@ const organizer = defineCollection({
             twitter: z.string().url().optional(),
             youtube: z.string().url().optional(),
             tiktok: z.string().url().optional(),
-            mastodon: z.string().url().optional(),
             discord: z.string().url().optional(),
         }),
 });

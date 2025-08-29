@@ -23,7 +23,6 @@ instagram: "https://instagram.com/event" # Optional, Instagram profile URL
 twitter: "https://twitter.com/event" # Optional, Twitter profile URL
 youtube: "https://youtube.com/event" # Optional, YouTube channel URL
 tiktok: "https://tiktok.com/@event" # Optional, TikTok profile URL
-mastodon: "https://mastodon.social/@event" # Optional, Mastodon profile URL
 discord: "https://discord.gg/event" # Optional, Discord server invite URL
 ---
 
