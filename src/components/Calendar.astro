@@ -1,12 +1,45 @@
 ---
-const { events, className, date } = Astro.props;
+const { events, className, date, initialView = "dayGridMonth" } = Astro.props;
 ---
 
 <div id="calendar" class={`h-[850px] ${className}`}></div>
 <style is:inline>
     :root {
+        --fc-button-bg-color: #353535;
+        --fc-button-border-color: #353535;
+
+        --fc-button-active-bg-color: var(--color-primary);
+        --fc-button-active-border-color: var(--color-primary);
+
+        --fc-button-hover-bg-color: #424242;
+        --fc-button-hover-border-color: #424242;
+
         --fc-event-bg-color: var(--color-primary);
         --fc-event-border-color: var(--color-primary);
+    }
+
+    .fc .fc-button-primary:not(:disabled).fc-button-active:focus,
+    .fc .fc-button-primary:not(:disabled):active:focus {
+        box-shadow: none;
+    }
+
+    .fc .fc-button-primary:focus {
+        box-shadow: none;
+    }
+
+    .fc .fc-button:disabled {
+        opacity: 0.2;
+    }
+
+    .event:hover {
+        opacity: 0.8;
+    }
+
+    .fc .fc-toolbar-title {
+        @media (width < 480px) {
+            font-size: 1.2rem;
+            white-space: nowrap;
+        }
     }
 
     .event:hover {
@@ -21,7 +54,7 @@ const { events, className, date } = Astro.props;
     }
 </style>
 <script src="/lib/fullcalendar.min.js" is:inline></script>
-<script is:inline define:vars={{ events, date }}>
+<script is:inline define:vars={{ events, date, initialView }}>
     document.addEventListener("astro:page-load", () => {
         const savedDate = date ?? localStorage.getItem("calendarDate");
         let initialDate = savedDate ? new Date(savedDate) : new Date();
@@ -30,11 +63,11 @@ const { events, className, date } = Astro.props;
         var calendar = new FullCalendar.Calendar(calendarEl, {
             firstDay: 1,
             locale: "es",
-            initialView: "dayGridWeek",
+            initialView,
             headerToolbar: {
-                start: "title",
-                center: "",
-                end: date ? "" : "today prev,next dayGridWeek,dayGridMonth",
+                start: "dayGridWeek,dayGridMonth",
+                center: "title",
+                end: date ? "" : "today prev,next",
             },
             buttonText: {
                 today: "Hoy",

@@ -25,7 +25,7 @@ const events = await getCollection(
         data.province && Astro.params.province.match(slugify(data.province)),
 );
 
-const future = getFutureEvents(events, false);
+const future = getFutureEvents(events);
 const past = getPastEvents(events);
 
 const shops = await getCollection(
