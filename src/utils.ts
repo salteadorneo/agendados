@@ -96,7 +96,6 @@ function expandRecurringEvent(event: CollectionEntry<"event">, fromDate: Date, t
             const [eh, em] = endTime.split(":");
             end.setHours(parseInt(eh), parseInt(em));
 
-            // Create a new instance with specific date
             const eventInstance: EventInstance = {
                 ...event,
                 instanceDate: new Date(start),
@@ -112,7 +111,7 @@ function expandRecurringEvent(event: CollectionEntry<"event">, fromDate: Date, t
 
 export function getFutureEvents(events: CollectionEntry<"event">[], expandRecurringEvents = false, daysToShow = 30): EventInstance[] {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Start of today
+    today.setHours(0, 0, 0, 0);
 
     const endDate = new Date(today);
     endDate.setDate(endDate.getDate() + daysToShow);
@@ -121,14 +120,11 @@ export function getFutureEvents(events: CollectionEntry<"event">[], expandRecurr
 
     events.forEach((event) => {
         if (event.data.daysOfWeek && event.data.startRecur && event.data.endRecur) {
-            // Recurring event
             if (expandRecurringEvents) {
-                // Expand to specific instances
                 allInstances = allInstances.concat(
                     expandRecurringEvent(event, today, endDate)
                 );
             } else {
-                // Add only once if it's active in the range
                 const startRecur = new Date(event.data.startRecur);
                 const endRecur = new Date(event.data.endRecur);
 
@@ -137,7 +133,6 @@ export function getFutureEvents(events: CollectionEntry<"event">[], expandRecurr
                 }
             }
         } else {
-            // Single event - include if it starts today or later
             const start = new Date(event.data.start);
             const startDay = new Date(start);
             startDay.setHours(0, 0, 0, 0);
@@ -148,7 +143,19 @@ export function getFutureEvents(events: CollectionEntry<"event">[], expandRecurr
         }
     });
 
-    // Sort by date - using instanceDate for recurring events, start for single events
+    if (expandRecurringEvents) {
+        allInstances = allInstances.filter(event => {
+            if (event.instanceDate) {
+                const eventEnd = event.instanceEndDate || event.instanceDate;
+                const eventDay = new Date(event.instanceDate);
+                eventDay.setHours(0, 0, 0, 0);
+
+                return eventDay >= today;
+            }
+            return true;
+        });
+    }
+
     return allInstances.sort((a, b) => {
         const aDate = a.instanceDate || new Date(a.data.start);
         const bDate = b.instanceDate || new Date(b.data.start);
@@ -177,7 +184,6 @@ export const groupEventsByMonth = (events: CollectionEntry<"event">[]) => {
     }, {} as Record<string, CollectionEntry<"event">[]>);
 };
 
-// New function to group events by day (including recurring event instances)
 export const groupEventsByDay = (events: EventInstance[]) => {
     return events.reduce((groups, event) => {
         const date = event.instanceDate || new Date(event.data.start);
@@ -191,7 +197,6 @@ export const groupEventsByDay = (events: EventInstance[]) => {
     }, {} as Record<string, EventInstance[]>);
 };
 
-// Get events for today specifically
 export const getTodayEvents = (events: CollectionEntry<"event">[]): EventInstance[] => {
     const today = new Date();
     const todayStart = new Date(today);
@@ -232,7 +237,6 @@ export const getTodayEvents = (events: CollectionEntry<"event">[]): EventInstanc
                 todayEvents.push(eventInstance);
             }
         } else {
-            // Single event
             const start = new Date(event.data.start);
             const startDay = new Date(start);
             startDay.setHours(0, 0, 0, 0);
@@ -243,17 +247,16 @@ export const getTodayEvents = (events: CollectionEntry<"event">[]): EventInstanc
         }
     });
 
-    // Sort by start time
     return todayEvents.sort((a, b) => {
         const aDate = a.instanceDate || new Date(a.data.start);
         const bDate = b.instanceDate || new Date(b.data.start);
         return aDate.getTime() - bDate.getTime();
     });
-};// Get next N days of events (useful for "próximos eventos")
+};
+
 export const getUpcomingEventsByDay = (events: CollectionEntry<"event">[], days = 7) => {
     const futureEvents = getFutureEvents(events, true, days);
 
-    // Ensure events are sorted by date first
     const sortedEvents = futureEvents.sort((a, b) => {
         const aDate = a.instanceDate || new Date(a.data.start);
         const bDate = b.instanceDate || new Date(b.data.start);
@@ -263,7 +266,6 @@ export const getUpcomingEventsByDay = (events: CollectionEntry<"event">[], days 
     return groupEventsByDay(sortedEvents);
 };
 
-// Get upcoming events as a flat list (garantiza orden cronológico)
 export const getUpcomingEventsList = (events: CollectionEntry<"event">[], days = 7): EventInstance[] => {
     return getFutureEvents(events, true, days);
 };
