@@ -146,7 +146,6 @@ export function getFutureEvents(events: CollectionEntry<"event">[], expandRecurr
     if (expandRecurringEvents) {
         allInstances = allInstances.filter(event => {
             if (event.instanceDate) {
-                const eventEnd = event.instanceEndDate || event.instanceDate;
                 const eventDay = new Date(event.instanceDate);
                 eventDay.setHours(0, 0, 0, 0);
 

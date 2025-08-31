@@ -65,9 +65,9 @@ const { events, className, date, initialView = "dayGridMonth" } = Astro.props;
             locale: "es",
             initialView,
             headerToolbar: {
-                start: "dayGridWeek,dayGridMonth",
-                center: "title",
-                end: date ? "" : "today prev,next",
+                start: date ? "title" : "dayGridWeek,dayGridMonth",
+                center: date ? "" : "title",
+                end: "today prev,next",
             },
             buttonText: {
                 today: "Hoy",

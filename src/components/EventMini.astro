@@ -8,8 +8,9 @@ const { id, data } = Astro.props;
 {
     data && (
         <article
-            class={`relative max-w-[98vw] p-4 border-l-10 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors ${Astro.props.class}`}
+            class={`relative max-w-[98vw] px-4 py-3 border-l-10 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors ${Astro.props.class}`}
             style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
+            data-event-start={new Date(data.start).toISOString().split("T")[0]}
         >
             <a href={`/evento/${id}/`}>
                 <p class="font-medium" transition:name={`date-${id}`}>

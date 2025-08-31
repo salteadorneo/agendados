@@ -25,15 +25,15 @@ const futures = getFutureEvents(events);
 			class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row items-start gap-8"
 		>
 			<section class="w-full lg:flex-1 py-6">
-				<Calendar events={events} />
+				<Calendar events={events} initialView="dayGridWeek" />
 			</section>
 			<section class="lg:basis-[350px] pb-6 lg:py-6">
 				<h2 class="text-2xl mb-4">Próximos eventos</h2>
 				<div class="space-y-2">
 					{
-						futures
-							.slice(0, 4)
-							.map((event) => <EventMini {...event} />)
+						futures.map((event) => (
+							<EventMini {...event} class="hidden" />
+						))
 					}
 				</div>
 			</section>
@@ -75,3 +75,21 @@ const futures = getFutureEvents(events);
 	</main>
 </Layout>
 <Footer />
+
+<script is:inline>
+	document.addEventListener("astro:page-load", () => {
+		const events = document.querySelectorAll("[data-event-start]");
+		let i = 0;
+		events.forEach((event) => {
+			const date = new Date(event.dataset.eventStart);
+			const yesterday = new Date();
+			yesterday.setDate(yesterday.getDate() - 1);
+			if (date > yesterday) {
+				i++;
+				if (i <= 5) {
+					event.classList.remove("hidden");
+				}
+			}
+		});
+	});
+</script>
