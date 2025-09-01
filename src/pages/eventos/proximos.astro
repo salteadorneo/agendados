@@ -6,13 +6,11 @@ import Layout from "@/layouts/Layout.astro";
 import List from "@/components/List.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
+import { getFutureEvents } from "@/utils";
 
-const events = (await getCollection("event"))
-    .filter((event) => {
-        const today = new Date();
-        return event.data.start >= today;
-    })
-    .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
+const events = await getCollection("event");
+
+const futures = getFutureEvents(events);
 ---
 
 <Layout
@@ -22,14 +20,12 @@ const events = (await getCollection("event"))
     <Header />
     <main class="flex-1 mb-6">
         <Title title="Próximos eventos" />
-        <section
-            class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8"
-        >
+        <section class="w-full max-w-6xl mx-auto px-4 grid grid-cols-2 gap-8">
             <section class="w-full max-w-6xl mx-auto px-4 py-6">
-                <List events={events} />
+                <List events={futures} />
             </section>
             <section>
-                <Calendar events={events} className="lg:w-[400px] h-[500px]!" />
+                <Calendar events={events} class="h-[1500px]" />
             </section>
         </section>
     </main>

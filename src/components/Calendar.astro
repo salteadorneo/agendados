@@ -1,8 +1,8 @@
 ---
-const { events, className, date, initialView = "dayGridMonth" } = Astro.props;
+const { events, date, initialView = "dayGridMonth" } = Astro.props;
 ---
 
-<div id="calendar" class={`h-[850px] ${className}`}></div>
+<div id="calendar" class={`h-[850px] ${Astro.props.class}`}></div>
 <style is:inline>
     :root {
         --fc-button-bg-color: #353535;
