@@ -98,6 +98,11 @@ function expandRecurringEvent(event: CollectionEntry<"event">, fromDate: Date, t
 
             const eventInstance: EventInstance = {
                 ...event,
+                data: {
+                    ...event.data,
+                    start: new Date(start),
+                    end: new Date(end)
+                },
                 instanceDate: new Date(start),
                 instanceEndDate: new Date(end)
             };
@@ -109,7 +114,7 @@ function expandRecurringEvent(event: CollectionEntry<"event">, fromDate: Date, t
     return results;
 }
 
-export function getFutureEvents(events: CollectionEntry<"event">[], expandRecurringEvents = false, daysToShow = 30): EventInstance[] {
+export function getFutureEvents(events: CollectionEntry<"event">[], expandRecurringEvents = true, daysToShow = 3000): EventInstance[] {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -229,6 +234,11 @@ export const getTodayEvents = (events: CollectionEntry<"event">[]): EventInstanc
 
                 const eventInstance: EventInstance = {
                     ...event,
+                    data: {
+                        ...event.data,
+                        start: new Date(start),
+                        end: new Date(end)
+                    },
                     instanceDate: new Date(start),
                     instanceEndDate: new Date(end)
                 };
