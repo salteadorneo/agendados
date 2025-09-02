@@ -5,7 +5,6 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import { getFutureEvents, getPastEvents, provinces, slugify } from "@/utils";
 import List from "@/components/List.astro";
-import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
 import EventMini from "@/components/EventMini.astro";
@@ -40,9 +39,7 @@ const shops = await getCollection(
 >
     <Header />
     <main class="flex-1 mb-6">
-        <Title title={`Eventos en ${province}`}>
-            <Filter />
-        </Title>
+        <Title title={`Eventos en ${province}`} />
         <section
             class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8 mt-6"
         >

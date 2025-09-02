@@ -4,7 +4,6 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import List from "@/components/List.astro";
-import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
 
@@ -36,9 +35,7 @@ const events = await getCollection(
 >
     <Header />
     <main class="flex-1 mb-6">
-        <Title title={`Eventos de ${year}`}>
-            <Filter />
-        </Title>
+        <Title title={`Eventos de ${year}`} />
         <section
             class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8"
         >

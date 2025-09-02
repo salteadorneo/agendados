@@ -4,7 +4,6 @@ import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import Layout from "@/layouts/Layout.astro";
 import List from "@/components/List.astro";
-import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
 
 const events = (await getCollection("event")).sort(
@@ -12,12 +11,13 @@ const events = (await getCollection("event")).sort(
 );
 ---
 
-<Layout title="Listado de eventos" description="Listado de eventos de juegos de mesa.">
+<Layout
+    title="Listado de eventos"
+    description="Listado de eventos de juegos de mesa."
+>
     <Header />
     <main class="flex-1">
-        <Title title="Listado de eventos">
-            <Filter />
-        </Title>
+        <Title title="Listado de eventos" />
         <section class="w-full max-w-6xl mx-auto px-4 py-6">
             <List events={events} />
         </section>

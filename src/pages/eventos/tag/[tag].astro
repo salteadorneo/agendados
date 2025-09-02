@@ -7,7 +7,6 @@ import { getFutureEvents, getPastEvents, slugify } from "@/utils";
 import List from "@/components/List.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
-import Filter from "@/components/Filter.astro";
 import EventMini from "@/components/EventMini.astro";
 import Product from "@/components/Product.astro";
 import products from "@/products.json";
@@ -49,9 +48,7 @@ const shops = (await getCollection("shop")).filter(
 >
     <Header />
     <main class="flex-1 mb-6">
-        <Title title={`Eventos de ${tag}`}>
-            <Filter />
-        </Title>
+        <Title title={`Eventos de ${tag}`} />
         <section
             class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8 mt-6"
         >

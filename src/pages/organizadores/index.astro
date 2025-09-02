@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import Layout from "@/layouts/Layout.astro";
-import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
 import { slugify } from "@/utils";
 
@@ -18,9 +17,7 @@ const organizers = (await getCollection("organizer")).sort((a, b) =>
 >
     <Header />
     <main class="flex-1">
-        <Title title="Listado de organizadores de eventos">
-            <Filter />
-        </Title>
+        <Title title="Listado de organizadores de eventos" />
         <section class="w-full max-w-6xl mx-auto px-4 py-6">
             <section>
                 <ul>

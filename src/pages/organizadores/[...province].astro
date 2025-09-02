@@ -4,7 +4,6 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import { provinces, slugify } from "@/utils";
-import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
 
 export async function getStaticPaths() {
@@ -29,9 +28,7 @@ const organizers = await getCollection(
 >
     <Header />
     <main class="flex-1 mb-6">
-        <Title title={`Organizadores en ${province}`}>
-            <Filter />
-        </Title>
+        <Title title={`Organizadores en ${province}`} />
         <section
             class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8"
         >

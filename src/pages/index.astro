@@ -4,7 +4,6 @@ import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import Layout from "@/layouts/Layout.astro";
 import Calendar from "@/components/Calendar.astro";
-import Filter from "@/components/Filter.astro";
 import Title from "@/components/Title.astro";
 import EventMini from "@/components/EventMini.astro";
 import Map from "@/components/Map.astro";
@@ -18,9 +17,7 @@ const futures = getFutureEvents(events);
 <Layout>
 	<Header />
 	<main class="flex-1 mb-6">
-		<Title title="Calendario de eventos">
-			<Filter />
-		</Title>
+		<Title title="Calendario de eventos" />
 		<section
 			class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row items-start gap-8"
 		>
@@ -86,7 +83,7 @@ const futures = getFutureEvents(events);
 			yesterday.setDate(yesterday.getDate() - 1);
 			if (date > yesterday) {
 				i++;
-				if (i <= 5) {
+				if (i <= 4) {
 					event.classList.remove("hidden");
 				}
 			}
