@@ -10,20 +10,30 @@ import Map from "@/components/Map.astro";
 import { getFutureEvents } from "@/utils";
 
 const events = (await getCollection("event")).filter(
-	(event) => !event.data.startRecur,
+	(event) => event.data.startRecur,
 );
 
 const futures = getFutureEvents(events);
 ---
 
-<Layout>
+<Layout title="Calendario de eventos recurrentes">
 	<Header />
 	<main class="flex-1 mb-6">
-		<Title title="Calendario de eventos" />
+		<Title title="Calendario de eventos recurrentes" />
 		<section class="w-full max-w-6xl mx-auto px-4">
 			<section class="flex flex-col lg:flex-row items-start gap-8">
 				<section class="w-full lg:flex-1 py-6">
-					<Calendar events={events} />
+					<Calendar events={events} initialView="dayGridWeek" />
+					<!-- <section class="pt-4">
+						<label>
+							<input
+								type="checkbox"
+								onclick='location.href = "/"'
+								checked
+							/>
+							Eventos recurrentes
+						</label>
+					</section> -->
 				</section>
 				<section class="lg:basis-[350px] pb-6 lg:py-6">
 					<h2 class="text-2xl mb-4">Próximos eventos</h2>

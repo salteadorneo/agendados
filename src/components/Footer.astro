@@ -20,7 +20,7 @@ events.forEach((event: CollectionEntry<"event">) => {
     <section class="md:flex gap-6 w-full max-w-6xl mx-auto px-4 space-y-6">
         <div class="flex-7/12">
             <p class="text-xl mb-2">Eventos por provincia</p>
-            <ul class="grid grid-cols-2 sm:grid-cols-3 gap-x-5">
+            <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5">
                 {
                     Array.from(provinces)
                         .sort((a, b) =>
@@ -58,6 +58,14 @@ events.forEach((event: CollectionEntry<"event">) => {
                             </li>
                         ))
                 }
+                <li>
+                    <a
+                        href={`/eventos/recurrentes`}
+                        class="text-sm hover:underline"
+                    >
+                        Recurrentes
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="flex-1/12 md:text-right">
