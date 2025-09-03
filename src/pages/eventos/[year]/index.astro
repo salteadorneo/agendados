@@ -37,17 +37,13 @@ const events = await getCollection(
     <main class="flex-1 mb-6">
         <Title title={`Eventos de ${year}`} />
         <section
-            class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8"
+            class="w-full max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 mt-6"
         >
-            <section class="lg:flex-1 py-6">
+            <section>
                 <List events={events} />
             </section>
             <section>
-                <Calendar
-                    date={new Date(`${year}-01-01`)}
-                    events={events}
-                    class="lg:w-[400px]"
-                />
+                <Calendar date={new Date(`${year}-01-01`)} events={events} />
             </section>
         </section>
     </main>

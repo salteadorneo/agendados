@@ -64,16 +64,15 @@ const getNumberFromMonth = (month: string): number => {
     <main class="flex-1 mb-6">
         <Title title={`Eventos ${month} de ${year}`} />
         <section
-            class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8"
+            class="w-full max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 mt-6"
         >
-            <section class="flex-1 py-6">
+            <section>
                 <List events={events} />
             </section>
             <section>
                 <Calendar
                     date={new Date(`${year}-${getNumberFromMonth(month)}-01`)}
                     events={events}
-                    class="lg:w-[400px]"
                 />
             </section>
         </section>

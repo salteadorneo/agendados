@@ -50,9 +50,9 @@ const shops = (await getCollection("shop")).filter(
     <main class="flex-1 mb-6">
         <Title title={`Eventos de ${tag}`} />
         <section
-            class="w-full max-w-6xl mx-auto px-4 flex flex-col lg:flex-row lg:items-start gap-8 mt-6"
+            class="w-full max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 mt-6"
         >
-            <section class="flex-1">
+            <section>
                 <h2 class="text-3xl mb-4">Próximos eventos de {tag}</h2>
                 {
                     futures.length === 0 && (
@@ -78,7 +78,7 @@ const shops = (await getCollection("shop")).filter(
                     }
                 </section>
             </section>
-            <section class="basis-[400px]">
+            <section>
                 <Calendar events={events} class="h-[600px]!" />
 
                 {

@@ -31,19 +31,10 @@ const { events, date, initialView = "dayGridMonth" } = Astro.props;
         opacity: 0.2;
     }
 
-    .event:hover {
-        opacity: 0.8;
-    }
-
-    .fc .fc-toolbar-title {
-        @media (width < 480px) {
-            font-size: 1.2rem;
-            white-space: nowrap;
+    .event {
+        &:hover {
+            opacity: 0.8;
         }
-    }
-
-    .event:hover {
-        opacity: 0.8;
     }
 
     .fc .fc-toolbar-title {
@@ -65,8 +56,8 @@ const { events, date, initialView = "dayGridMonth" } = Astro.props;
             locale: "es",
             initialView,
             headerToolbar: {
-                start: date ? "title" : "dayGridWeek,dayGridMonth",
-                center: date ? "" : "title",
+                start: true ? "title" : "dayGridWeek,dayGridMonth",
+                center: true ? "" : "title",
                 end: "today prev,next",
             },
             buttonText: {
