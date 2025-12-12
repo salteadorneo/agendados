@@ -3,7 +3,7 @@ title: "InterOcio 2026"
 description: "La feria más grande de España dedicada a juegos de mesa, rol, cartas y ocio familiar en IFEMA Madrid."
 start: "2026-03-13"
 end: "2026-03-15"
-startTime: '16:00'
+startTime: '10:00'
 endTime: '20:00'
 location: "IFEMA Madrid, Pabellón 9"
 province: "Madrid"

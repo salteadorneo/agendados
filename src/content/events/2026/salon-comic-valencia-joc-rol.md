@@ -28,7 +28,7 @@ El Salón del Cómic de Valencia 2026 incluye la zona Joc & Rol, un espacio dedi
 
 ## Horarios
 
-- **Jueves 27 y viernes 28 de febrero**: 11:00h - 20:00h
+- **Viernes 27 de febrero**: 11:00h - 20:00h
 - **Sábado 28 de febrero**: 11:00h - 20:00h
 - **Domingo 1 de marzo**: 11:00h - 19:00h
 
