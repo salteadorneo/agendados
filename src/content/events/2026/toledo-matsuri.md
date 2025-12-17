@@ -9,7 +9,7 @@ location: 'Polideportivo Salto del Caballo, Toledo'
 province: 'Toledo'
 color: '#E91E63'
 url: 'https://toledomatsuri.com/'
-tags: ['Juegos de mesa', 'Festival', 'Cultura japonesa']
+tags: ['Juegos de mesa', 'Festival', 'Familiar']
 ---
 
 # Toledo Matsuri 2026 - IV Edición
