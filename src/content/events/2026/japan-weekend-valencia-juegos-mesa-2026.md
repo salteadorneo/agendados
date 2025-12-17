@@ -1,8 +1,8 @@
 ---
 title: "Japan Weekend Valencia - Rincón Tablero Japonés"
 description: "Experiencia única de juegos de mesa japoneses en la Ciudad del Turia"
-start: 2026-05-09
-end: 2026-05-10
+start: "2026-05-09"
+end: "2026-05-10"
 startTime: "10:00"
 endTime: "19:00"
 location: "Feria Valencia"

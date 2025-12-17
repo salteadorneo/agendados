@@ -1,7 +1,7 @@
 ---
 title: "Japan Weekend Barcelona - Mesa Gaming Zone"
 description: "El rincón perfecto para los amantes de los juegos de mesa japoneses en Barcelona"
-start: 2026-04-11
+start: "2026-04-11"
 startTime: "10:00"
 endTime: "20:00"
 location: "Fira de Barcelona - Gran Vía"

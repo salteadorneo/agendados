@@ -1,8 +1,8 @@
 ---
 title: "Japan Weekend Madrid - Zona Juegos de Mesa"
 description: "Descubre los mejores juegos de mesa japoneses y asiáticos en el evento más importante de cultura japonesa"
-start: 2026-02-14
-end: 2026-02-15
+start: "2026-02-14"
+end: "2026-02-15"
 startTime: "10:00"
 endTime: "20:00"
 location: "IFEMA Madrid"
