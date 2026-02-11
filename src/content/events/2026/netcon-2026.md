@@ -4,7 +4,7 @@ description: "El mayor evento online de rol en español, dedicado a la solidarid
 start: "2026-03-31"
 end: "2026-04-04"
 color: "#FF6B35"
-tags: ["Rol", "Festival"]
+tags: ["Rol", "Festival", "Online"]
 url: "https://netconplay.es/"
 ---
 
