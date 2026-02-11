@@ -10,6 +10,7 @@ province: "Madrid"
 url: "https://entradium.com/events/vi-madridwarcon"
 color: "#8B4513"
 tags: ['Wargames', 'Juegos de mesa']
+image: "https://agendados.es/evento/2025/madridwarcon-vi-fuenlabrada.jpg"
 ---
 
 **VI MadridWarCon - Jornadas de Simulación Histórica**
