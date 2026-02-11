@@ -21,6 +21,7 @@ const TAGS = [
     "TCG",
     "Torneo",
     "Wargames",
+    "Online",
 ] as const;
 
 const event = defineCollection({
