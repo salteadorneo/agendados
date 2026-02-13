@@ -1,8 +1,15 @@
 ---
 import Logo from "./Logo.astro";
 import Filter from "./Filter.astro";
+import { slugify } from "@/utils";
 
 const { color } = Astro.props;
+
+const today = new Date();
+const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+const year = nextMonth.getFullYear();
+const monthName = nextMonth.toLocaleString("es-ES", { month: "long" });
+const monthSlug = slugify(monthName);
 ---
 
 <header
@@ -15,7 +22,14 @@ const { color } = Astro.props;
         <a href="/">
             <Logo />
         </a>
-        <div class="flex gap-4">
+        <div class="flex gap-4 items-center flex-wrap justify-end">
+            <a
+                href={`/eventos/${year}/${monthSlug}/`}
+                class="hidden sm:inline px-4 py-2 rounded transition-colors"
+                title={`Eventos ${monthName} ${year}`}
+            >
+                Eventos {monthName} {year}
+            </a>
             <Filter />
         </div>
     </nav>

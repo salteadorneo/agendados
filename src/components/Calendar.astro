@@ -1,5 +1,5 @@
 ---
-const { events, date, initialView = "dayGridMonth" } = Astro.props;
+const { events, date, initialView = "dayGridMonth", showToolbarNav = true } = Astro.props;
 ---
 
 <div id="calendar" class={`h-[850px] ${Astro.props.class}`}></div>
@@ -45,7 +45,7 @@ const { events, date, initialView = "dayGridMonth" } = Astro.props;
     }
 </style>
 <script src="/lib/fullcalendar.min.js" is:inline></script>
-<script is:inline define:vars={{ events, date, initialView }}>
+<script is:inline define:vars={{ events, date, initialView, showToolbarNav }}>
     document.addEventListener("astro:page-load", () => {
         const savedDate = date ?? localStorage.getItem("calendarDate");
         let initialDate = savedDate ? new Date(savedDate) : new Date();
@@ -58,7 +58,7 @@ const { events, date, initialView = "dayGridMonth" } = Astro.props;
             headerToolbar: {
                 start: true ? "title" : "dayGridWeek,dayGridMonth",
                 center: true ? "" : "title",
-                end: "today prev,next",
+                end: showToolbarNav ? "today prev,next" : "",
             },
             buttonText: {
                 today: "Hoy",

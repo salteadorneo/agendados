@@ -10,22 +10,42 @@ import Calendar from "@/components/Calendar.astro";
 
 export async function getStaticPaths() {
     const events = await getCollection("event");
-    const months = new Set<string>();
+    const years = new Set<number>();
+    
     events.forEach((event: CollectionEntry<"event">) => {
         const start = event.data.start;
-        const month = start.toLocaleString("es-ES", {
-            month: "long",
-            year: "numeric",
-        });
-        months.add(month);
+        years.add(start.getFullYear());
     });
-    return Array.from(months).map((month) => ({
-        params: {
-            year: month.split(" ")[2],
-            month: slugify(month.split(" ")[0]),
-        },
-        props: { year: month.split(" ")[2], month: month.split(" ")[0] },
-    }));
+
+    const paths: any[] = [];
+    const monthNames = [
+        "enero",
+        "febrero",
+        "marzo",
+        "abril",
+        "mayo",
+        "junio",
+        "julio",
+        "agosto",
+        "septiembre",
+        "octubre",
+        "noviembre",
+        "diciembre",
+    ];
+
+    years.forEach((year) => {
+        monthNames.forEach((monthName, index) => {
+            paths.push({
+                params: {
+                    year: year.toString(),
+                    month: slugify(monthName),
+                },
+                props: { year: year.toString(), month: monthName },
+            });
+        });
+    });
+
+    return paths;
 }
 
 const { year, month } = Astro.props;
@@ -54,6 +74,17 @@ const getNumberFromMonth = (month: string): number => {
     ];
     return months.indexOf(month.toLowerCase()) + 1;
 };
+
+const monthNumber = getNumberFromMonth(month);
+let nextMonthDate = new Date(parseInt(year), monthNumber, 1);
+const nextYear = nextMonthDate.getFullYear();
+const nextMonthName = nextMonthDate.toLocaleString("es-ES", { month: "long" });
+const nextMonthSlug = slugify(nextMonthName);
+
+let prevMonthDate = new Date(parseInt(year), monthNumber - 2, 1);
+const prevYear = prevMonthDate.getFullYear();
+const prevMonthName = prevMonthDate.toLocaleString("es-ES", { month: "long" });
+const prevMonthSlug = slugify(prevMonthName);
 ---
 
 <Layout
@@ -62,7 +93,24 @@ const getNumberFromMonth = (month: string): number => {
 >
     <Header />
     <main class="flex-1 mb-6">
-        <Title title={`Eventos ${month} de ${year}`} />
+        <Title title={`Eventos ${month} de ${year}`}>
+            <div class="flex gap-2">
+                <a
+                    href={`/eventos/${prevYear}/${prevMonthSlug}/`}
+                    class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded transition-colors text-white whitespace-nowrap"
+                    title={`Eventos ${prevMonthName} ${prevYear}`}
+                >
+                    &lt;
+                </a>
+                <a
+                    href={`/eventos/${nextYear}/${nextMonthSlug}/`}
+                    class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded transition-colors text-white whitespace-nowrap"
+                    title={`Eventos ${nextMonthName} ${nextYear}`}
+                >
+                    &gt;
+                </a>
+            </div>
+        </Title>
         <section
             class="w-full max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 mt-6"
         >
@@ -73,8 +121,23 @@ const getNumberFromMonth = (month: string): number => {
                 <Calendar
                     date={new Date(`${year}-${getNumberFromMonth(month)}-01`)}
                     events={events}
+                    showToolbarNav={false}
                 />
             </section>
+        </section>
+        <section class="w-full max-w-6xl mx-auto px-4 flex gap-4 justify-center mt-8 mb-6">
+            <a
+                href={`/eventos/${prevYear}/${prevMonthSlug}/`}
+                class="px-6 py-2 bg-primary text-white hover:opacity-80 rounded transition-opacity"
+            >
+                &lt; {prevMonthName} {prevYear}
+            </a>
+            <a
+                href={`/eventos/${nextYear}/${nextMonthSlug}/`}
+                class="px-6 py-2 bg-primary text-white hover:opacity-80 rounded transition-opacity"
+            >
+                {nextMonthName} {nextYear} &gt;
+            </a>
         </section>
     </main>
     <Footer />
