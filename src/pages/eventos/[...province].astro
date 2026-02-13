@@ -18,11 +18,11 @@ export async function getStaticPaths() {
 
 const { province } = Astro.props;
 
-const events = await getCollection(
+const events = (await getCollection(
     "event",
     ({ data }) =>
         data.province && Astro.params.province.match(slugify(data.province)),
-);
+)).filter((event) => !event.data.startRecur);
 
 const future = getFutureEvents(events);
 const past = getPastEvents(events);

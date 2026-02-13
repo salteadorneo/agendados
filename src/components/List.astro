@@ -30,9 +30,6 @@ events.forEach((event: any) => {
                         </a>
                     </h2>
                     <ul class="space-y-4 mb-4">
-                        {events.length === 0 && (
-                            <p class="text-gray-500">Todavía no hay eventos para este mes.</p>
-                        )}
                         {events
                             .filter(
                                 (event: any) =>

@@ -27,12 +27,12 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.props;
 
-const events = await getCollection(
+const events = (await getCollection(
     "event",
     ({ data }) =>
         data.tags &&
         data.tags.some((t) => t && Astro.params.tag.match(slugify(t))),
-);
+)).filter((event) => !event.data.startRecur);
 
 const futures = getFutureEvents(events);
 const past = getPastEvents(events);

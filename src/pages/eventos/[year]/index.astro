@@ -23,10 +23,10 @@ export async function getStaticPaths() {
 
 const { year } = Astro.props;
 
-const events = await getCollection(
+const events = (await getCollection(
     "event",
     ({ data }) => data.start.getFullYear() === parseInt(year),
-);
+)).filter((event) => !event.data.startRecur);
 ---
 
 <Layout
@@ -37,14 +37,9 @@ const events = await getCollection(
     <main class="flex-1 mb-6">
         <Title title={`Eventos de ${year}`} />
         <section
-            class="w-full max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 mt-6"
+            class="w-full max-w-6xl mx-auto px-4 mt-6"
         >
-            <section>
-                <List events={events} />
-            </section>
-            <section>
-                <Calendar date={new Date(`${year}-01-01`)} events={events} />
-            </section>
+            <List events={events} />
         </section>
     </main>
     <Footer />

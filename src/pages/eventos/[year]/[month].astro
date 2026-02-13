@@ -50,12 +50,12 @@ export async function getStaticPaths() {
 
 const { year, month } = Astro.props;
 
-const events = await getCollection(
+const events = (await getCollection(
     "event",
     ({ data }) =>
         data.start.getFullYear() === parseInt(year) &&
         data.start.toLocaleString("es-ES", { month: "long" }) === month,
-);
+)).filter((event) => !event.data.startRecur);
 
 const getNumberFromMonth = (month: string): number => {
     const months = [

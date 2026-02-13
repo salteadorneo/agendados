@@ -6,9 +6,9 @@ import Layout from "@/layouts/Layout.astro";
 import List from "@/components/List.astro";
 import Title from "@/components/Title.astro";
 
-const events = (await getCollection("event")).sort(
-    (a, b) => b.data.start.valueOf() - a.data.start.valueOf(),
-);
+const events = (await getCollection("event"))
+	.filter((event) => !event.data.startRecur)
+	.sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf());
 ---
 
 <Layout
