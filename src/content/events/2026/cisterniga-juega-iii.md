@@ -8,7 +8,7 @@ endTime: '20:00'
 location: 'Teatro Municipal Nave, Cistérniga, Valladolid'
 province: 'Valladolid'
 color: '#FF5722'
-tags: ['Juegos de mesa', 'Torneos', 'Familiar']
+tags: ['Juegos de mesa', 'Torneo', 'Familiar']
 ---
 
 ## Cistérniga Juega III
