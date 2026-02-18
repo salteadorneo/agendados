@@ -57,18 +57,6 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                             </a>
                         )
                     }
-                    {
-                        !image && (
-                            <div class="max-sm:hidden absolute top-0 mx-auto right-6 z-30 w-[40dvw] sm:w-52 perspective-dramatic max-sm:mb-6">
-                                <div
-                                    class="aspect-[9/14] bg-white text-sm p-6 -rotate-y-4 shadow-md"
-                                    style={`background-color2: ${color};`}
-                                >
-                                    {description}
-                                </div>
-                            </div>
-                        )
-                    }
                     <div
                         class="text-xl text-white"
                         transition:name={`date-${id}`}
@@ -85,7 +73,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                 </div>
             </div>
             <div
-                class="bg-primary h-2 [clip-path:polygon(0_0,_100%_0,_90%_0,_0%_100%)] sm:[clip-path:polygon(0_0,_100%_0,_60%_0,_0%_100%)]"
+                class="bg-primary h-2 [clip-path:polygon(0_0,100%_0,90%_0,0%_100%)] sm:[clip-path:polygon(0_0,100%_0,60%_0,0%_100%)]"
                 style={`background-color: ${color};`}
             >
             </div>
