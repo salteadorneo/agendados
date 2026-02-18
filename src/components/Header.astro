@@ -1,14 +1,20 @@
 ---
+import { getCollection } from "astro:content";
 import Logo from "./Logo.astro";
-import { slugify } from "@/utils";
+import { getFutureEvents, slugify } from "@/utils";
 
 const { color } = Astro.props;
 
-const today = new Date();
-const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-const year = nextMonth.getFullYear();
-const monthName = nextMonth.toLocaleString("es-ES", { month: "long" });
-const monthSlug = slugify(monthName);
+const allEvents = await getCollection("event");
+const upcomingEvents = getFutureEvents(allEvents, true, 365);
+
+const upcomingTags = Array.from(
+	new Set(
+		upcomingEvents
+			.flatMap((event) => event.data.tags || [])
+			.filter(Boolean),
+	),
+).sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
 ---
 
 <header
@@ -21,14 +27,15 @@ const monthSlug = slugify(monthName);
         <a href="/">
             <Logo />
         </a>
-        <div class="flex gap-4 items-center flex-wrap justify-end">
-            <a
-                href={`/eventos/${year}/${monthSlug}/`}
-                class="hidden sm:inline px-4 py-2 rounded transition-colors"
-                title={`Eventos ${monthName} ${year}`}
-            >
-                Eventos {monthName} {year}
-            </a>
+        <div class="hidden lg:flex gap-2 flex-wrap justify-end">
+            {upcomingTags.slice(0, 10).map((tag) => (
+                <a
+                    href={`/eventos/tag/${slugify(tag)}`}
+                    class="px-2 py-1 hover:bg-white/10 text-sm transition-colors"
+                >
+                    {tag}
+                </a>
+            ))}
         </div>
     </nav>
 </header>
