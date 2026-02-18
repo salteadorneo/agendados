@@ -1,6 +1,5 @@
 ---
 import "@/styles/global.css";
-import { ClientRouter } from "astro:transitions";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -47,8 +46,6 @@ const {
 		<meta property="twitter:title" content={`${title} · Agendados`} />
 		<meta property="twitter:description" content={description} />
 		<!-- <meta property="twitter:image" content={new URL(image.src, Astro.url)} /> -->
-
-		<ClientRouter /><!-- 100% privacy-first analytics -->
 
 		<script
 			async
