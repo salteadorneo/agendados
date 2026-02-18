@@ -86,19 +86,17 @@ const futures = getFutureEvents(events);
 <Footer />
 
 <script is:inline>
-	document.addEventListener("astro:page-load", () => {
-		const events = document.querySelectorAll("[data-event-start]");
-		let i = 0;
-		events.forEach((event) => {
-			const date = new Date(event.dataset.eventStart);
-			const yesterday = new Date();
-			yesterday.setDate(yesterday.getDate() - 1);
-			if (date > yesterday) {
-				i++;
-				if (i <= 4) {
-					event.classList.remove("hidden");
-				}
+	const events = document.querySelectorAll("[data-event-start]");
+	let i = 0;
+	events.forEach((event) => {
+		const date = new Date(event.dataset.eventStart);
+		const yesterday = new Date();
+		yesterday.setDate(yesterday.getDate() - 1);
+		if (date > yesterday) {
+			i++;
+			if (i <= 4) {
+				event.classList.remove("hidden");
 			}
-		});
+		}
 	});
 </script>
