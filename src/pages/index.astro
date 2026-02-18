@@ -6,19 +6,53 @@ import Layout from "@/layouts/Layout.astro";
 import Calendar from "@/components/Calendar.astro";
 import Title from "@/components/Title.astro";
 import EventMini from "@/components/EventMini.astro";
-import Map from "@/components/Map.astro";
-import { getFutureEvents } from "@/utils";
+import ProvinceMap from "@/components/Map.astro";
+import { getFutureEvents, slugify } from "@/utils";
 
-const events = (await getCollection("event")).filter(
+const allEvents = await getCollection("event");
+
+const events = allEvents.filter(
 	(event) => !event.data.startRecur,
 );
 
 const futures = getFutureEvents(events);
+
+const upcomingEvents = getFutureEvents(allEvents, true, 365);
+const upcomingProvinces = Array.from(
+	new Set(
+		upcomingEvents
+			.map((event) => event.data.province)
+			.filter((province): province is string => Boolean(province)),
+	),
+).sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
 ---
 
 <Layout>
 	<Header />
 	<main class="flex-1 mb-6">
+		<section class="bg-primary text-white w-full py-10 md:py-12">
+			<div class="max-w-6xl mx-auto px-4">
+				<h1 class="text-3xl md:text-5xl text-balance mb-3">
+					Tu agenda de eventos de juegos de mesa en España
+				</h1>
+				<p class="max-w-3xl text-white/90 mb-6">
+					Consulta eventos por fecha y ubicación, descubre qué se celebra cerca de ti y accede a toda la información en un solo sitio.
+				</p>
+				<p class="mb-3 font-medium">Provincias con próximos eventos</p>
+				<div class="flex flex-wrap gap-1">
+					{
+						upcomingProvinces.map((province) => (
+							<a
+								href={`/eventos/${slugify(province)}`}
+								class="px-2 py-1 border border-white/20 hover:bg-white/10 transition-colors"
+							>
+								{province}
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</section>
 		<Title title="Calendario de eventos" />
 		<section class="w-full max-w-6xl mx-auto px-4">
 			<section class="flex flex-col lg:flex-row items-start gap-8">
@@ -45,7 +79,7 @@ const futures = getFutureEvents(events);
 					celebran cerca de ti.
 				</p>
 			</div>
-			<Map />
+			<ProvinceMap />
 		</section>
 		<section
 			class="w-full max-w-6xl mx-auto px-4 flex flex-col xl:flex-row items-start gap-8"
@@ -76,19 +110,17 @@ const futures = getFutureEvents(events);
 <Footer />
 
 <script is:inline>
-	document.addEventListener("astro:page-load", () => {
-		const events = document.querySelectorAll("[data-event-start]");
-		let i = 0;
-		events.forEach((event) => {
-			const date = new Date(event.dataset.eventStart);
-			const yesterday = new Date();
-			yesterday.setDate(yesterday.getDate() - 1);
-			if (date > yesterday) {
-				i++;
-				if (i <= 4) {
-					event.classList.remove("hidden");
-				}
+	const events = document.querySelectorAll("[data-event-start]");
+	let i = 0;
+	events.forEach((event) => {
+		const date = new Date(event.dataset.eventStart);
+		const yesterday = new Date();
+		yesterday.setDate(yesterday.getDate() - 1);
+		if (date > yesterday) {
+			i++;
+			if (i <= 4) {
+				event.classList.remove("hidden");
 			}
-		});
+		}
 	});
 </script>
