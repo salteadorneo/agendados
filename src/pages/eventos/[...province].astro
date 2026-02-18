@@ -27,6 +27,10 @@ const events = (await getCollection(
 const future = getFutureEvents(events);
 const past = getPastEvents(events);
 
+const firstUpcomingDate = future.length > 0
+	? future[0].instanceDate || new Date(future[0].data.start)
+	: null;
+
 const shops = await getCollection(
     "shop",
     ({ data }) => data.provinces && data.provinces.includes(province),
@@ -76,7 +80,7 @@ const shops = await getCollection(
                 </section>
             </section>
             <section>
-                <Calendar events={events} class="h-[600px]!" />
+                <Calendar events={events} date={firstUpcomingDate?.toISOString()} class="h-[600px]!" />
 
                 {
                     shops.length > 0 && (
