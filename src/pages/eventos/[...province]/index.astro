@@ -7,7 +7,6 @@ import { getFutureEvents, getPastEvents, provinces, slugify } from "@/utils";
 import List from "@/components/List.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
-import EventMini from "@/components/EventMini.astro";
 
 export async function getStaticPaths() {
     return Array.from(provinces).map((province) => ({
@@ -60,24 +59,12 @@ const shops = await getCollection(
                 }
                 <List events={future} />
 
-                <h2 class="text-3xl mb-4 mt-12">
-                    Eventos pasados en {province}
-                </h2>
-                {
-                    past.length === 0 && (
-                        <p class="text-gray-500">No hay eventos pasados.</p>
-                    )
-                }
-                <section class="space-y-2">
-                    {
-                        past.map((event) => (
-                            <EventMini
-                                {...event}
-                                class="grayscale hover:grayscale-0 transition-colors"
-                            />
-                        ))
-                    }
-                </section>
+                <a
+                    href={`/eventos/${slugify(province)}/pasados`}
+                    class="inline-block mt-4 text-primary underline hover:no-underline"
+                >
+                    Ver eventos pasados en {province}
+                </a>
             </section>
             <section>
                 <Calendar events={events} date={firstUpcomingDate?.toISOString()} class="h-[600px]!" />

@@ -36,6 +36,9 @@ const events = (await getCollection(
 
 const futures = getFutureEvents(events);
 const past = getPastEvents(events);
+const firstUpcomingDate = futures.length > 0
+    ? futures[0].instanceDate || new Date(futures[0].data.start)
+    : null;
 
 const shops = (await getCollection("shop")).filter(
     (shop) => shop.data.section && shop.data.section.find((s) => s.name == tag),
@@ -61,25 +64,19 @@ const shops = (await getCollection("shop")).filter(
                 }
                 <List events={futures} />
 
-                <h2 class="text-3xl mb-4 mt-12">Eventos pasados de {tag}</h2>
                 {
-                    past.length === 0 && (
-                        <p class="text-gray-500">No hay eventos pasados.</p>
+                    past.length > 0 && (
+                        <a
+                            href={`/eventos/tag/${slugify(tag)}/pasados`}
+                            class="inline-block mt-4 text-primary underline hover:no-underline"
+                        >
+                            Ver eventos pasados de {tag}
+                        </a>
                     )
                 }
-                <section class="space-y-2">
-                    {
-                        past.map((event) => (
-                            <EventMini
-                                {...event}
-                                class="grayscale hover:grayscale-0 transition-colors"
-                            />
-                        ))
-                    }
-                </section>
             </section>
             <section>
-                <Calendar events={events} class="h-[600px]!" />
+                <Calendar events={events} date={firstUpcomingDate?.toISOString()} class="h-150!" />
 
                 {
                     shops.length > 0 && (
@@ -88,7 +85,7 @@ const shops = (await getCollection("shop")).filter(
                             <div class="space-y-2">
                                 {shops.map(({ data }) => (
                                     <article
-                                        class="p-4 border-l-6 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
+                                        class="p-4 border-l-6 bg-center bg-cover bg-no-repeat hover:bg-(--event-color) transition-colors"
                                         style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
                                     >
                                         <a

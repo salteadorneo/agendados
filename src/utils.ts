@@ -165,7 +165,9 @@ export function getFutureEvents(events: CollectionEntry<"event">[], expandRecurr
         const bDate = b.instanceDate || new Date(b.data.start);
         return aDate.getTime() - bDate.getTime();
     });
-} export const getPastEvents = (events: CollectionEntry<"event">[]) => {
+}
+
+export const getPastEvents = (events: CollectionEntry<"event">[]) => {
     const now = new Date();
     return events
         .filter((event) => {

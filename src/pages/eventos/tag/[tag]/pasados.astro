@@ -1,0 +1,123 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getPastEvents, slugify } from "@/utils";
+import Title from "@/components/Title.astro";
+import Calendar from "@/components/Calendar.astro";
+import EventMini from "@/components/EventMini.astro";
+import Product from "@/components/Product.astro";
+import products from "@/products.json";
+
+export async function getStaticPaths() {
+    const events = await getCollection("event");
+    const tags = new Set<string>();
+    events.forEach((event: CollectionEntry<"event">) => {
+        event.data.tags?.forEach((tag) => {
+            if (tag) tags.add(tag);
+        });
+    });
+    return Array.from(tags).map((tag) => ({
+        params: { tag: slugify(tag) },
+        props: { tag },
+    }));
+}
+
+const { tag } = Astro.props;
+
+const events = (await getCollection(
+    "event",
+    ({ data }) =>
+        data.tags &&
+        data.tags.some((t) => t && Astro.params.tag.match(slugify(t))),
+)).filter((event) => !event.data.startRecur);
+
+const past = getPastEvents(events);
+const firstPastDate = past.length > 0 ? new Date(past[0].data.start) : null;
+
+const shops = (await getCollection("shop")).filter(
+    (shop) => shop.data.section && shop.data.section.find((s) => s.name == tag),
+);
+---
+
+<Layout
+    title={`Eventos pasados de ${tag}`}
+    description={`Listado de eventos pasados de juegos de mesa con la etiqueta ${tag}.`}
+>
+    <Header />
+    <main class="flex-1 mb-6">
+        <Title title={`Eventos pasados de ${tag}`} />
+        <section
+            class="w-full max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 mt-6"
+        >
+            <section>
+                <h2 class="text-3xl mb-4">Eventos pasados de {tag}</h2>
+                {
+                    past.length === 0 && (
+                        <p class="text-gray-500">No hay eventos pasados.</p>
+                    )
+                }
+                <section class="space-y-2">
+                    {
+                        past.map((event) => (
+                            <EventMini {...event} />
+                        ))
+                    }
+                </section>
+            </section>
+            <section>
+                <Calendar events={past} date={firstPastDate?.toISOString()} class="h-150!" />
+
+                {
+                    shops.length > 0 && (
+                        <section class="w-full mt-6">
+                            <h2 class="text-2xl mb-4">Tiendas</h2>
+                            <div class="space-y-2">
+                                {shops.map(({ data }) => (
+                                    <article
+                                        class="p-4 border-l-6 bg-center bg-cover bg-no-repeat hover:bg-(--event-color) transition-colors"
+                                        style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
+                                    >
+                                        <a
+                                            href={`${data.url}&url=${data.section?.find((s) => s.name === tag)?.url}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {data.image && (
+                                                <img
+                                                    src={data.image.toString()}
+                                                    alt={data.name}
+                                                    class="h-8 object-contain"
+                                                />
+                                            )}
+                                            <p class="ml-1 mt-1 text-sm">
+                                                Sección de {tag} en {data.name}
+                                            </p>
+                                        </a>
+                                    </article>
+                                ))}
+                            </div>
+                        </section>
+                    )
+                }
+            </section>
+        </section>
+
+        {
+            tag in products && (
+                <section class="w-full max-w-6xl mx-auto px-4 mt-6">
+                    <h2 class="text-3xl mb-4">Puede que te guste...</h2>
+                    <section class="flex flex-wrap gap-0.5">
+                        {products[tag as keyof typeof products]?.map(
+                            (product: any) => (
+                                <Product data={{ ...product }} />
+                            ),
+                        )}
+                    </section>
+                </section>
+            )
+        }
+    </main>
+    <Footer />
+</Layout>

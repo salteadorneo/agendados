@@ -1,0 +1,107 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getPastEvents, provinces, slugify } from "@/utils";
+import List from "@/components/List.astro";
+import Title from "@/components/Title.astro";
+import Calendar from "@/components/Calendar.astro";
+import EventMini from "@/components/EventMini.astro";
+
+export async function getStaticPaths() {
+    return Array.from(provinces).map((province) => ({
+        params: { province: slugify(province) },
+        props: { province },
+    }));
+}
+
+const { province } = Astro.props;
+
+const events = (await getCollection(
+    "event",
+    ({ data }) =>
+        data.province && Astro.params.province.match(slugify(data.province)),
+)).filter((event) => !event.data.startRecur);
+
+const past = getPastEvents(events);
+
+const firstPastDate = past.length > 0
+    ? new Date(past[0].data.start)
+    : null;
+
+const shops = await getCollection(
+    "shop",
+    ({ data }) => data.provinces && data.provinces.includes(province),
+);
+---
+
+<Layout
+    title={`Eventos pasados en ${province}`}
+    description={`Listado de eventos pasados de juegos de mesa en ${province}.`}
+>
+    <Header />
+    <main class="flex-1 mb-6">
+        <Title title={`Eventos pasados en ${province}`} />
+        <section
+            class="w-full max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 mt-6"
+        >
+            <section>
+                <h2 class="text-3xl mb-4">
+                    Eventos pasados en {province}
+                </h2>
+                {
+                    past.length === 0 && (
+                        <p class="text-gray-500">
+                            No hay eventos pasados en {province}.
+                        </p>
+                    )
+                }
+                <section class="space-y-2">
+                    {
+                        past.map((event) => (
+                            <EventMini {...event} />
+                        ))
+                    }
+                </section>
+            </section>
+            <section>
+                <Calendar events={past} date={firstPastDate?.toISOString()} class="h-150!" />
+
+                {
+                    shops.length > 0 && (
+                        <section class="w-full mt-6">
+                            <h2 class="text-3xl mb-4">
+                                Tiendas de juegos en {province}
+                            </h2>
+                            <div class="space-y-2">
+                                {shops.map(({ data }) => (
+                                    <article
+                                        class="p-4 border-l-20 bg-center bg-cover bg-no-repeat hover:bg-(--event-color) transition-colors"
+                                        style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
+                                    >
+                                        <a
+                                            href={data.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {data.image && (
+                                                <img
+                                                    src={data.image.toString()}
+                                                    alt={data.name}
+                                                    class="h-12 object-contain"
+                                                    itemprop="image"
+                                                />
+                                            )}
+                                        </a>
+                                    </article>
+                                ))}
+                            </div>
+                        </section>
+                    )
+                }
+            </section>
+        </section>
+    </main>
+    <Footer />
+</Layout>
