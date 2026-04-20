@@ -1,18 +1,20 @@
 ---
-title: 'Toledum II'
-description: 'Segunda edición de las jornadas de juegos de mesa Toledum.'
+title: 'II Festival Internacional Toledum'
+description: 'Segunda edición del Festival Internacional de Juegos de Mesa Toledum, con zona de juego libre, editoriales y torneos clasificatorios (Carcassonne, Catán).'
 start: '2026-06-26'
 end: '2026-06-28'
 startTime: '10:00'
 endTime: '20:00'
-location: 'Toledo'
+location: 'Palacio de Congresos El Greco, Toledo'
 province: 'Toledo'
 color: '#e91e63'
-tags: ['Juegos de mesa']
+tags: ['Juegos de mesa', 'Torneos', 'Familiar']
 ---
 
-## Toledum II
+## II Festival Internacional Toledum - Juegos de Mesa
 
-Jornadas de juegos de mesa Toledum II en Toledo. Se celebrarán durante los días 26, 27 y 28 de junio de 2026.
+El Festival Internacional de Juegos de Mesa Toledum celebra su segunda edición los días 26, 27 y 28 de junio de 2026 en el Palacio de Congresos "El Greco" de Toledo. 
 
-*(Nota: Datos generados automáticamente. Revisa la ubicación exacta, los horarios de apertura y cualquier otro detalle antes de hacer merge).*
+Este evento se consolida como uno de los más relevantes del país dentro del ocio familiar, promoviendo alternativas al entretenimiento digital. Durante las jornadas habrá demostraciones, torneos clasificatorios para competiciones internacionales (como Carcassonne y Catán) y zonas de juego libre.
+
+**Fuente:** [Noticias sobre Toledum II]
