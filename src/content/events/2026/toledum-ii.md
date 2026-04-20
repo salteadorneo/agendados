@@ -8,7 +8,7 @@ endTime: '20:00'
 location: 'Palacio de Congresos El Greco, Toledo'
 province: 'Toledo'
 color: '#e91e63'
-tags: ['Juegos de mesa', 'Torneos', 'Familiar']
+tags: ['Juegos de mesa', 'Torneo', 'Familiar', 'Festival']
 ---
 
 ## II Festival Internacional Toledum - Juegos de Mesa
@@ -17,4 +17,4 @@ El Festival Internacional de Juegos de Mesa Toledum celebra su segunda edición 
 
 Este evento se consolida como uno de los más relevantes del país dentro del ocio familiar, promoviendo alternativas al entretenimiento digital. Durante las jornadas habrá demostraciones, torneos clasificatorios para competiciones internacionales (como Carcassonne y Catán) y zonas de juego libre.
 
-**Fuente:** [Noticias sobre Toledum II]
+**Fuente:** Palacio de Congresos El Greco y prensa.
