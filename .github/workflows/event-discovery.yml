@@ -1,0 +1,37 @@
+name: Event Discovery
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Cada lunes a las 9:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install script dependencies
+        run: npm install --no-save openai gray-matter
+
+      - name: Ensure label exists
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create "event-discovery" --description "Automated event discovery" --color "0075ca" 2>/dev/null || true
+
+      - name: Run event discovery
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/discover-events.mjs

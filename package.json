@@ -28,7 +28,9 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "openai": "^4.103.0",
     "@astrojs/check": "^0.9.8",
+    "gray-matter": "^4.0.3",
     "husky": "^9.1.7",
     "typescript": "^5.9.3"
   }
