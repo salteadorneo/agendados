@@ -155,7 +155,7 @@ Reglas:
     // el modelo llama a web_search_preview tantas veces como necesite y
     // devuelve la respuesta final en un único objeto.
     const response = await client.responses.create({
-        model: 'gpt-4o',
+        model: 'gpt-4o-mini',
         tools: [{ type: 'web_search_preview' }],
         instructions: systemPrompt,
         input: userPrompt,
