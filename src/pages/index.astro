@@ -18,13 +18,27 @@ const events = allEvents.filter(
 const futures = getFutureEvents(events);
 
 const upcomingEvents = getFutureEvents(allEvents, true, 365);
-const upcomingProvinces = Array.from(
-	new Set(
-		upcomingEvents
-			.map((event) => event.data.province)
-			.filter((province): province is string => Boolean(province)),
-	),
-).sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
+const provinceNextEvent = upcomingEvents.reduce((map, event) => {
+	const province = event.data.province;
+	if (!province) return map;
+
+	const eventDate = event.instanceDate || new Date(event.data.start);
+	const current = map.get(province);
+
+	if (!current || eventDate < current) {
+		map.set(province, eventDate);
+	}
+
+	return map;
+}, new Map<string, Date>());
+
+const upcomingProvinces = Array.from(provinceNextEvent.entries())
+	.sort((a, b) => {
+		const byDate = a[1].getTime() - b[1].getTime();
+		if (byDate !== 0) return byDate;
+		return a[0].localeCompare(b[0], "es", { sensitivity: "base" });
+	})
+	.map(([province]) => province);
 ---
 
 <Layout>
