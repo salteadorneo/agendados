@@ -2,7 +2,7 @@
 const { events, date, initialView = "dayGridMonth", showToolbarNav = true } = Astro.props;
 ---
 
-<div id="calendar" class={`h-[850px] ${Astro.props.class}`}></div>
+<div id="calendar" class={`h-[850px] w-full min-w-0 ${Astro.props.class}`}></div>
 <style is:inline>
     :root {
         --fc-button-bg-color: #353535;
@@ -105,10 +105,28 @@ const { events, date, initialView = "dayGridMonth", showToolbarNav = true } = As
     });
     calendar.render();
 
+    // FullCalendar can mis-measure when parent layouts are still settling.
+    const refreshCalendarSize = () => calendar.updateSize();
+    requestAnimationFrame(refreshCalendarSize);
+    window.addEventListener("load", refreshCalendarSize);
+    window.addEventListener("resize", refreshCalendarSize);
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== "undefined") {
+        resizeObserver = new ResizeObserver(refreshCalendarSize);
+        resizeObserver.observe(calendarEl);
+    }
+
     document.querySelectorAll(".fc-button-primary").forEach((button) => {
         button.addEventListener("click", function () {
             const currentDate = calendar.getDate();
             localStorage.setItem("calendarDate", currentDate.toISOString());
         });
+    });
+
+    window.addEventListener("beforeunload", () => {
+        window.removeEventListener("load", refreshCalendarSize);
+        window.removeEventListener("resize", refreshCalendarSize);
+        resizeObserver?.disconnect();
     });
 </script>
