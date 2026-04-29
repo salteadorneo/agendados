@@ -20,12 +20,37 @@ const organizers = await getCollection(
     ({ data }) =>
         data.province && Astro.params.province.match(slugify(data.province)),
 );
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inicio",
+            "item": Astro.site?.toString()
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Organizadores",
+            "item": `${Astro.site}organizadores/`
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": province
+        }
+    ]
+};
 ---
 
 <Layout
     title={`Organizadores en ${province}`}
-    description={`Listado de organizadores de eventos en ${province}.`}
+    description={`Listado de organizadores de eventos de juegos de mesa y rol en ${province}, España.`}
 >
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <Header />
     <main class="flex-1 mb-6">
         <Title title={`Organizadores en ${province}`} />

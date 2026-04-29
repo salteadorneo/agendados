@@ -34,12 +34,47 @@ const shops = await getCollection(
     "shop",
     ({ data }) => data.provinces && data.provinces.includes(province),
 );
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inicio",
+            "item": Astro.site?.toString()
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Eventos",
+            "item": `${Astro.site}eventos/`
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": province
+        }
+    ]
+};
+
+const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": `Eventos en ${province}`,
+    "description": `Listado de eventos de juegos de mesa, rol y wargames en ${province}, España.`,
+    "url": `${Astro.site}eventos/${slugify(province)}/`,
+    "inLanguage": "es-ES"
+};
 ---
 
 <Layout
     title={`Eventos en ${province}`}
-    description={`Listado de eventos de juegos de mesa en ${province}.`}
+    description={`Listado de eventos de juegos de mesa, rol y wargames en ${province}, España.`}
 >
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
     <Header />
     <main class="flex-1 mb-6">
         <Title title={`Eventos en ${province}`} />

@@ -14,12 +14,59 @@ const {
 } = Astro.props;
 
 const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
+
+const organizerSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": name,
+    "description": description,
+    ...(image && { "image": image.toString() }),
+    ...(location && {
+        "location": {
+            "@type": "Place",
+            "name": location,
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": province || "España",
+                "addressCountry": "ES"
+            }
+        }
+    }),
+    ...(url && { "url": url }),
+    ...(email && { "email": email })
+};
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inicio",
+            "item": Astro.site?.toString()
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Organizadores",
+            "item": `${Astro.site}organizadores/`
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": name
+        }
+    ]
+};
 ---
 
 <Layout title={name} description={description}>
+    <script type="application/ld+json" set:html={JSON.stringify(organizerSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <HeaderEvent title={name} color={color} />
     <main>
-        <article itemscope itemtype="https://schema.org/Event">
+        <article itemscope itemtype="https://schema.org/Organization">
             <div
                 class={`relative flex items-end py-6 bg-primary bg-center bg-cover bg-no-repeat ${!image && "overflow-hidden2"}`}
                 style={`background-color: ${color};`}
@@ -35,9 +82,10 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                             >
                                 <img
                                     src={image.toString()}
-                                    alt={description || name}
+                                    alt={name}
                                     class="-rotate-y-4 hover:-rotate-y-2 hover:scale-110 transition-all shadow-md"
                                     itemprop="image"
+                                    loading="lazy"
                                 />
                             </a>
                         )
@@ -171,9 +219,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                                     class="flex items-center gap-2 hover:text-primary transition-colors"
                                     onmouseover={`this.style.color='${color}'`}
                                     onmouseout={`this.style.color='inherit'`}
-                                    itemprop="organizer"
-                                    itemscope
-                                    itemtype="https://schema.org/Organization"
+                                    itemprop="email"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +240,7 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                                         <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
                                         <path d="M3 7l9 6l9 -6" />
                                     </svg>
-                                    <span itemprop="email">{email}</span>
+                                    <span>{email}</span>
                                 </a>
                             )
                         }

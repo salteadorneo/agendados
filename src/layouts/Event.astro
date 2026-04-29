@@ -25,13 +25,82 @@ const {
         url,
         email,
         province,
+        tags,
     },
 } = Astro.props;
 
 const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
+
+const eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": title,
+    "description": description,
+    "startDate": startTime ? `${start.toISOString().split("T")[0]}T${startTime}:00` : start.toISOString(),
+    "endDate": end && endTime ? `${end.toISOString().split("T")[0]}T${endTime}:00` : (end ? end.toISOString() : undefined),
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    ...(location && {
+        "location": {
+            "@type": "Place",
+            "name": location,
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": province || "España",
+                "addressCountry": "ES"
+            }
+        }
+    }),
+    ...(image && { "image": image.toString() }),
+    ...(url && { "url": url }),
+    ...(email && {
+        "organizer": {
+            "@type": "Organization",
+            "email": email
+        }
+    }),
+    ...(tags && tags.length > 0 && { "keywords": tags.join(", ") }),
+    "offers": {
+        "@type": "Offer",
+        "url": Astro.url.toString(),
+        "availability": "https://schema.org/InStock"
+    }
+};
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inicio",
+            "item": Astro.site?.toString()
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Eventos",
+            "item": `${Astro.site}eventos/`
+        },
+        ...(province ? [{
+            "@type": "ListItem",
+            "position": 3,
+            "name": province,
+            "item": `${Astro.site}eventos/${province.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}/`
+        }] : []),
+        {
+            "@type": "ListItem",
+            "position": province ? 4 : 3,
+            "name": title
+        }
+    ]
+};
 ---
 
 <Layout title={title} description={description}>
+    <script type="application/ld+json" set:html={JSON.stringify(eventSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <HeaderEvent title={title} color={color} />
     <main>
         <article itemscope itemtype="https://schema.org/Event">
@@ -50,9 +119,10 @@ const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
                             >
                                 <img
                                     src={image.toString()}
-                                    alt={description || title}
+                                    alt={title}
                                     class="-rotate-y-4 hover:-rotate-y-2 hover:scale-110 transition-all shadow-md"
                                     itemprop="image"
+                                    loading="lazy"
                                 />
                             </a>
                         )

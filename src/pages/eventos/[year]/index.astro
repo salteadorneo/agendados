@@ -27,12 +27,37 @@ const events = (await getCollection(
     "event",
     ({ data }) => data.start.getFullYear() === parseInt(year),
 )).filter((event) => !event.data.startRecur);
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inicio",
+            "item": Astro.site?.toString()
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Eventos",
+            "item": `${Astro.site}eventos/`
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": year
+        }
+    ]
+};
 ---
 
 <Layout
     title={`Eventos de ${year}`}
-    description={`Listado de eventos de juegos de mesa en ${year}.`}
+    description={`Listado de eventos de juegos de mesa, rol y wargames celebrados en ${year} en España.`}
 >
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
     <Header />
     <main class="flex-1 mb-6">
         <Title title={`Eventos de ${year}`} />

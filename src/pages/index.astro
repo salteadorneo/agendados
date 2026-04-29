@@ -39,9 +39,23 @@ const upcomingProvinces = Array.from(provinceNextEvent.entries())
 		return a[0].localeCompare(b[0], "es", { sensitivity: "base" });
 	})
 	.map(([province]) => province);
+
+const websiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"name": "Agendados",
+	"url": Astro.site?.toString(),
+	"alternateName": ["Agenda de eventos de rol y juegos de mesa"],
+	"inLanguage": "es-ES",
+	"description": "Agenda de eventos de rol y juegos de mesa en España",
+};
 ---
 
-<Layout>
+<Layout
+	title="Agenda de eventos de juegos de mesa y rol en España"
+	description="Consulta eventos de juegos de mesa, rol y wargames por fecha y ubicación en toda España. Descubre qué se celebra cerca de ti."
+>
+	<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 	<Header />
 	<main class="flex-1 mb-6">
 		<section class="bg-primary text-white w-full py-10 md:py-12">

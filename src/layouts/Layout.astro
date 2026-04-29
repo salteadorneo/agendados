@@ -6,7 +6,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const {
 	title = "Agenda de eventos",
 	description = "Agenda de eventos de rol y juegos de mesa en España",
+	noindex = false,
 } = Astro.props;
+
+const ogImage = new URL("/og-image.png", Astro.site).toString();
 ---
 
 <!doctype html>
@@ -35,17 +38,36 @@ const {
 		<title>{`${title} · Agendados`}</title>
 		<meta name="description" content={description} />
 
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		{!noindex && <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />}
+
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={Astro.url} />
 		<meta property="og:title" content={`${title} · Agendados`} />
 		<meta property="og:description" content={description} />
-		<!-- <meta property="og:image" content={new URL(image.src, Astro.url)} /> -->
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:locale" content="es_ES" />
+		<meta property="og:site_name" content="Agendados" />
 
 		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:url" content={Astro.url} />
 		<meta property="twitter:title" content={`${title} · Agendados`} />
 		<meta property="twitter:description" content={description} />
-		<!-- <meta property="twitter:image" content={new URL(image.src, Astro.url)} /> -->
+		<meta property="twitter:image" content={ogImage} />
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			"name": "Agendados",
+			"url": Astro.site?.toString(),
+			"description": "Agenda de eventos de rol y juegos de mesa en España",
+			"inLanguage": "es-ES",
+			"potentialAction": {
+				"@type": "SearchAction",
+				"target": `${Astro.site}eventos/{search_term_string}`,
+				"query-input": "required name=search_term_string"
+			}
+		})} />
 
 		<script
 			async
