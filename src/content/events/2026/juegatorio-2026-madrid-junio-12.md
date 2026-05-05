@@ -1,8 +1,8 @@
 ---
 title: 'Juegatorio 2026'
 description: 'Espacio gratuito dedicado a los juegos de mesa en La Casa Encendida, con horarios los viernes, sábados y domingos hasta finales de junio.'
-start: '2026-05-08'
-end: '2026-05-10'
+start: '2026-06-12'
+end: '2026-06-14'
 startTime: '16:00'
 endTime: '21:00'
 location: 'La Casa Encendida, Madrid'
