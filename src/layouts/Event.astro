@@ -37,7 +37,7 @@ const eventSchema = {
     "name": title,
     "description": description,
     "startDate": startTime ? `${start.toISOString().split("T")[0]}T${startTime}:00` : start.toISOString(),
-    "endDate": end && endTime ? `${end.toISOString().split("T")[0]}T${endTime}:00` : (end ? end.toISOString() : undefined),
+    "endDate": end && endTime ? `${end.toISOString().split("T")[0]}T${endTime}:00` : (end ? end.toISOString() : (endTime ? `${start.toISOString().split("T")[0]}T${endTime}:00` : start.toISOString())),
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
     ...(location && {
@@ -63,7 +63,10 @@ const eventSchema = {
     "offers": {
         "@type": "Offer",
         "url": Astro.url.toString(),
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "validFrom": startTime ? `${start.toISOString().split("T")[0]}T${startTime}:00` : start.toISOString()
     }
 };
 
