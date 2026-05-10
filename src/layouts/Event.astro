@@ -31,13 +31,27 @@ const {
 
 const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
 
+const startDateStr = start.toISOString().split("T")[0];
+const startDate = startTime ? `${startDateStr}T${startTime}:00` : start.toISOString();
+
+let endDate: string;
+if (end && endTime) {
+    endDate = `${end.toISOString().split("T")[0]}T${endTime}:00`;
+} else if (end) {
+    endDate = end.toISOString();
+} else if (endTime) {
+    endDate = `${startDateStr}T${endTime}:00`;
+} else {
+    endDate = start.toISOString();
+}
+
 const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
     "name": title,
     "description": description,
-    "startDate": startTime ? `${start.toISOString().split("T")[0]}T${startTime}:00` : start.toISOString(),
-    "endDate": end && endTime ? `${end.toISOString().split("T")[0]}T${endTime}:00` : (end ? end.toISOString() : (endTime ? `${start.toISOString().split("T")[0]}T${endTime}:00` : start.toISOString())),
+    "startDate": startDate,
+    "endDate": endDate,
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
     ...(location && {
@@ -66,7 +80,7 @@ const eventSchema = {
         "availability": "https://schema.org/InStock",
         "price": "0",
         "priceCurrency": "EUR",
-        "validFrom": startTime ? `${start.toISOString().split("T")[0]}T${startTime}:00` : start.toISOString()
+        "validFrom": startDate
     }
 };
 
