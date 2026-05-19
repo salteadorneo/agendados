@@ -9,7 +9,6 @@ location: 'La Factoría, Av. de José Gárate 6, 28823 Coslada, Madrid'
 province: 'Madrid'
 color: '#5C4638'
 url: 'https://www.eventbrite.com/e/entradas-coslada-en-rol-2026-1987491073302'
-tags: ['Rol', 'Juegos de mesa', 'Familiar']
 ---
 
 ## Coslada en Rol 2026
