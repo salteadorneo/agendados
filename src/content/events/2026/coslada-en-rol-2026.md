@@ -1,6 +1,6 @@
 ---
 title: 'Coslada en Rol 2026'
-description: 'Jornada rolera en La Factoría (Coslada) con partidas durante todo el día, actividad sorpresa e inscripción online gratuita.'
+description: 'Jornada rolera en La Factoría (Coslada), con horario 10:00-14:00 y 16:00-20:00, actividad sorpresa e inscripción online gratuita.'
 start: '2026-06-06'
 end: '2026-06-06'
 startTime: '10:00'
