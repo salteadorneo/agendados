@@ -8,6 +8,7 @@ province: 'Toledo'
 color: '#D41568'
 url: 'https://toledum.com/'
 tags: ['Juegos de mesa', 'Feria', 'Torneo']
+image: 'https://toledum.com/wp-content/themes/toledum/assets/img/toledum-2026.jpg'
 ---
 
 Toledum celebra su **segunda edición** del **26 al 28 de junio de 2026** en el **Palacio de Congresos El Greco de Toledo**, con **entrada gratuita** y la ambición de superar el éxito de 2025, cuando reunió a más de **11.000 asistentes** procedentes de 25 provincias.
