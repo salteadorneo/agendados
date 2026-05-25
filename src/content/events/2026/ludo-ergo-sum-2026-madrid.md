@@ -5,7 +5,8 @@ start: "2026-09-18"
 end: "2026-09-20"
 location: "La Nave, Madrid"
 province: "Madrid"
-url: "https://www.instagram.com/p/DVXz8GdjfL_/?hl=es&img_index=1"
+color: "#F97316"
+url: "https://www.ludoergosum.org/jornadas-les/"
 tags: ['Festival', 'Juegos de mesa', 'Rol']
 ---
 
