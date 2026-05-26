@@ -18,9 +18,6 @@ const slugify = (text: string) => {
 
 const slug = slugify(data.programName.replace(" ES", ""));
     
-    console.log("slug", slug);
-
-
 const shop = (await getCollection("shop")).find((shop) => shop.id === slug);
 ---
 
