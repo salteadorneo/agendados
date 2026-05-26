@@ -1,3 +1,11 @@
+---
+const { basePath = "/eventos" } = Astro.props;
+
+const normalizedBasePath = basePath.startsWith("/")
+    ? basePath
+    : `/${basePath}`;
+---
+
 <svg
     id="wrapper"
     viewBox="140 20 1110 860"
@@ -1669,9 +1677,13 @@
             cursor: pointer;
         }
     }
+    tspan {
+        display: none;
+    }
 </style>
 
-<script is:inline>
+<script is:inline define:vars={{ normalizedBasePath }}>
+    const basePath = normalizedBasePath;
     const groups = document.querySelectorAll(
         "svg g[id=provinces] g[id*='group']",
     );
@@ -1679,7 +1691,7 @@
         group.addEventListener("click", () => {
             const id = group.getAttribute("id");
             if (id) {
-                window.location.href = `/eventos/${slugify(id.replace("_group", ""))}/`;
+                window.location.href = `${basePath}/${slugify(id.replace("_group", ""))}/`;
             }
         });
     });
