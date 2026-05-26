@@ -8,7 +8,7 @@ twitter: "https://twitter.com/JupiterJuegos"
 youtube: "https://www.youtube.com/jupiterjuegos"
 location: "C/San Roque nº15, bajo Izq, 19002 Guadalajara"
 province: "Guadalajara"
-description: "Tienda especializada en juegos de mesa, TCG y entretenimiento con eventos regulares y torneos semanales"
+description: "Tienda de Guadalajara especializada en juegos de mesa, TCG y miniaturas."
 color: "#1B7DBF"
 ---
 
@@ -16,7 +16,7 @@ color: "#1B7DBF"
 
 **Jupiter Juegos Guadalajara** es una tienda especializada ubicada en el centro de Guadalajara que forma parte de la reconocida cadena **Jupiter Juegos**. La tienda se ha convertido en un punto de referencia para los aficionados a los juegos de mesa y cartas coleccionables en la provincia.
 
-### 🎯 Especialidades
+### Especialidades
 
 - **Juegos de Mesa** - Amplio catálogo de board games
 - **Trading Card Games (TCG)** - Magic, Yu-Gi-Oh!, Pokémon, One Piece, Star Wars Unlimited
@@ -24,31 +24,27 @@ color: "#1B7DBF"
 - **Miniaturas y Wargames**
 - **Accesorios de juego**
 
-### 🏆 Eventos Regulares
+### Eventos regulares
 
 La tienda organiza **eventos semanales** que incluyen:
-- **Torneos de Yu-Gi-Oh!** (jueves y domingos)
-- **Magic: The Gathering** Commander FNM (viernes) y Modern (sábados)
-- **One Piece TCG** (sábados)
-- **Star Wars Unlimited** (sábados)
-- **Digimon TCG** (sábados)
-- **Final Fantasy TCG** (domingos)
-- **Weiß Schwarz** (domingos)
-- **Wargames** (domingos)
-- **Reserva de mesas** para juego libre (todos los días)
+- **Torneos de Yu-Gi-Oh!**
+- **Magic: The Gathering** en distintos formatos
+- **One Piece TCG**
+- **Star Wars Unlimited**
+- **Digimon TCG**
+- **Final Fantasy TCG**
+- **Weiß Schwarz**
+- **Wargames**
+- **Reserva de mesas** para juego libre
 
-### 📍 Ubicación y Contacto
+### Ubicación y contacto
 
 - **Dirección:** C/San Roque nº15, bajo Izq, 19002 Guadalajara
 - **Teléfono:** 949 40 92 40 / 615 416 667
 - **Email:** guadalajara@jupiterjuegos.com
 - **Grupo Facebook:** [Jupiter Guadalajara](https://www.facebook.com/groups/jupiterguadalajara/)
 
-### 🕒 Horarios
-
-- **Lunes a Domingo:** 11:00 - 14:30 y 17:00 - 21:00
-
-### 🌟 Servicios
+### Servicios
 
 - **Torneos oficiales** con premios en productos
 - **Espacio de juego** con mesas disponibles

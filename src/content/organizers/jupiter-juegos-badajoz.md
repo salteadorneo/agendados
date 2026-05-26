@@ -2,6 +2,7 @@
 name: "Jupiter Juegos Badajoz"
 location: "Badajoz"
 province: "Badajoz"
+description: "Tienda de Badajoz especializada en juegos de mesa, TCG y miniaturas."
 url: "https://www.jupiterjuegos.com/tiendas/?tienda=jupiter-badajoz"
 facebook: "https://www.facebook.com/groups/JupiterBadajoz/"
 instagram: "https://www.instagram.com/jupiterjuegos/"

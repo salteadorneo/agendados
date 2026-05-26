@@ -1,6 +1,6 @@
 ---
 name: "Jueganess"
-description: "Asociación cultural sin ánimo de lucro fundada en 2018 en Leganés (Madrid), dedicada a fomentar el ocio alternativo y sano mediante juegos de mesa, rol y cartas para adultos e infantiles."
+description: "Asociación cultural de Leganés que organiza actividades de juegos de mesa, rol y cartas para distintos públicos."
 url: "https://jueganess.org/"
 color: "#4561AA"
 email: "info@jueganess.org"

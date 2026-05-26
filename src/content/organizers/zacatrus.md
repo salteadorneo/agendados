@@ -1,6 +1,6 @@
 ---
 name: "Zacatrus"
-description: "Tienda y marca especializada en juegos de mesa, organizadora de torneos, presentaciones y actividades en tienda."
+description: "Tienda especializada en juegos de mesa que organiza torneos y presentaciones."
 url: "https://zacatrus.es/"
 ---
 

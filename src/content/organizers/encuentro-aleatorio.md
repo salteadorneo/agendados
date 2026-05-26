@@ -4,7 +4,7 @@ instagram: "https://www.instagram.com/encuentroaleatorio/"
 facebook: "https://www.facebook.com/encuentroaleatoriomurcia"
 location: "Calle 4 Caminos, n°76, Murcia"
 province: "Murcia"
-description: "Asociación dedicada al rol, los juegos de mesa y las miniaturas en Murcia. ¡Si quieres venir a jugar a nuestro local ponte en contacto con nosotros!"
+description: "Asociación de Murcia dedicada al rol, los juegos de mesa y las miniaturas."
 color: "#E1306C"
 ---
 
@@ -12,20 +12,20 @@ color: "#E1306C"
 
 **Encuentro Aleatorio** es una asociación ubicada en Murcia dedicada al mundo del rol, los juegos de mesa y las miniaturas. Con una activa comunidad de **894 seguidores** en Instagram y más de **785 publicaciones**, se ha convertido en un punto de referencia para los aficionados a estos hobbies en la región.
 
-### 🎲 Especialidades
+### Especialidades
 
 - **Juegos de rol** (especialmente Dungeons & Dragons)
 - **Juegos de mesa** variados
 - **Miniaturas** y modelismo
 - **Eventos comunitarios** regulares
 
-### 📍 Ubicación
+### Ubicación
 
 La asociación cuenta con un **local físico** donde los miembros pueden reunirse para jugar:
 
 **Dirección:** Calle 4 Caminos, n°76, Murcia, Murcia 30007
 
-### 👥 Comunidad Activa
+### Comunidad activa
 
 Encuentro Aleatorio mantiene una **comunidad muy activa** en redes sociales, compartiendo regularmente:
 
@@ -34,7 +34,7 @@ Encuentro Aleatorio mantiene una **comunidad muy activa** en redes sociales, com
 - Novedades del mundo del rol y juegos de mesa
 - Fotos de las partidas y encuentros
 
-### 🌐 Redes Sociales
+### Redes sociales
 
 - **Instagram:** [@encuentroaleatorio](https://www.instagram.com/encuentroaleatorio/) - 894 seguidores
 - **Facebook:** [encuentroaleatoriomurcia](https://www.facebook.com/encuentroaleatoriomurcia)

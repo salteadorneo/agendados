@@ -1,6 +1,6 @@
 ---
 name: "Jugamos Tod@s"
-description: "Asociación cordobesa referente en la organización de festivales gratuitos de juegos de mesa."
+description: "Asociación de Córdoba que organiza festivales y actividades de juegos de mesa."
 location: "Córdoba"
 province: "Córdoba"
 ---
