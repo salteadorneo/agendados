@@ -8,7 +8,7 @@ location: "Centro Polivalente Abogados de Atocha, C/ Londres 11B, Torrejón de A
 province: "Madrid"
 color: "#6A1B9A"
 url: "https://www.2d6mag.es/noticias/19_5_26_discipulos_day"
-tags: ['Juegos de mesa', 'Rol', 'Demostraciones', 'Presentacion']
+tags: ['Juegos de mesa', 'Rol', 'Demostraciones', 'Presentación']
 ---
 
 **Discípulos Day 2026**
