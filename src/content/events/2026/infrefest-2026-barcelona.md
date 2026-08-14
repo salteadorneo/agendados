@@ -1,6 +1,6 @@
 ---
 title: 'Infrefest 2026 - IV Edición'
-description: 'Cuarta edición del festival Infrefest de Infrecuentes con Magic: The Gathering, juegos de rol, juegos de mesa y TCGs en La Farga de L\'Hospitalet, Barcelona.'
+description: "Cuarta edición del festival Infrefest de Infrecuentes con Magic: The Gathering, juegos de rol, juegos de mesa y TCGs en La Farga de L'Hospitalet, Barcelona."
 start: '2026-09-05'
 end: '2026-09-06'
 startTime: '10:00'

@@ -10,7 +10,7 @@ endRecur: '2026-09-01'
 location: 'Plaza Alta, Casco Antiguo de Badajoz'
 province: 'Badajoz'
 color: '#E91E63'
-tags: ['Juegos de mesa', 'Demostraciones', 'Familiar', 'Iniciacion']
+tags: ['Juegos de mesa', 'Demostraciones', 'Familiar', 'Iniciación']
 ---
 
 Todos los sábados de agosto de 2026, la Plaza Alta del Casco Antiguo de Badajoz se convierte en el escenario de juegos de mesa organizado por la asociación "Entorno al fuego", dentro del programa "Vive el verano en Badajoz" impulsado por la Concejalía de Juventud.

@@ -7,7 +7,7 @@ location: "Centro Cívico Sindicalistas Soto, Saborido y Acosta (La Ranilla), Ne
 province: "Sevilla"
 color: "#E91E63"
 url: "https://sevillarolweek.com/"
-tags: ["Rol", "Formacion"]
+tags: ["Rol", "Formación"]
 ---
 
 La **Sevilla Rol Week 2026** es el I Encuentro de Emprendimiento, Educación y Juegos de Rol de Sevilla, con el lema "empresa, formación y rol en un mismo espacio". Se celebra del 22 al 27 de septiembre de 2026.
