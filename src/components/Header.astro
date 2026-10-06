@@ -27,7 +27,7 @@ const upcomingTags = Array.from(
         <a href="/">
             <Logo />
         </a>
-        <div class="hidden lg:flex gap-2 flex-wrap justify-end">
+        <div class="hidden lg:flex gap-2 flex-wrap items-center justify-end">
             {upcomingTags.slice(0, 10).map((tag) => (
                 <a
                     href={`/eventos/tag/${slugify(tag)}`}
@@ -36,6 +36,7 @@ const upcomingTags = Array.from(
                     {tag}
                 </a>
             ))}
+            <search id="autocomplete"></search>
         </div>
     </nav>
 </header>

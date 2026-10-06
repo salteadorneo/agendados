@@ -76,5 +76,9 @@ const ogImage = new URL("/og-image.png", Astro.site).toString();
 	</head>
 	<body class="flex flex-col min-h-screen">
 		<slot />
+
+		<script
+			is:inline
+			src="https://cdn.jsdelivr.net/npm/@algolia/experiences/dist/experiences.js?appId=HH9WNWGBYT&apiKey=21b04b1ff8ba4ae37ff0a46d80a6004d&experienceId=HH9WNWGBYT&env=prod"></script>
 	</body>
 </html>
