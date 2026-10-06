@@ -119,7 +119,7 @@ const websiteSchema = {
 				<dl class="grid grid-cols-3">
 					<div class="flex min-w-0 flex-col-reverse border-l border-[#d6d4cd] pl-3 first:border-0 first:pl-0 sm:pl-8">
 						<dt class="-mt-2 text-xs leading-snug text-[#55544e] sm:text-sm">
-							eventos registrados
+							eventos publicados
 						</dt>
 						<dd class="text-3xl font-bold leading-none tabular-nums text-primary sm:text-5xl">
 							{allEvents.length.toLocaleString("es-ES")}
@@ -127,7 +127,7 @@ const websiteSchema = {
 					</div>
 					<div class="flex min-w-0 flex-col-reverse border-l border-[#d6d4cd] pl-3 sm:pl-8">
 						<dt class="-mt-2 text-xs leading-snug text-[#55544e] sm:text-sm">
-							provincias con eventos
+							provincias
 						</dt>
 						<dd class="text-3xl font-bold leading-none tabular-nums text-primary sm:text-5xl">
 							{provincesWithEvents.size}
@@ -135,7 +135,7 @@ const websiteSchema = {
 					</div>
 					<div class="flex min-w-0 flex-col-reverse border-l border-[#d6d4cd] pl-3 sm:pl-8">
 						<dt class="-mt-2 text-xs leading-snug text-[#55544e] sm:text-sm">
-							{activeYears === 1 ? "año" : "años"} activos
+							{activeYears === 1 ? "año" : "años"} online
 							<!-- <span class="mt-1 block text-[0.7rem] text-[#77766e] sm:text-xs">
 								desde {firstEventYear}
 							</span> -->
