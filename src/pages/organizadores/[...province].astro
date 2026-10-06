@@ -4,12 +4,12 @@ import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import ProvinceMap from "@/components/Map.astro";
-import { provinces, slugify } from "@/utils";
+import { provinces, provinceSlug } from "@/utils";
 import Title from "@/components/Title.astro";
 
 export async function getStaticPaths() {
     return Array.from(provinces).map((province) => ({
-        params: { province: slugify(province) },
+        params: { province: provinceSlug(province) },
         props: { province },
     }));
 }
@@ -19,7 +19,7 @@ const { province } = Astro.props;
 const organizers = await getCollection(
     "organizer",
     ({ data }) =>
-        data.province && Astro.params.province.match(slugify(data.province)),
+        data.province && Astro.params.province === provinceSlug(data.province),
 );
 
 const breadcrumbSchema = {
@@ -93,7 +93,7 @@ const breadcrumbSchema = {
                                         >
                                             {data.province && (
                                                 <a
-                                                    href={`/organizadores/${slugify(data.province)}`}
+                                                    href={`/organizadores/${provinceSlug(data.province)}`}
                                                     class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
                                                     style={`background-color: ${data.color};`}
                                                 >

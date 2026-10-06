@@ -1,5 +1,5 @@
 ---
-import { slugify } from "@/utils";
+import { provinceSlug, slugify } from "@/utils";
 
 const {
     id,
@@ -26,7 +26,7 @@ const {
     {
         province && (
             <a
-                href={`/eventos/${slugify(province)}`}
+                href={`/eventos/${provinceSlug(province)}`}
                 class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
                 style={`background-color: ${color};`}
             >

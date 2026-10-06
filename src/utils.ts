@@ -19,6 +19,17 @@ export const slugify = (text: string) => {
         .replace(/\-$/g, ""); // Remove trailing -
 };
 
+export const provinceSlugAliases: Record<string, string> = {
+    gerona: "girona",
+    ourense: "orense",
+    vizcaya: "bizkaia",
+};
+
+export const provinceSlug = (province: string) => {
+    const slug = slugify(province);
+    return provinceSlugAliases[slug] ?? slug;
+};
+
 export const provinces = [
     "Álava",
     "Albacete",

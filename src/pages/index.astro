@@ -7,7 +7,7 @@ import Calendar from "@/components/Calendar.astro";
 import Title from "@/components/Title.astro";
 import EventMini from "@/components/EventMini.astro";
 import ProvinceMap from "@/components/Map.astro";
-import { getFutureEvents, slugify } from "@/utils";
+import { getFutureEvents, provinceSlug } from "@/utils";
 
 const allEvents = await getCollection("event");
 
@@ -16,18 +16,11 @@ const firstEventYear = allEvents.reduce(
 	(firstYear, event) => Math.min(firstYear, event.data.start.getFullYear()),
 	currentYear,
 );
-const eventProvinceAliases: Record<string, string> = {
-	gerona: "girona",
-	vizcaya: "bizkaia",
-};
 const provincesWithEvents = new Set(
 	allEvents
 		.map((event) => event.data.province)
 		.filter((province): province is string => Boolean(province?.trim()))
-		.map((province) => {
-			const provinceSlug = slugify(province);
-			return eventProvinceAliases[provinceSlug] ?? provinceSlug;
-		}),
+		.map(provinceSlug),
 );
 const activeYears = Math.max(0, currentYear - firstEventYear);
 
@@ -39,9 +32,10 @@ const futures = getFutureEvents(events);
 
 const upcomingEvents = getFutureEvents(allEvents, true, 365);
 const provinceEventCounts = allEvents.reduce((counts, event) => {
-	const province = event.data.province;
-	if (!province) return counts;
+	const eventProvince = event.data.province;
+	if (!eventProvince) return counts;
 
+	const province = provinceSlug(eventProvince);
 	counts.set(province, (counts.get(province) ?? 0) + 1);
 
 	return counts;
@@ -101,7 +95,7 @@ const websiteSchema = {
 					{
 						upcomingProvinces.slice(0, 10).map((province) => (
 							<a
-								href={`/eventos/${slugify(province)}`}
+								href={`/eventos/${provinceSlug(province)}`}
 								class="px-2 py-1 border border-white/20 hover:bg-white/10 transition-colors"
 							>
 								{province}

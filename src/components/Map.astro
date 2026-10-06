@@ -1,4 +1,6 @@
 ---
+import { provinceSlugAliases } from "@/utils";
+
 const { basePath = "/eventos", eventCounts = {} } = Astro.props;
 
 const normalizedBasePath = basePath.startsWith("/")
@@ -1696,14 +1698,16 @@ const normalizedBasePath = basePath.startsWith("/")
     }
 </style>
 
-<script is:inline define:vars={{ normalizedBasePath, eventCounts }}>
+<script is:inline define:vars={{ normalizedBasePath, eventCounts, provinceSlugAliases }}>
     const basePath = normalizedBasePath;
     const groups = document.querySelectorAll(
         "svg g[id=provinces] g[id*='group']",
     );
     groups.forEach((group) => {
         const province = group.getAttribute("id")?.replace("_group", "");
-        const count = province ? eventCounts[province] : undefined;
+        const slug = province ? slugify(province) : "";
+        const routeSlug = provinceSlugAliases[slug] ?? slug;
+        const count = province ? eventCounts[routeSlug] : undefined;
         const label = province
             ? group.querySelector(`#${CSS.escape(province)}_label`)
             : null;
@@ -1767,11 +1771,13 @@ const normalizedBasePath = basePath.startsWith("/")
         group.addEventListener("click", () => {
             const id = group.getAttribute("id");
             if (id) {
-                window.location.href = `${basePath}/${slugify(id.replace("_group", ""))}/`;
+                const slug = slugify(id.replace("_group", ""));
+                const routeSlug = provinceSlugAliases[slug] ?? slug;
+                window.location.href = `${basePath}/${routeSlug}/`;
             }
         });
     });
-    const slugify = (text) => {
+    function slugify(text) {
         if (!text) return "";
         return text
             .toString() // Cast to string (optional)
@@ -1783,5 +1789,5 @@ const normalizedBasePath = basePath.startsWith("/")
             .replace(/\_/g, "-") // Replace _ with -
             .replace(/\-\-+/g, "-") // Replace multiple - with single -
             .replace(/\-$/g, ""); // Remove trailing -
-    };
+    }
 </script>

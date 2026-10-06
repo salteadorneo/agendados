@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import { getPastEvents, provinces, slugify } from "@/utils";
+import { getPastEvents, provinces, provinceSlug } from "@/utils";
 import List from "@/components/List.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
@@ -11,7 +11,7 @@ import EventMini from "@/components/EventMini.astro";
 
 export async function getStaticPaths() {
     return Array.from(provinces).map((province) => ({
-        params: { province: slugify(province) },
+        params: { province: provinceSlug(province) },
         props: { province },
     }));
 }
@@ -21,7 +21,7 @@ const { province } = Astro.props;
 const events = (await getCollection(
     "event",
     ({ data }) =>
-        data.province && Astro.params.province.match(slugify(data.province)),
+        data.province && Astro.params.province === provinceSlug(data.province),
 )).filter((event) => !event.data.startRecur);
 
 const past = getPastEvents(events);
