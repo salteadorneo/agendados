@@ -1,7 +1,7 @@
 {
   "name": "agendados",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -15,16 +15,16 @@
   "dependencies": {
     "@astrojs/mdx": "^5.0.6",
     "@astrojs/react": "^4.4.2",
-    "@astrojs/rss": "^4.0.18",
-    "@astrojs/sitemap": "^3.7.2",
-    "@tailwindcss/vite": "^4.3.0",
-    "@types/react": "^19.2.15",
-    "@types/react-dom": "^19.2.3",
-    "add-to-calendar-button-react": "^2.14.0",
-    "astro": "^6.3.7",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "sharp": "^0.34.5",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "add-to-calendar-button-react": "^2.15.0",
+    "astro": "^6.4.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
