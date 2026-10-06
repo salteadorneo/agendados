@@ -1,5 +1,5 @@
 ---
-const { basePath = "/eventos" } = Astro.props;
+const { basePath = "/eventos", eventCounts = {} } = Astro.props;
 
 const normalizedBasePath = basePath.startsWith("/")
     ? basePath
@@ -1680,14 +1680,85 @@ const normalizedBasePath = basePath.startsWith("/")
     tspan {
         display: none;
     }
+    .event-count-badge {
+        overflow: visible;
+    }
+    .event-count-badge rect {
+        fill: var(--color-primary);
+        stroke: white;
+        stroke-width: 2;
+    }
+    .event-count-badge text {
+        fill: white;
+        font: 700 10px/1 sans-serif;
+        text-anchor: middle;
+        dominant-baseline: middle;
+    }
 </style>
 
-<script is:inline define:vars={{ normalizedBasePath }}>
+<script is:inline define:vars={{ normalizedBasePath, eventCounts }}>
     const basePath = normalizedBasePath;
     const groups = document.querySelectorAll(
         "svg g[id=provinces] g[id*='group']",
     );
     groups.forEach((group) => {
+        const province = group.getAttribute("id")?.replace("_group", "");
+        const count = province ? eventCounts[province] : undefined;
+        const label = province
+            ? group.querySelector(`#${CSS.escape(province)}_label`)
+            : null;
+
+        if (count && label) {
+            const x = Number(label.getAttribute("x"));
+            const y = Number(label.getAttribute("y"));
+            const badgeWidth = Math.max(24, String(count).length * 8 + 12);
+            const badge = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "g",
+            );
+            badge.setAttribute("class", "event-count-badge");
+            badge.setAttribute("transform", `translate(${x}, ${y - 16})`);
+            badge.setAttribute("role", "img");
+            badge.setAttribute(
+                "aria-label",
+                `${province}: ${count} ${count === 1 ? "evento disponible" : "eventos disponibles"}`,
+            );
+            badge.setAttribute("pointer-events", "none");
+
+            const title = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "title",
+            );
+            title.textContent = `${province}: ${count} ${count === 1 ? "evento disponible" : "eventos disponibles"}`;
+            badge.appendChild(title);
+
+            const background = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "rect",
+            );
+            background.setAttribute("x", String(-badgeWidth / 2));
+            background.setAttribute("y", "-9");
+            background.setAttribute("width", String(badgeWidth));
+            background.setAttribute("height", "22");
+            background.setAttribute("rx", "9");
+            badge.appendChild(background);
+
+            const text = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "text",
+            );
+            text.setAttribute("x", "0");
+            text.setAttribute("y", "3");
+            text.setAttribute("fill", "#fff");
+            text.setAttribute(
+                "style",
+                "fill: #fff; font: 700 10px/1 sans-serif; text-anchor: middle; dominant-baseline: middle;",
+            );
+            text.textContent = String(count);
+            badge.appendChild(text);
+            group.appendChild(badge);
+        }
+
         group.addEventListener("click", () => {
             const id = group.getAttribute("id");
             if (id) {

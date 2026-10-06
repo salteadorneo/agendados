@@ -11,6 +11,26 @@ import { getFutureEvents, slugify } from "@/utils";
 
 const allEvents = await getCollection("event");
 
+const currentYear = new Date().getFullYear();
+const firstEventYear = allEvents.reduce(
+	(firstYear, event) => Math.min(firstYear, event.data.start.getFullYear()),
+	currentYear,
+);
+const eventProvinceAliases: Record<string, string> = {
+	gerona: "girona",
+	vizcaya: "bizkaia",
+};
+const provincesWithEvents = new Set(
+	allEvents
+		.map((event) => event.data.province)
+		.filter((province): province is string => Boolean(province?.trim()))
+		.map((province) => {
+			const provinceSlug = slugify(province);
+			return eventProvinceAliases[provinceSlug] ?? provinceSlug;
+		}),
+);
+const activeYears = Math.max(0, currentYear - firstEventYear);
+
 const events = allEvents.filter(
 	(event) => !event.data.startRecur,
 );
@@ -18,6 +38,22 @@ const events = allEvents.filter(
 const futures = getFutureEvents(events);
 
 const upcomingEvents = getFutureEvents(allEvents, true, 365);
+const provinceEventCounts = upcomingEvents.reduce((counts, event) => {
+	const province = event.data.province;
+	if (!province) return counts;
+
+	const provinceEvents = counts.get(province) ?? new Set<string>();
+	provinceEvents.add(event.id);
+	counts.set(province, provinceEvents);
+
+	return counts;
+}, new Map<string, Set<string>>());
+const eventCountsByProvince = Object.fromEntries(
+	Array.from(provinceEventCounts, ([province, provinceEvents]) => [
+		province,
+		provinceEvents.size,
+	]),
+);
 const provinceNextEvent = upcomingEvents.reduce((map, event) => {
 	const province = event.data.province;
 	if (!province) return map;
@@ -86,6 +122,42 @@ const websiteSchema = {
 				</div>
 			</div>
 		</section>
+		<section
+			class="w-full border-y border-[#e2e0d9] bg-[#f1f0eb]"
+			aria-label="Agendados en cifras"
+		>
+			<div class="max-w-6xl mx-auto px-4 py-6 sm:py-8">
+				<dl class="grid grid-cols-3">
+					<div class="flex min-w-0 flex-col-reverse border-l border-[#d6d4cd] pl-3 first:border-0 first:pl-0 sm:pl-8">
+						<dt class="-mt-2 text-xs leading-snug text-[#55544e] sm:text-sm">
+							eventos registrados
+						</dt>
+						<dd class="text-3xl font-bold leading-none tabular-nums text-primary sm:text-5xl">
+							{allEvents.length.toLocaleString("es-ES")}
+						</dd>
+					</div>
+					<div class="flex min-w-0 flex-col-reverse border-l border-[#d6d4cd] pl-3 sm:pl-8">
+						<dt class="-mt-2 text-xs leading-snug text-[#55544e] sm:text-sm">
+							provincias con eventos
+						</dt>
+						<dd class="text-3xl font-bold leading-none tabular-nums text-primary sm:text-5xl">
+							{provincesWithEvents.size}
+						</dd>
+					</div>
+					<div class="flex min-w-0 flex-col-reverse border-l border-[#d6d4cd] pl-3 sm:pl-8">
+						<dt class="-mt-2 text-xs leading-snug text-[#55544e] sm:text-sm">
+							{activeYears === 1 ? "año" : "años"} activos
+							<!-- <span class="mt-1 block text-[0.7rem] text-[#77766e] sm:text-xs">
+								desde {firstEventYear}
+							</span> -->
+						</dt>
+						<dd class="text-3xl font-bold leading-none tabular-nums text-primary sm:text-5xl">
+							{activeYears}
+						</dd>
+					</div>
+				</dl>
+			</div>
+		</section>
 		<Title title="Calendario de eventos" />
 		<section class="w-full max-w-6xl mx-auto px-4">
 			<section class="flex flex-col lg:flex-row items-start gap-8">
@@ -112,7 +184,7 @@ const websiteSchema = {
 					celebran cerca de ti.
 				</p>
 			</div>
-			<ProvinceMap />
+			<ProvinceMap eventCounts={eventCountsByProvince} />
 		</section>
 		<section
 			class="w-full max-w-6xl mx-auto px-4 flex flex-col xl:flex-row items-start gap-8"

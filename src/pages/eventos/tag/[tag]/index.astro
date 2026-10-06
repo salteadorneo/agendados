@@ -101,12 +101,22 @@ const collectionSchema = {
 
                 {
                     past.length > 0 && (
-                        <a
-                            href={`/eventos/tag/${slugify(tag)}/pasados`}
-                            class="inline-block mt-4 text-primary underline hover:no-underline"
-                        >
-                            Ver eventos pasados de {tag}
-                        </a>
+                        <section class="mt-8">
+                            <h2 class="text-3xl mb-4">
+                                Eventos pasados de {tag}
+                            </h2>
+                            <div class="space-y-2">
+                                {past.slice(0, 2).map((event) => (
+                                    <EventMini {...event} />
+                                ))}
+                            </div>
+                            <a
+                                href={`/eventos/tag/${slugify(tag)}/pasados`}
+                                class="inline-block mt-4 text-primary underline hover:no-underline"
+                            >
+                                Ver todos los eventos pasados de {tag}
+                            </a>
+                        </section>
                     )
                 }
             </section>
