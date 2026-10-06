@@ -95,6 +95,33 @@ const collectionSchema = {
                 }
                 <List events={future} />
 
+                <details class="mt-6 border p-4">
+                    <summary class="cursor-pointer font-medium">
+                        ¿Conoces un evento en {province}? Cuéntanoslo
+                    </summary>
+                    <form
+                        action="https://formsubmit.co/c326780740dec55f6c648541c576ce48"
+                        method="POST"
+                        class="space-y-4 flex flex-col mt-4"
+                    >
+                        <input type="hidden" name="_next" value="https://agendados.es/evento/gracias">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="event_province" value={province}>
+                        <textarea
+                            name="event_description"
+                            placeholder="Nombre, descripción, URL, red social, etc."
+                            class="border p-2"
+                            rows="2"
+                            required></textarea>
+                        <input
+                            type="hidden"
+                            name="_gotcha"
+                            style="display:none !important"
+                        />
+                        <button type="submit" class="bg-primary text-white p-2">Enviar</button>
+                    </form>
+                </details>
+
                 {
                     past.length > 0 && (
                         <section class="mt-8">
