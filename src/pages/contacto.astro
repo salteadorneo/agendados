@@ -11,11 +11,12 @@ import Layout from "@/layouts/Layout.astro";
         <Title title="Contacto" />
         <section class="w-full max-w-6xl mx-auto">
             <form
-                class="max-w-md space-y-4 flex flex-col p-4"
+                action="https://formsubmit.co/c326780740dec55f6c648541c576ce48"
                 method="POST"
-                accept-charset="UTF-8"
-                id="form"
+                class="max-w-md space-y-4 flex flex-col p-4"
             >
+                <input type="hidden" name="_next" value="https://agendados.es/gracias">
+                <input type="hidden" name="_captcha" value="false">
                 <input
                     type="email"
                     name="email"
@@ -29,57 +30,9 @@ import Layout from "@/layouts/Layout.astro";
                     class="border p-2"
                     rows="4"
                     required></textarea>
-                <input
-                    type="hidden"
-                    name="_gotcha"
-                    style="display:none !important"
-                />
-                <button class="bg-primary text-white p-2"> Enviar </button>
+                <button type="submit" class="bg-primary text-white p-2">Enviar</button>
             </form>
         </section>
-
-        <script is:inline>
-            document
-                .getElementById("form")
-                .addEventListener("submit", formSubmit);
-
-            function formSubmit(e) {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const button = e.target.querySelector("button");
-                const originalText = button.textContent;
-
-                button.textContent = "Enviando...";
-                button.disabled = true;
-
-                fetch("https://formail.onrender.com", {
-                    method: "POST",
-                    body: formData,
-                })
-                    .then(async (response) => {
-                        const data = await response.json();
-                        if (response.ok && data.success) {
-                            alert("¡Mensaje enviado correctamente!");
-                            e.target.reset();
-                        } else {
-                            alert(
-                                "Error al enviar el mensaje: " +
-                                    (data.message || "Error desconocido"),
-                            );
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
-                        alert(
-                            "Error de conexión. Verifica que el servidor esté ejecutándose.",
-                        );
-                    })
-                    .finally(() => {
-                        button.textContent = originalText;
-                        button.disabled = false;
-                    });
-            }
-        </script>
     </main>
     <Footer />
 </Layout>
