@@ -38,21 +38,16 @@ const events = allEvents.filter(
 const futures = getFutureEvents(events);
 
 const upcomingEvents = getFutureEvents(allEvents, true, 365);
-const provinceEventCounts = upcomingEvents.reduce((counts, event) => {
+const provinceEventCounts = allEvents.reduce((counts, event) => {
 	const province = event.data.province;
 	if (!province) return counts;
 
-	const provinceEvents = counts.get(province) ?? new Set<string>();
-	provinceEvents.add(event.id);
-	counts.set(province, provinceEvents);
+	counts.set(province, (counts.get(province) ?? 0) + 1);
 
 	return counts;
-}, new Map<string, Set<string>>());
+}, new Map<string, number>());
 const eventCountsByProvince = Object.fromEntries(
-	Array.from(provinceEventCounts, ([province, provinceEvents]) => [
-		province,
-		provinceEvents.size,
-	]),
+	provinceEventCounts,
 );
 const provinceNextEvent = upcomingEvents.reduce((map, event) => {
 	const province = event.data.province;

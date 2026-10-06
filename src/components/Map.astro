@@ -1709,7 +1709,12 @@ const normalizedBasePath = basePath.startsWith("/")
             : null;
 
         if (count && label) {
-            const x = Number(label.getAttribute("x"));
+            const provincePath = group.querySelector("path");
+            const provinceBounds = provincePath?.getBBox();
+            const x =
+                province === "Pontevedra" && provinceBounds
+                    ? provinceBounds.x + provinceBounds.width / 2
+                    : Number(label.getAttribute("x"));
             const y = Number(label.getAttribute("y"));
             const badgeWidth = Math.max(24, String(count).length * 8 + 12);
             const badge = document.createElementNS(
