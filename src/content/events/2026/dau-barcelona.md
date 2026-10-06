@@ -46,9 +46,9 @@ El festival suele abrir de 10:00h a 20:00h durante los cuatro días del evento.
 
 La antigua fábrica Fabra i Coats en Sant Andreu (Barcelona) es un espacio emblemático perfectamente conectado por transporte público.
 
-## Fechas Estimadas
+## Fechas
 
-Aunque las fechas exactas para 2026 no están confirmadas, tradicionalmente DAU se celebra en noviembre (estimado del 12 al 15 de noviembre).
+La edición de 2026 se celebrará del 12 al 15 de noviembre.
 
 ## Público
 
