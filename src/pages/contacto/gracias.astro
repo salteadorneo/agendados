@@ -1,0 +1,20 @@
+---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import Title from "@/components/Title.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Gracias por contactarnos" description="Confirmación de envío de mensaje en Agendados." noindex>
+    <Header />
+    <main class="flex-1">
+        <Title title="Mensaje enviado" />
+        <section class="w-full max-w-6xl mx-auto px-4 py-8">
+            <p>
+                Gracias por contactarnos. ¡Estamos emocionados de recibir tu mensaje!
+                Pronto será revisado y nos pondremos en contacto contigo.
+            </p>
+        </section>
+    </main>
+    <Footer />
+</Layout>

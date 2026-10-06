@@ -29,11 +29,12 @@ import Layout from "@/layouts/Layout.astro";
                 </p>
             </div>
             <form
-                class="space-y-4 flex flex-col"
+                action="https://formsubmit.co/c326780740dec55f6c648541c576ce48"
                 method="POST"
-                accept-charset="UTF-8"
-                id="form"
+                class="space-y-4 flex flex-col"
             >
+                <input type="hidden" name="_next" value="https://agendados.es/evento/gracias">
+                <input type="hidden" name="_captcha" value="false">
                 <input
                     name="event_name"
                     placeholder="Nombre del evento"
@@ -82,7 +83,7 @@ import Layout from "@/layouts/Layout.astro";
                     name="_gotcha"
                     style="display:none !important"
                 />
-                <button class="bg-primary text-white p-2">Enviar</button>
+                <button type="submit" class="bg-primary text-white p-2">Enviar</button>
                 <p class="text-sm text-gray-500">
                     Al enviar este formulario, aceptas que la información
                     proporcionada sea utilizada para publicar el evento en el
@@ -90,49 +91,6 @@ import Layout from "@/layouts/Layout.astro";
                 </p>
             </form>
         </section>
-
-        <script is:inline>
-            document
-                .getElementById("form")
-                .addEventListener("submit", formSubmit);
-
-            function formSubmit(e) {
-                e.preventDefault();
-                const formData = new FormData(e.target);
-                const button = e.target.querySelector("button");
-                const originalText = button.textContent;
-
-                button.textContent = "Enviando...";
-                button.disabled = true;
-
-                fetch("https://formail.onrender.com", {
-                    method: "POST",
-                    body: formData,
-                })
-                    .then(async (response) => {
-                        const data = await response.json();
-                        if (response.ok && data.success) {
-                            alert("¡Mensaje enviado correctamente!");
-                            e.target.reset();
-                        } else {
-                            alert(
-                                "Error al enviar el mensaje: " +
-                                    (data.message || "Error desconocido"),
-                            );
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
-                        alert(
-                            "Error de conexión. Verifica que el servidor esté ejecutándose.",
-                        );
-                    })
-                    .finally(() => {
-                        button.textContent = originalText;
-                        button.disabled = false;
-                    });
-            }
-        </script>
     </main>
     <Footer />
 </Layout>

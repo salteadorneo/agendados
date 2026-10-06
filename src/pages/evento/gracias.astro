@@ -1,0 +1,20 @@
+---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import Title from "@/components/Title.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Gracias por enviar tu evento" description="Confirmación de envío de evento en Agendados." noindex>
+    <Header />
+    <main class="flex-1">
+        <Title title="Evento enviado" />
+        <section class="w-full max-w-6xl mx-auto px-4 py-8">
+            <p>
+                Gracias por enviar tu evento. ¡Estamos emocionados de recibirlo!
+                Pronto será revisado y publicado en la agenda.
+            </p>
+        </section>
+    </main>
+    <Footer />
+</Layout>
