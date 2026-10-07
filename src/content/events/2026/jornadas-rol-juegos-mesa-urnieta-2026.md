@@ -17,9 +17,13 @@ Los días 24 y 25 de octubre celebramos nuestras jornadas anuales en la Casa de 
 Durante el fin de semana podréis disfrutar de diferentes actividades relacionadas con los juegos de rol y, el domingo, también de juegos de mesa.
 
 🎲 Sábado 24: partidas de rol
+
 🎲 Domingo 25: partidas de rol y juegos de mesa
+
 🕟 Horario: 16:30 – 21:00
+
 📍 Lugar: Casa de Cultura Lekaio, Urnieta
+
 💸 Entrada gratuita
 
 Tanto si llevas años tirando dados como si nunca has jugado a rol, ¡estás invitado/a a participar!
