@@ -1,0 +1,50 @@
+﻿name: Weekly Newsletter
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'  # Cada lunes a las 7:00 UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Generar HTML sin enviar (se sube como artefacto)'
+        type: boolean
+        default: false
+      test_to:
+        description: 'Enviar solo a este email (en vez de a la audiencia)'
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  newsletter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install script dependencies
+        run: npm install --no-save openai gray-matter
+
+      - name: Generate and send newsletter
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_AUDIENCE_ID: ${{ secrets.RESEND_AUDIENCE_ID }}
+          MAIL_FROM: ${{ vars.MAIL_FROM }}
+          RESEND_TEST_TO: ${{ inputs.test_to }}
+          DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+        run: node scripts/weekly-newsletter.mjs
+
+      - name: Upload preview
+        if: ${{ inputs.dry_run }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: newsletter-preview
+          path: newsletter-preview.html
+
