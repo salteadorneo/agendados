@@ -12,6 +12,16 @@ tags: ['Rol', 'Juegos de mesa']
 instagram: 'https://www.instagram.com/habitantesdeinnsmouth/'
 ---
 
-Las **Jornadas de Rol y Juegos de Mesa** se celebran el **24 y 25 de octubre de 2026** en la Casa de Cultura Lekaio, en Urnieta.
+Los días 24 y 25 de octubre celebramos nuestras jornadas anuales en la Casa de Cultura Lekaio de Urnieta.
 
-El sábado habrá partidas de rol; el domingo, partidas de rol y juegos de mesa. El horario es de **16:30 a 21:00** y la entrada es gratuita. La actividad está dirigida tanto a personas que se inician como a jugadores con experiencia.
+Durante el fin de semana podréis disfrutar de diferentes actividades relacionadas con los juegos de rol y, el domingo, también de juegos de mesa.
+
+🎲 Sábado 24: partidas de rol
+🎲 Domingo 25: partidas de rol y juegos de mesa
+🕟 Horario: 16:30 – 21:00
+📍 Lugar: Casa de Cultura Lekaio, Urnieta
+💸 Entrada gratuita
+
+Tanto si llevas años tirando dados como si nunca has jugado a rol, ¡estás invitado/a a participar!
+
+Más información en insmouth.com y en Instagram @habitantesdeinnsmouth.
