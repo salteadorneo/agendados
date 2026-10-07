@@ -1,7 +1,7 @@
 ---
 title: "Planes de juegos y cartas del 28 de septiembre al 4 de octubre"
 description: "Torneos de Magic, Yu-Gi-Oh!, One Piece y más, además de Japan Weekend Bilbao: descubre los eventos de juegos de la semana."
-date: "2026-10-07"
+date: "2026-09-28"
 week: "2026-09-28"
 ---
 

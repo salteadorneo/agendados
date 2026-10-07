@@ -24,15 +24,15 @@ const fmt = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
 	<Header />
 	<main class="flex-1 mb-6">
 		<Title title={post.data.title} />
-		<article class="w-full max-w-3xl mx-auto px-4 py-6">
-			<p class="mb-6 text-sm text-gray-500">
+		<article class="w-full max-w-6xl mx-auto px-4 py-6">
+			<p class="max-w-3xl mb-6 text-sm text-gray-500">
 				<a href="/blog" class="hover:underline">← Blog</a> ·
 				<time datetime={post.data.date.toISOString()}>
 					{fmt.format(post.data.date)}
 				</time>
 			</p>
 			<div
-				class="space-y-4 leading-relaxed [&_h2]:text-2xl [&_h2]:mt-8 [&_h3]:text-xl [&_h3]:mt-6 [&_a]:underline [&_a]:text-primary [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6"
+				class="max-w-3xl space-y-4 leading-relaxed [&_h2]:text-2xl [&_h2]:mt-8 [&_h3]:text-xl [&_h3]:mt-6 [&_a]:underline [&_a]:text-primary [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6"
 			>
 				<Content />
 			</div>

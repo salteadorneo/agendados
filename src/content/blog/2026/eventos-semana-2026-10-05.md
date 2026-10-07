@@ -1,7 +1,7 @@
 ---
 title: "Juegos y torneos del 5 al 11 de octubre"
 description: "Festival de Córdoba, torneos de Magic y otros TCG, y una cita competitiva de Age of Sigmar para animar la semana."
-date: "2026-10-07"
+date: "2026-10-05"
 week: "2026-10-05"
 ---
 
