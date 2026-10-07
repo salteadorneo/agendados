@@ -1,0 +1,45 @@
+﻿name: Weekly Blog Post
+
+on:
+  schedule:
+    - cron: '0 7 * * 2'  # Cada martes a las 7:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install script dependencies
+        run: npm install --no-save openai gray-matter
+
+      - name: Generate post
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: ${{ vars.OPENROUTER_MODEL }}
+        run: node scripts/weekly-post.mjs
+
+      - name: Commit and deploy
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -z "$(git status --porcelain src/content/blog)" ]; then
+            echo "Nada que publicar"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/blog
+          git commit -m "blog: evento semanal automatico"
+          git push
+          # Los pushes con GITHUB_TOKEN no disparan otros workflows
+          gh workflow run deploy.yml

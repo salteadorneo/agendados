@@ -1,0 +1,42 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import Layout from "@/layouts/Layout.astro";
+import Title from "@/components/Title.astro";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog");
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { Content } = await render(post);
+
+const fmt = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
+---
+
+<Layout title={post.data.title} description={post.data.description}>
+	<Header />
+	<main class="flex-1 mb-6">
+		<Title title={post.data.title} />
+		<article class="w-full max-w-3xl mx-auto px-4 py-6">
+			<p class="mb-6 text-sm text-gray-500">
+				<a href="/blog" class="hover:underline">← Blog</a> ·
+				<time datetime={post.data.date.toISOString()}>
+					{fmt.format(post.data.date)}
+				</time>
+			</p>
+			<div
+				class="space-y-4 leading-relaxed [&_h2]:text-2xl [&_h2]:mt-8 [&_h3]:text-xl [&_h3]:mt-6 [&_a]:underline [&_a]:text-primary [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6"
+			>
+				<Content />
+			</div>
+		</article>
+	</main>
+	<Footer />
+</Layout>
