@@ -113,7 +113,12 @@ function loadExistingEvents() {
 }
 
 async function discoverEvents() {
-    const client = new OpenAI();
+    if (!process.env.OPENROUTER_API_KEY) throw new Error('Falta OPENROUTER_API_KEY');
+    const client = new OpenAI({
+        apiKey: process.env.OPENROUTER_API_KEY,
+        baseURL: 'https://openrouter.ai/api/v1',
+        defaultHeaders: { 'HTTP-Referer': 'https://agendados.es', 'X-Title': 'Agendados' },
+    });
 
     const systemPrompt = `Eres un asistente especializado en encontrar eventos de juegos de mesa y rol en España.
 Tu tarea es buscar en la web eventos futuros en España con fecha de inicio posterior a ${TODAY}.
@@ -151,34 +156,32 @@ Reglas:
 - La provincia debe ser exactamente como aparece en la lista o null
 - Devuelve solo el JSON array, sin explicaciones ni markdown`;
 
-    // La Responses API de OpenAI gestiona el bucle agentic internamente:
-    // el modelo llama a web_search_preview tantas veces como necesite y
-    // devuelve la respuesta final en un único objeto.
-    const response = await client.responses.create({
-        model: 'gpt-4o-mini',
-        tools: [{ type: 'web_search_preview' }],
-        instructions: systemPrompt,
-        input: userPrompt,
+    // El plugin "web" de OpenRouter añade resultados de búsqueda web al prompt
+    // con cualquier modelo (OPENROUTER_MODEL permite cambiarlo).
+    const response = await client.chat.completions.create({
+        model: process.env.OPENROUTER_MODEL || 'openai/gpt-4o-mini',
+        plugins: [{ id: 'web', max_results: 10 }],
+        messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt },
+        ],
     });
 
-    const messageItem = response.output.find(item => item.type === 'message');
-    if (!messageItem) throw new Error('OpenAI no devolvió un mensaje en la respuesta');
+    const content = response.choices?.[0]?.message?.content;
+    if (!content) throw new Error('OpenRouter no devolvió texto en la respuesta');
 
-    const textContent = messageItem.content.find(c => c.type === 'output_text');
-    if (!textContent) throw new Error('OpenAI no devolvió texto en el mensaje');
-
-    const rawText = textContent.text.trim();
+    const rawText = content.trim();
     const jsonStr = rawText.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
 
     let events;
     try {
         events = JSON.parse(jsonStr);
     } catch (err) {
-        console.error('Error parseando JSON de OpenAI:', rawText.slice(0, 500));
+        console.error('Error parseando JSON de OpenRouter:', rawText.slice(0, 500));
         throw new Error(`JSON inválido: ${err.message}`);
     }
 
-    if (!Array.isArray(events)) throw new Error('Se esperaba un array JSON de OpenAI');
+    if (!Array.isArray(events)) throw new Error('Se esperaba un array JSON de OpenRouter');
 
     return events;
 }
@@ -310,7 +313,7 @@ async function createPR(newFiles) {
     const prBody = [
         '## Eventos descubiertos automáticamente',
         '',
-        `Eventos encontrados el ${TODAY} mediante búsqueda web con OpenAI.`,
+        `Eventos encontrados el ${TODAY} mediante búsqueda web con OpenRouter.`,
         '',
         '### Nuevos eventos',
         ...titles.map(t => `- ${t}`),
@@ -348,7 +351,7 @@ async function main() {
         console.error('Error en el descubrimiento:', err.message);
         process.exit(1);
     }
-    console.log(`Candidatos encontrados por OpenAI: ${discovered.length}`);
+    console.log(`Candidatos encontrados por la IA: ${discovered.length}`);
 
     const newEvents = filterNewEvents(discovered, existingEvents);
     console.log(`Nuevos eventos (tras filtrado): ${newEvents.length}`);
