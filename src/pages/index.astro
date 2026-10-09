@@ -118,30 +118,57 @@ const websiteSchema = {
 	<Header />
 	<main class="flex-1 mb-6">
 		<section class="bg-primary text-white w-full py-10 md:py-12">
-			<div class="max-w-6xl mx-auto px-4">
-				<h1 class="text-3xl md:text-5xl text-balance mb-3">
-					Tu agenda de eventos de juegos de mesa y rol en España
-				</h1>
-				<p class="max-w-3xl text-white/90 text-balance mb-6">
-					Consulta eventos por fecha y ubicación, descubre qué se celebra cerca de ti y accede a toda la información en un solo sitio.
-				</p>
-				<div class="flex flex-wrap gap-1">
-					{
-						upcomingProvinces.slice(0, 10).map((province) => (
-							<a
-								href={`/eventos/${provinceSlug(province)}`}
-								class="px-2 py-1 border border-white/20 hover:bg-white/10 transition-colors"
-							>
-								{province}
-							</a>
-						))
-					}
-					<a
-						href="#mapa"
-						class="px-2 py-1 bg-white/20 hover:bg-white/10 transition-colors"
+			<div
+				class="max-w-6xl mx-auto px-4 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-stretch lg:gap-12"
+			>
+				<div class="flex flex-col justify-center">
+					<h1 class="text-3xl md:text-5xl text-balance mb-3">
+						Tu agenda de eventos de juegos de mesa y rol en España
+					</h1>
+					<p class="max-w-3xl text-white/90 text-balance mb-6">
+						Consulta eventos por fecha y ubicación, descubre qué se celebra cerca de ti y accede a toda la información en un solo sitio.
+					</p>
+					<div
+						class="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
+						data-province-shortcuts
 					>
-						Ver más provincias
-					</a>
+						<a
+							data-user-province
+							class="hidden w-full items-center justify-center gap-2 bg-white px-6 py-3 text-center text-lg font-semibold text-primary transition-colors hover:bg-white/90 [clip-path:polygon(0_0,100%_0,100%_calc(100%-12px),12px_100%)] sm:w-auto"
+						>
+							Ver eventos en tu provincia
+						</a>
+						<nav
+							aria-label="Provincias con próximos eventos"
+							class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/90"
+							data-other-provinces
+						>
+							{
+								upcomingProvinces.slice(0, 6).map((province) => (
+									<a
+										href={`/eventos/${provinceSlug(province)}`}
+										class="underline underline-offset-4 hover:no-underline"
+									>
+										{province}
+									</a>
+								))
+							}
+							<a
+								href="#mapa"
+								class="font-medium text-white underline underline-offset-4 hover:no-underline"
+							>
+								Ver más provincias
+							</a>
+						</nav>
+					</div>
+				</div>
+				<div
+					class="hidden lg:flex lg:items-center lg:justify-center"
+				>
+					<ProvinceMap
+						showBadges={false}
+						class="h-full max-h-[22rem] w-auto opacity-90"
+					/>
 				</div>
 			</div>
 		</section>
@@ -208,7 +235,7 @@ const websiteSchema = {
 					<ul class="flex flex-col">
 						{agendaDays.map((day, index) => (
 							<li
-								class="grid gap-3 py-5 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6 sm:border-t sm:border-gray-300"
+								class="grid min-w-0 gap-3 py-5 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6 sm:border-t sm:border-gray-300"
 								class:list={[
 									index === 0 ? "sm:border-t-0 sm:pt-0" : "",
 								]}
@@ -224,7 +251,7 @@ const websiteSchema = {
 										{day.date.toLocaleDateString("es-ES", { month: "long" })}
 									</p>
 								</div>
-								<div class="flex flex-col gap-4">
+								<div class="flex min-w-0 flex-col gap-4">
 									{day.oneOff.length > 0 && (
 										<ul class="grid gap-2 sm:grid-cols-2">
 											{day.oneOff.map((event) => (
@@ -239,9 +266,9 @@ const websiteSchema = {
 											<h4 class="mb-2 text-sm uppercase tracking-wide text-gray-500">
 												Recurrentes
 											</h4>
-											<ul class="flex gap-2 overflow-x-auto pb-2 snap-x snap-mandatory">
+											<ul class="flex max-w-full gap-2 overflow-x-auto overscroll-x-contain pb-2 snap-x snap-mandatory">
 												{day.recurring.map((event) => (
-													<li class="w-72 shrink-0 snap-start">
+													<li class="w-64 shrink-0 snap-start sm:w-72">
 														<EventMicro {...event} />
 													</li>
 												))}
@@ -296,6 +323,67 @@ const websiteSchema = {
 	</main>
 </Layout>
 <Footer />
+
+<script>
+	import {
+		cachedProvince,
+		detectProvince,
+		GEOLOCATION_EVENT,
+	} from "@/geolocation";
+	import { provinceSlug } from "@/utils";
+
+	const container = document.querySelector<HTMLElement>(
+		"[data-province-shortcuts]",
+	);
+	const userProvinceLink = container?.querySelector<HTMLAnchorElement>(
+		"[data-user-province]",
+	);
+	const otherProvinces = container?.querySelector<HTMLElement>(
+		"[data-other-provinces]",
+	);
+
+	if (container && userProvinceLink && otherProvinces) {
+		let shown = false;
+
+		// Al ser un sitio estatico, la provincia del visitante solo se conoce
+		// en el navegador. Cuando la tenemos, su provincia encabeza la lista
+		// como enlace destacado y el resto sigue debajo.
+		const showUserProvince = (province: string | null) => {
+			if (shown || !province) return;
+			shown = true;
+
+			const href = `/eventos/${provinceSlug(province)}`;
+
+			// Si la provincia tambien sale en el listado general, se quita de
+			// ahi para no repetirla.
+			otherProvinces
+				.querySelectorAll<HTMLAnchorElement>(`a[href="${href}"]`)
+				.forEach((item) => item.remove());
+
+			userProvinceLink.href = href;
+			userProvinceLink.textContent = `Ver eventos en ${province}`;
+			userProvinceLink.classList.remove("hidden");
+			userProvinceLink.classList.add("inline-flex");
+		};
+
+		// La cache primero para resolverlo sin parpadeo: la geolocalizacion
+		// ya se hizo en una visita anterior.
+		showUserProvince(cachedProvince());
+
+		window.addEventListener(
+			GEOLOCATION_EVENT,
+			(event) => {
+				const detail = (event as CustomEvent).detail as {
+					province: string | null;
+				} | null;
+				showUserProvince(detail?.province ?? null);
+			},
+			{ once: true },
+		);
+
+		detectProvince();
+	}
+</script>
 
 <script is:inline>
 	const events = document.querySelectorAll("[data-event-start]");
