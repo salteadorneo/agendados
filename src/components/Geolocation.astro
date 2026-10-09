@@ -1,0 +1,145 @@
+<script>
+	import { provinceFromName } from "@/utils";
+
+	// La provincia se cachea este numero de dias para no volver a pedir
+	// el permiso ni a llamar al servicio de geocodificacion.
+	const CACHE_TTL = 30 * 24 * 60 * 60 * 1000;
+	const STORAGE_KEY = "geolocation";
+
+	interface Detection {
+		at: number;
+		latitude: number;
+		longitude: number;
+		country: string | null;
+		province: string | null;
+	}
+
+	interface AdminPlace {
+		name: string;
+		adminLevel: number;
+		isoCode?: string;
+	}
+
+	const readCache = (): Detection | null => {
+		try {
+			const raw = localStorage.getItem(STORAGE_KEY);
+			if (!raw) return null;
+
+			const cached = JSON.parse(raw);
+			if (Date.now() - cached.at > CACHE_TTL) {
+				localStorage.removeItem(STORAGE_KEY);
+				return null;
+			}
+			return cached;
+		} catch {
+			return null;
+		}
+	};
+
+	const writeCache = (value: Detection) => {
+		try {
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+		} catch {
+			// localStorage puede estar bloqueado, seguimos sin cache.
+		}
+	};
+
+	const report = ({
+		latitude,
+		longitude,
+		country,
+		province,
+	}: Detection) => {
+		if (country === "ES" && province) {
+			console.log(`[geolocation] Espana: ${province}`, {
+				latitude,
+				longitude,
+			});
+			return;
+		}
+
+		console.log(
+			`[geolocation] fuera de Espana (${country ?? "desconocido"})`,
+			{ latitude, longitude },
+		);
+	};
+
+	// El servicio devuelve la localidad y su jerarquia administrativa.
+	// La provincia es el nivel 6, pero Ceuta, Melilla, Baleares y La Rioja
+	// solo aparecen en niveles superiores, asi que se busca tambien ahi.
+	const provinceFromAdmin = (places: AdminPlace[]): string | null => {
+		const candidates = places.filter((place) => place.adminLevel <= 6);
+
+		const withIsoCode = candidates.filter(
+			(place) => place.isoCode?.startsWith("ES-") ?? false,
+		);
+
+		for (const place of [
+			...withIsoCode.filter((place) => place.adminLevel === 6),
+			...withIsoCode,
+			...candidates,
+		]) {
+			const province = provinceFromName(place.name);
+			if (province) return province;
+		}
+
+		return null;
+	};
+
+	const detect = async () => {
+		const cached = readCache();
+		if (cached) {
+			report(cached);
+			return;
+		}
+
+		if (!("geolocation" in navigator)) {
+			console.log("[geolocation] no disponible en este navegador");
+			return;
+		}
+
+		navigator.geolocation.getCurrentPosition(
+			async ({ coords }) => {
+				const result: Detection = {
+					at: Date.now(),
+					latitude: coords.latitude,
+					longitude: coords.longitude,
+					country: null,
+					province: null,
+				};
+
+				try {
+					// BigDataCloud resuelve gratis y sin clave.
+					const url = new URL(
+						"https://api.bigdatacloud.net/data/reverse-geocode-client",
+					);
+					url.searchParams.set("latitude", String(coords.latitude));
+					url.searchParams.set("longitude", String(coords.longitude));
+					url.searchParams.set("localityLanguage", "es");
+
+					const response = await fetch(url);
+					if (!response.ok) {
+						throw new Error(`reverse-geocode ${response.status}`);
+					}
+
+					const data = await response.json();
+					result.country = data.countryCode ?? null;
+					result.province = provinceFromAdmin(
+						data.localityInfo?.administrative ?? [],
+					);
+				} catch (error) {
+					console.log("[geolocation] reverse geocode fallo", error);
+				}
+
+				writeCache(result);
+				report(result);
+			},
+			(error) => {
+				console.log(`[geolocation] permiso denegado: ${error.message}`);
+			},
+			{ enableHighAccuracy: false, timeout: 10000, maximumAge: 600000 },
+		);
+	};
+
+	detect();
+</script>

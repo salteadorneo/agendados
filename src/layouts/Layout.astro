@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import Geolocation from "@/components/Geolocation.astro";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -75,6 +76,7 @@ const ogImage = new URL("/og-image.png", Astro.site).toString();
 			src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 	</head>
 	<body class="flex flex-col min-h-screen">
+		<Geolocation />
 		<slot />
 	</body>
 </html>

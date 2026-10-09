@@ -23,6 +23,10 @@ export const provinceSlugAliases: Record<string, string> = {
     gerona: "girona",
     ourense: "orense",
     vizcaya: "bizkaia",
+    guipuzcoa: "gipuzkoa",
+    lerida: "lleida",
+    "la-coruna": "a-coruna",
+    "islas-baleares": "baleares",
 };
 
 export const provinceSlug = (province: string) => {
@@ -84,6 +88,22 @@ export const provinces = [
     "Ceuta",
     "Melilla",
 ];
+
+/**
+ * Normaliza el nombre de una provincia tal y como lo devuelven fuentes
+ * externas ("provincia de La Coruña", "Barcelona [Barcelona]",
+ * "Vizcaya") al nombre canonico que usa el sitio.
+ */
+export const provinceFromName = (raw: string): string | null => {
+    const cleaned = raw
+        .replace(/^provincia (?:de|del)\s+/i, "")
+        .replace(/\s*[([][^)\]]*[)\]]\s*$/, "")
+        .trim();
+    if (!cleaned) return null;
+
+    const slug = provinceSlug(cleaned);
+    return provinces.find((province) => provinceSlug(province) === slug) ?? null;
+};
 
 function expandRecurringEvent(event: CollectionEntry<"event">, fromDate: Date, toDate: Date): EventInstance[] {
     const results: EventInstance[] = [];
