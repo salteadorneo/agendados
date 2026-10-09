@@ -1,0 +1,33 @@
+---
+import Dates from "./Dates.astro";
+import Tags from "./Tags.astro";
+
+const { id, data } = Astro.props;
+---
+
+{
+    data && (
+        <article
+            class={`relative max-w-[98vw] px-3 py-2 border-l-4 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors ${Astro.props.class}`}
+            style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
+            data-event-start={new Date(data.start).toISOString().split("T")[0]}
+        >
+            <a href={`/evento/${id}/`}>
+                <p
+                    class="text-xs leading-tight font-medium text-gray-500"
+                    transition:name={`date-${id}`}
+                >
+                    <Dates {...data} />
+                </p>
+                <h3
+                    class="text-base leading-snug font-medium text-balance"
+                    style={`color: ${data.color}`}
+                    transition:name={`title-${id}`}
+                >
+                    {data.title}
+                </h3>
+            </a>
+            <Tags id={id} data={data} class="mt-2 text-xs gap-1!" />
+        </article>
+    )
+}

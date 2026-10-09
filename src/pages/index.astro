@@ -6,8 +6,14 @@ import Layout from "@/layouts/Layout.astro";
 import Calendar from "@/components/Calendar.astro";
 import Title from "@/components/Title.astro";
 import EventMini from "@/components/EventMini.astro";
+import EventMicro from "@/components/EventMicro.astro";
 import ProvinceMap from "@/components/Map.astro";
-import { getFutureEvents, provinceSlug } from "@/utils";
+import {
+	getCurrentAgendaRange,
+	getEventsInRange,
+	getFutureEvents,
+	provinceSlug,
+} from "@/utils";
 
 const allEvents = await getCollection("event");
 
@@ -28,7 +34,39 @@ const events = allEvents.filter(
 	(event) => !event.data.startRecur,
 );
 
+const recurringEvents = allEvents.filter((event) => event.data.startRecur);
+
 const futures = getFutureEvents(events);
+
+const agendaRange = getCurrentAgendaRange();
+const agenda = getEventsInRange(
+	allEvents,
+	agendaRange.start,
+	agendaRange.end,
+);
+
+// Un dia agrupa tanto eventos puntuales como recurrentes, pero cada tipo
+// se lista por separado para poder distinguirlos visualmente.
+interface AgendaDay {
+	date: Date;
+	oneOff: typeof agenda;
+	recurring: typeof agenda;
+}
+const agendaByDay = new Map<string, AgendaDay>();
+for (const event of agenda) {
+	const date = event.instanceDate ?? new Date(event.data.start);
+	const key = date.toDateString();
+
+	let day = agendaByDay.get(key);
+	if (!day) {
+		day = { date, oneOff: [], recurring: [] };
+		agendaByDay.set(key, day);
+	}
+
+	if (event.data.startRecur) day.recurring.push(event);
+	else day.oneOff.push(event);
+}
+const agendaDays = [...agendaByDay.values()];
 
 const upcomingEvents = getFutureEvents(allEvents, true, 365);
 const provinceEventCounts = allEvents.reduce((counts, event) => {
@@ -164,6 +202,66 @@ const websiteSchema = {
 					</div>
 				</section>
 			</section>
+		</section>
+		<section class="w-full max-w-6xl mx-auto px-4 pb-8">
+			<div class="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+				<h2 class="text-2xl">Eventos {agendaRange.label}</h2>
+			</div>
+			{
+				agendaDays.length > 0 ? (
+					<ul class="flex flex-col">
+						{agendaDays.map((day, index) => (
+							<li
+								class="grid gap-3 py-5 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6 sm:border-t sm:border-gray-300"
+								class:list={[
+									index === 0 ? "sm:border-t-0 sm:pt-0" : "",
+								]}
+							>
+								<div class="bg-primary text-white px-3 py-2 text-center [clip-path:polygon(0_0,100%_0,100%_calc(100%-8px),0_100%)]">
+									<p class="text-sm uppercase leading-tight tracking-wide">
+										{day.date.toLocaleDateString("es-ES", { weekday: "long" })}
+									</p>
+									<p class="text-4xl md:text-5xl font-bold leading-none tabular-nums mt-2">
+										{day.date.getDate()}
+									</p>
+									<p class="text-sm leading-tight -mt-2">
+										{day.date.toLocaleDateString("es-ES", { month: "long" })}
+									</p>
+								</div>
+								<div class="flex flex-col gap-4">
+									{day.oneOff.length > 0 && (
+										<ul class="grid gap-2 sm:grid-cols-2">
+											{day.oneOff.map((event) => (
+												<li>
+													<EventMini {...event} />
+												</li>
+											))}
+										</ul>
+									)}
+									{day.recurring.length > 0 && (
+										<div>
+											<h4 class="mb-2 text-sm uppercase tracking-wide text-gray-500">
+												Recurrentes
+											</h4>
+											<ul class="grid gap-2 sm:grid-cols-3 xl:grid-cols-4">
+												{day.recurring.map((event) => (
+													<li>
+														<EventMicro {...event} />
+													</li>
+												))}
+											</ul>
+										</div>
+									)}
+								</div>
+							</li>
+						))}
+					</ul>
+				) : (
+					<p class="text-gray-500">
+						No hay eventos programados {agendaRange.label}.
+					</p>
+				)
+			}
 		</section>
 		<section class="w-full max-w-6xl mx-auto px-4 mb-8" id="mapa">
 			<div class="mb-4">
