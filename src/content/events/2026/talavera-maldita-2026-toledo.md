@@ -7,7 +7,7 @@ location: 'Talavera Ferial - Pabellón 3, Paseo de Fernando de los Ríos, 45600 
 province: 'Toledo'
 url: 'https://talaveramaldita.es/'
 tags: ['Juegos de mesa', 'Rol']
-image: 'https://github.com/user-attachments/assets/416b5d66-4345-4f2a-bae1-ef3d350e32ad'
+image: 'https://agendados.es/evento/2026/talavera-maldita-2026-toledo.jpg'
 ---
 
 Talavera Maldita 2026 se celebra en **Talavera Ferial - Pabellón 3** el **sábado 31 de octubre, de 10:00 a 21:00**, y el **domingo 1 de noviembre, de 10:00 a 13:00**.

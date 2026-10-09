@@ -8,6 +8,7 @@ province: "Barcelona"
 url: "https://nivel20.com/events/roledcon-vi-edicion"
 tags: ["Rol", "Festival", "Familiar"]
 color: "#7B2CBF"
+image: "https://agendados.es/evento/2026/roledcon-vi-edicion-barcelona.jpg"
 ---
 
 La **RoleDCon VI Edición** reúne a la comunidad rolera en Barcelona con partidas de distintos géneros, actividades y zona de creadores.

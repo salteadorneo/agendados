@@ -5,6 +5,7 @@ start: '2026-10-28'
 startTime: '17:00'
 location: 'Espazo Xove, Biblioteca Pública de Ourense'
 province: 'Ourense'
+image: 'https://agendados.es/evento/2026/club-juegos-mesa-espazo-xove-ourense-octubre.jpg'
 url: 'https://bibliotecas.xunta.gal/es/ourense/agenda/club-de-juegos-de-mesa-en-el-espazo-xove-28-de-octubre'
 tags: ['Juegos de mesa', 'Iniciación']
 ---

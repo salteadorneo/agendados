@@ -9,6 +9,7 @@ location: "Palacio de Congresos Europa, Av. Gasteiz, 85, Vitoria-Gasteiz"
 province: "Álava"
 url: "https://freakfestival.es/"
 color: "#8A2BE2"
+image: "https://agendados.es/evento/2026/freak-festival-vitoria.jpg"
 tags: ['Juegos de mesa', 'Rol', 'Familiar']
 ---
 

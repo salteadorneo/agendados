@@ -5,6 +5,7 @@ start: "2026-10-10"
 end: "2026-10-11"
 location: "La Escotilla, Murcia"
 province: "Murcia"
+image: "https://agendados.es/evento/2026/gt-huertano-individual-iv-edicion-murcia.jpg"
 url: "https://laescotillajuegos.com/products/evento-gt-huertano-individual-iv-edicion"
 tags: ["Wargames", "Torneo", "Competitivo"]
 color: "#1B7DBF"

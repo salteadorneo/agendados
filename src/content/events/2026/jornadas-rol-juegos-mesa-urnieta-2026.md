@@ -7,6 +7,7 @@ startTime: '16:30'
 endTime: '21:00'
 location: 'Casa de Cultura Lekaio, Urnieta'
 province: 'Gipuzkoa'
+image: 'https://agendados.es/evento/2026/jornadas-rol-juegos-mesa-urnieta-2026.jpg'
 url: 'https://insmouth.com'
 tags: ['Rol', 'Juegos de mesa']
 instagram: 'https://www.instagram.com/habitantesdeinnsmouth/'

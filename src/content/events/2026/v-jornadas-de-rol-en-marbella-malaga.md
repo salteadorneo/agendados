@@ -6,6 +6,7 @@ end: '2026-10-25'
 location: 'IES Bahía Marbella, Marbella'
 province: 'Málaga'
 color: '#4CAF50'
+image: 'https://agendados.es/evento/2026/v-jornadas-de-rol-en-marbella-malaga.jpg'
 url: 'https://www.elfarodeoghma.com/jornadas/v-jornadas-rol-marbella'
 tags: ['Rol', 'Juegos de mesa']
 ---

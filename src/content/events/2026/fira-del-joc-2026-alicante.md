@@ -6,6 +6,7 @@ startTime: '10:00'
 location: "Palau D'Altea, Altea"
 province: 'Alicante'
 color: '#4CAF50'
+image: 'https://agendados.es/evento/2026/fira-del-joc-2026-alicante.jpg'
 url: 'https://entradium.com/events/fira-del-joc-13-edicion'
 tags: ['Juegos de mesa', 'Feria', 'Familiar']
 ---

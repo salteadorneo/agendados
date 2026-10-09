@@ -6,6 +6,7 @@ end: "2026-10-12"
 location: "Córdoba"
 province: "Córdoba"
 color: "#4CAF50"
+image: "https://agendados.es/evento/2026/festival-internacional-juegos-cordoba.jpg"
 url: "https://www.festivaldejuegoscordoba.es/"
 tags: ['Juegos de mesa', 'Rol', 'Torneo']
 ---

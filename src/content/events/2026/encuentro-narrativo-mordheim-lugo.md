@@ -4,6 +4,7 @@ description: 'Encuentro de Mordheim con escaramuzas, pruebas temáticas y un esc
 start: '2026-10-17'
 location: 'Centro de Convivencia Fingoi, Rúa Aviación Española, 22, Lugo'
 province: 'Lugo'
+image: 'https://agendados.es/evento/2026/encuentro-narrativo-mordheim-lugo.jpg'
 url: 'https://vivalugo.es/evento/evento-narrativo-de-mordheim/'
 tags: ['Miniaturas', 'Wargames']
 ---

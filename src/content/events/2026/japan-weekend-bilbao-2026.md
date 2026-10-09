@@ -7,6 +7,7 @@ endTime: "20:00"
 location: "BEC - Bilbao Exhibition Centre, Ronda de Azkue, 1, Barakaldo, Bilbao"
 province: "Vizcaya"
 color: "#E74C3C"
+image: "https://agendados.es/evento/2026/japan-weekend-bilbao-2026.jpg"
 url: "https://www.japanweekend.com/"
 tags: ["Juegos de mesa", "TCG", "Festival", "Demostraciones"]
 ---
