@@ -116,6 +116,14 @@ Contenido del evento recurrente en Markdown.
 - Verifica que `url` y redes sociales sean URLs completas con `https://`.
 - Evita etiquetas fuera de la lista valida para no romper validaciones.
 
+## Prohibido enlazar en el cuerpo del evento
+
+- El cuerpo Markdown/MDX **no debe** incluir enlaces a la web oficial, redes sociales, calendario, entradas, mapas ni ningun otro recurso externo.
+- Esos datos van siempre en el frontmatter (`url`, `instagram`, `facebook`, `twitter`, `youtube`, `tiktok`, `discord`, `email`), porque la ficha ya los muestra de forma destacada.
+- No repitas en el cuerpo el contenido de esos campos: no menciones URLs sueltas, no uses Markdown de enlace (`[texto](url)`) y no termines con frases tipo "mas informacion en la web oficial".
+- El cuerpo se centra en la informacion util que no esta en el frontmatter: que es el evento, actividades, horarios, entradas, aforo, normas y recomendaciones.
+- Esta regla aplica a todos los eventos, incluidos los pasados y los editados o generados por agentes de IA.
+
 ## Extraccion de datos para agentes
 
 Cuando se pidan eventos:
