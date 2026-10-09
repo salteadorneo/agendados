@@ -8,10 +8,11 @@ const { id, data } = Astro.props;
 {
     data && (
         <article
-            class={`relative max-w-[98vw] px-3 py-2 border-l-4 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors ${Astro.props.class}`}
+            class={`relative max-w-[98vw] px-3 py-2 border-l-4 bg-center bg-cover bg-no-repeat hover:bg-(--event-color) transition-colors ${Astro.props.class}`}
             style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
             data-event-start={new Date(data.start).toISOString().split("T")[0]}
         >
+            <Tags id={id} data={data} class="mb-1 text-xs gap-1!" provinceOnly />
             <a href={`/evento/${id}/`}>
                 <p
                     class="text-xs leading-tight font-medium text-gray-500"
@@ -27,7 +28,6 @@ const { id, data } = Astro.props;
                     {data.title}
                 </h3>
             </a>
-            <Tags id={id} data={data} class="mt-2 text-xs gap-1!" provinceOnly />
         </article>
     )
 }

@@ -6,6 +6,7 @@ const {
     data: { tags, color, province },
     class: classes,
     provinceOnly = false,
+    showProvince = true,
 } = Astro.props;
 ---
 
@@ -26,7 +27,7 @@ const {
             ))
     }
     {
-        province && (
+        province && showProvince && (
             <a
                 href={`/eventos/${provinceSlug(province)}`}
                 class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
