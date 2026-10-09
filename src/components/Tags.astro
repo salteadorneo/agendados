@@ -5,6 +5,7 @@ const {
     id,
     data: { tags, color, province },
     class: classes,
+    provinceOnly = false,
 } = Astro.props;
 ---
 
@@ -13,15 +14,16 @@ const {
     transition:name={`tags-${id}`}
 >
     {
-        tags?.map((tag: string) => (
-            <a
-                href={`/eventos/tag/${slugify(tag)}`}
-                class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
-                style={`background-color: ${color};`}
-            >
-                {tag}
-            </a>
-        ))
+        !provinceOnly &&
+            tags?.map((tag: string) => (
+                <a
+                    href={`/eventos/tag/${slugify(tag)}`}
+                    class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
+                    style={`background-color: ${color};`}
+                >
+                    {tag}
+                </a>
+            ))
     }
     {
         province && (

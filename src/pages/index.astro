@@ -34,8 +34,6 @@ const events = allEvents.filter(
 	(event) => !event.data.startRecur,
 );
 
-const recurringEvents = allEvents.filter((event) => event.data.startRecur);
-
 const futures = getFutureEvents(events);
 
 const agendaRange = getCurrentAgendaRange();
@@ -45,14 +43,10 @@ const agenda = getEventsInRange(
 	agendaRange.end,
 );
 
-// Un dia agrupa tanto eventos puntuales como recurrentes, pero cada tipo
-// se lista por separado para poder distinguirlos visualmente.
-interface AgendaDay {
-	date: Date;
-	oneOff: typeof agenda;
-	recurring: typeof agenda;
-}
-const agendaByDay = new Map<string, AgendaDay>();
+const agendaByDay = new Map<
+	string,
+	{ date: Date; oneOff: typeof agenda; recurring: typeof agenda }
+>();
 for (const event of agenda) {
 	const date = event.instanceDate ?? new Date(event.data.start);
 	const key = date.toDateString();
@@ -66,7 +60,9 @@ for (const event of agenda) {
 	if (event.data.startRecur) day.recurring.push(event);
 	else day.oneOff.push(event);
 }
-const agendaDays = [...agendaByDay.values()];
+const agendaDays = [...agendaByDay.values()].filter(
+	(day) => day.oneOff.length > 0 || day.recurring.length > 0
+);
 
 const upcomingEvents = getFutureEvents(allEvents, true, 365);
 const provinceEventCounts = allEvents.reduce((counts, event) => {
@@ -243,9 +239,9 @@ const websiteSchema = {
 											<h4 class="mb-2 text-sm uppercase tracking-wide text-gray-500">
 												Recurrentes
 											</h4>
-											<ul class="grid gap-2 sm:grid-cols-3 xl:grid-cols-4">
+											<ul class="flex gap-2 overflow-x-auto pb-2 snap-x snap-mandatory">
 												{day.recurring.map((event) => (
-													<li>
+													<li class="w-72 shrink-0 snap-start">
 														<EventMicro {...event} />
 													</li>
 												))}
