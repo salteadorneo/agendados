@@ -124,6 +124,13 @@ Contenido del evento recurrente en Markdown.
 - El cuerpo se centra en la informacion util que no esta en el frontmatter: que es el evento, actividades, horarios, entradas, aforo, normas y recomendaciones.
 - Esta regla aplica a todos los eventos, incluidos los pasados y los editados o generados por agentes de IA.
 
+## Verificacion de cambios
+
+- **No ejecutes `npm run build` despues de cada modificacion.** Es lento y no hace falta para comprobar que el cambio es correcto.
+- La comprobacion automatica es `npm run typecheck` (`astro check`). El proyecto no tiene linter configurado (no existe script `lint` ni biome/eslint), asi que typecheck es la unica verificacion disponible.
+- Ejecuta `npm run build` solo cuando el toque afecta al render estatico de forma amplia (nuevas rutas, contenido collection, estilos globales) o cuando se pida expresamente.
+- Si necesitas comprobar el HTML generado sin un build completo, se puede levantar `npm run dev` y pedir la pagina: es mucho mas rapido.
+
 ## Extraccion de datos para agentes
 
 Cuando se pidan eventos:
