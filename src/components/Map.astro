@@ -5,6 +5,7 @@ const {
     basePath = "/eventos",
     eventCounts = {},
     showBadges = true,
+    id: mapId = "map",
     class: className = "",
 } = Astro.props;
 
@@ -14,7 +15,7 @@ const normalizedBasePath = basePath.startsWith("/")
 ---
 
 <svg
-    id="wrapper"
+    id={mapId}
     class:list={["map-clickable", className]}
     viewBox="140 20 1110 860"
     preserveAspectRatio="xMinYMin"
@@ -1704,12 +1705,14 @@ const normalizedBasePath = basePath.startsWith("/")
     }
 </style>
 
-<script is:inline define:vars={{ normalizedBasePath, eventCounts, showBadges, provinceSlugAliases }}>
+<script is:inline define:vars={{ normalizedBasePath, eventCounts, showBadges, provinceSlugAliases, mapId }}>
     const basePath = normalizedBasePath;
     // Puede haber varios mapas en la misma pagina (por ejemplo el mini
-    // mapa del hero), asi que cada uno se procesa por separado.
-    const maps = document.querySelectorAll("svg.map-clickable");
-    maps.forEach((map) => {
+    // mapa del hero), asi que cada script procesa solo el suyo. Si se
+    // recorre con querySelectorAll, un mapa con badges acaba pintando
+    // tambien en los mapas que los tienen desactivados.
+    const map = document.getElementById(mapId);
+    if (map) {
         const groups = map.querySelectorAll(
             "g[id=provinces] g[id*='group']",
         );
@@ -1718,8 +1721,6 @@ const normalizedBasePath = basePath.startsWith("/")
             const slug = province ? slugify(province) : "";
             const routeSlug = provinceSlugAliases[slug] ?? slug;
             const count = province ? eventCounts[routeSlug] : undefined;
-            // El id se busca por atributo y no por selector para que un mapa
-            // que no sea el primero en la pagina no robe la etiqueta.
             const label = province
                 ? map.querySelector(`[id="${province}_label"]`)
                 : null;
@@ -1789,7 +1790,7 @@ const normalizedBasePath = basePath.startsWith("/")
                 }
             });
         });
-    });
+    }
     function slugify(text) {
         if (!text) return "";
         return text

@@ -166,6 +166,7 @@ const websiteSchema = {
 					class="hidden lg:flex lg:items-center lg:justify-center"
 				>
 					<ProvinceMap
+						id="hero-map"
 						showBadges={false}
 						class="h-full max-h-88 w-auto opacity-90"
 					/>
@@ -294,7 +295,7 @@ const websiteSchema = {
 					celebran cerca de ti.
 				</p>
 			</div>
-			<ProvinceMap eventCounts={eventCountsByProvince} />
+			<ProvinceMap id="province-map" eventCounts={eventCountsByProvince} />
 		</section>
 		<section
 			class="w-full max-w-6xl mx-auto px-4 flex flex-col xl:flex-row items-start gap-8"
