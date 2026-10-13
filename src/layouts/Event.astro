@@ -45,6 +45,11 @@ if (end && endTime) {
     endDate = start.toISOString();
 }
 
+const organizerUrl = url ?? Astro.url.toString();
+const organizerName = url
+    ? new URL(url).hostname.replace(/^www\./, "")
+    : title;
+
 const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -66,13 +71,13 @@ const eventSchema = {
         }
     }),
     ...(image && { "image": image.toString() }),
-    ...(url && { "url": url }),
-    ...(email && {
-        "organizer": {
-            "@type": "Organization",
-            "email": email
-        }
-    }),
+    "url": url ?? Astro.url.toString(),
+    "organizer": {
+        "@type": "Organization",
+        "name": organizerName,
+        "url": organizerUrl,
+        ...(email && { "email": email })
+    },
     ...(tags && tags.length > 0 && { "keywords": tags.join(", ") }),
     "offers": {
         "@type": "Offer",
@@ -267,9 +272,6 @@ const breadcrumbSchema = {
                                     class="flex items-center gap-2 hover:text-primary transition-colors"
                                     onmouseover={`this.style.color='${color}'`}
                                     onmouseout={`this.style.color='inherit'`}
-                                    itemprop="organizer"
-                                    itemscope
-                                    itemtype="https://schema.org/Organization"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -290,7 +292,7 @@ const breadcrumbSchema = {
                                         <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
                                         <path d="M3 7l9 6l9 -6" />
                                     </svg>
-                                    <span itemprop="email">{email}</span>
+                                    <span>{email}</span>
                                 </a>
                             )
                         }
@@ -316,6 +318,16 @@ const breadcrumbSchema = {
             }
             <div class="w-full max-w-6xl mx-auto py-6 px-4 md:pr-60 space-y-4">
                 <meta itemprop="description" content={description} />
+                <span
+                    itemprop="organizer"
+                    itemscope
+                    itemtype="https://schema.org/Organization"
+                    style="display: none;"
+                >
+                    <meta itemprop="name" content={organizerName} />
+                    <meta itemprop="url" content={organizerUrl} />
+                    {email && <meta itemprop="email" content={email} />}
+                </span>
                 <Tags {...Astro.props} />
                 <section class="content">
                     <slot />

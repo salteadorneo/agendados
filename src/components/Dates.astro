@@ -35,6 +35,9 @@ const endDateTime =
 const effectiveEndDateTime =
     isRecurringEvent && !end && endRecur ? endRecur.toISOString() : endDateTime;
 
+const hasVisibleEnd =
+    !!effectiveEnd && !isSameDay && effectiveEndDateTime !== startDateTime;
+
 const getDayName = (dayNumber: number): string => {
     const days = [
         "domingos",
@@ -69,13 +72,7 @@ const formatDaysOfWeek = (days: number[]): string => {
                 })}
             </time>{" "}
             al{" "}
-            <time
-                datetime={effectiveEnd?.toISOString()}
-                {...(effectiveEndDateTime !== startDateTime && {
-                    itemprop: "endDate",
-                    datetime: effectiveEndDateTime,
-                })}
-            >
+            <time datetime={effectiveEndDateTime} itemprop="endDate">
                 {effectiveEnd?.toLocaleDateString("es-ES", {
                     day: "numeric",
                 })}
@@ -85,9 +82,6 @@ const formatDaysOfWeek = (days: number[]): string => {
                 month: "long",
                 year: "numeric",
             })}
-            {effectiveEndDateTime !== startDateTime && (
-                <meta itemprop="endDate" content={effectiveEndDateTime} />
-            )}
         </>
     ) : isSameDay && isSameMonth && isSameYear ? (
         <>
@@ -96,24 +90,11 @@ const formatDaysOfWeek = (days: number[]): string => {
                     day: "numeric",
                 })}
             </time>{" "}
-            {effectiveEnd && !isSameDay ? (
-                <>
-                    al{" "}
-                    <time datetime={effectiveEndDateTime} itemprop="endDate">
-                        {effectiveEnd.toLocaleDateString("es-ES", {
-                            day: "numeric",
-                        })}
-                    </time>{" "}
-                </>
-            ) : null}
             de{" "}
             {start.toLocaleDateString("es-ES", {
                 month: "long",
                 year: "numeric",
             })}
-            {effectiveEndDateTime !== startDateTime && (
-                <meta itemprop="endDate" content={effectiveEndDateTime} />
-            )}
         </>
     ) : isSameYear ? (
         <>
@@ -136,9 +117,6 @@ const formatDaysOfWeek = (days: number[]): string => {
                 </>
             )}{" "}
             de {start.getFullYear()}
-            {!effectiveEnd && effectiveEndDateTime !== startDateTime && (
-                <meta itemprop="endDate" content={effectiveEndDateTime} />
-            )}
         </>
     ) : (
         <>
@@ -162,12 +140,9 @@ const formatDaysOfWeek = (days: number[]): string => {
                     </time>
                 </>
             )}
-            {!effectiveEnd && effectiveEndDateTime !== startDateTime && (
-                <meta itemprop="endDate" content={effectiveEndDateTime} />
-            )}
         </>
     )
-}{
+}{!hasVisibleEnd && <meta itemprop="endDate" content={effectiveEndDateTime} />}{
     startTime || endTime ? (
         endTime ? (
             <>
