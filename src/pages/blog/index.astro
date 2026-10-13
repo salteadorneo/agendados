@@ -25,7 +25,7 @@ const fmt = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
 				{
 					posts.map((post) => (
 						<li>
-							<a href={`/blog/${post.id}`} class="group block">
+							<a href={`/blog/${post.id}/`} class="group block">
 								<time
 									datetime={post.data.date.toISOString()}
 									class="text-sm text-gray-500"

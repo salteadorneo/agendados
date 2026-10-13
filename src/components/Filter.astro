@@ -26,7 +26,7 @@ events.forEach((event: CollectionEntry<"event">) => {
                     )
                     .map((province) => (
                         <option
-                            value={`/eventos/${slugify(province)}`}
+                            value={`/eventos/${slugify(province)}/`}
                             class="text-black"
                             selected={
                                 Astro.params.province === slugify(province)
@@ -45,7 +45,7 @@ events.forEach((event: CollectionEntry<"event">) => {
                     )
                     .map((tag) => (
                         <option
-                            value={`/eventos/tag/${slugify(tag)}`}
+                            value={`/eventos/tag/${slugify(tag)}/`}
                             class="text-black"
                             selected={Astro.params.tag === slugify(tag)}
                         >

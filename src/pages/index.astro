@@ -146,7 +146,7 @@ const websiteSchema = {
 							{
 								upcomingProvinces.slice(0, 6).map((province) => (
 									<a
-										href={`/eventos/${provinceSlug(province)}`}
+										href={`/eventos/${provinceSlug(province)}/`}
 										class="underline underline-offset-4 hover:no-underline"
 									>
 										{province}
@@ -307,7 +307,7 @@ const websiteSchema = {
 					>nuestro repositorio de GitHub</a
 				> y envíanos un pull request. Si no sabes cómo hacerlo,
 				<a
-					href="/contacto"
+					href="/contacto/"
 					class="text-primary underline hover:no-underline"
 					>contáctanos</a
 				> o escríbenos a
@@ -352,7 +352,7 @@ const websiteSchema = {
 			if (shown || !province) return;
 			shown = true;
 
-			const href = `/eventos/${provinceSlug(province)}`;
+			const href = `/eventos/${provinceSlug(province)}/`;
 
 			// Si la provincia tambien sale en el listado general, se quita de
 			// ahi para no repetirla.
