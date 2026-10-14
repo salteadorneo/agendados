@@ -2,7 +2,7 @@ name: Weekly Newsletter
 
 on:
   schedule:
-    - cron: '0 7 * * 1'  # Cada lunes a las 7:00 UTC
+    - cron: '0 9 * * 1'
   workflow_dispatch:
     inputs:
       dry_run:
