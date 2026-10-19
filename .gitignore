@@ -28,3 +28,4 @@ src/content/data/*
 skills-lock.json
 .agents
 newsletter-preview.html
+.claude
