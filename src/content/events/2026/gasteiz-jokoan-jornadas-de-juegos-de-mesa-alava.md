@@ -13,6 +13,3 @@ tags: ['Juegos de mesa', 'Rol', 'Torneo', 'Demostraciones', 'Familiar', 'Festiva
 ---
 
 Evento en Vitoria-Gasteiz con ludoteca de más de 200 títulos, demostraciones, partidas de rol, talleres y torneos.
-
-**Lugar**: Palacio de Congresos Europa, Avenida Gasteiz, s/n, Vitoria-Gasteiz
-**Web oficial**: https://www.euskadi.eus/evento/2026/05/15/gasteiz-jokoan-jornadas-de-juegos-de-mesa/web01-ejeduki/es/

@@ -10,5 +10,3 @@ tags: ['Juegos de mesa', 'Rol', 'Familiar', 'Festival', 'Demostraciones']
 ---
 
 Quinceava edición de las jornadas en Sevilla, ofreciendo actividades para jugadores de todos los niveles.
-
-**Web oficial**: https://jornadas.queremosjugar.com/

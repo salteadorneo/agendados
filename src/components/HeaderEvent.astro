@@ -18,19 +18,6 @@ const onColor = readableOn(color);
             <Logo />
         </a>
         <div class="flex items-center gap-3 text-sm">
-            {
-                url && (
-                    <a
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-2 border border-current px-3 py-1.5 font-medium transition-colors hover:bg-(--on-event) hover:text-(--event)"
-                        itemprop="url"
-                    >
-                        Web oficial
-                    </a>
-                )
-            }
             <button
                 data-share
                 data-share-title={title}

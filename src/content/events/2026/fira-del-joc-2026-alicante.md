@@ -12,6 +12,3 @@ tags: ['Juegos de mesa', 'Feria', 'Familiar']
 ---
 
 Gran punto de encuentro para los amantes de los juegos de mesa, con demostraciones, torneos y actividades diversas.
-
-**Lugar**: Palau D'Altea, Altea
-**Web oficial**: https://entradium.com/events/fira-del-joc-13-edicion

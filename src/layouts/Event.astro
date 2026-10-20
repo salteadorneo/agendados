@@ -140,40 +140,25 @@ const breadcrumbSchema = {
                 style={`background-color: ${color}; color: ${onColor};`}
             >
                 <div
-                    class="w-full max-w-6xl mx-auto px-4 py-10 md:py-14"
+                    class="w-full max-w-6xl mx-auto px-4 py-6 md:py-8"
                 >
-                    <div class="max-w-3xl space-y-4">
+                    <div class="max-w-3xl space-y-3">
                         <p
-                            class="text-base md:text-lg"
+                            class="text-sm md:text-base"
                             transition:name={`date-${id}`}
                         >
                             <Dates {...Astro.props.data} />
                         </p>
                         <h1
-                            class="text-4xl md:text-6xl font-light text-balance"
+                            class="text-3xl md:text-5xl font-light text-balance"
                             transition:name={`title-${id}`}
                             itemprop="name"
                         >
                             {title}
                         </h1>
-                        <p class="max-w-2xl text-sm md:text-base opacity-90">
+                        <p class="max-w-2xl text-sm opacity-90">
                             {description}
                         </p>
-                        {
-                            (url || email) && (
-                                <a
-                                    href={url ?? `mailto:${email}`}
-                                    target={url ? "_blank" : undefined}
-                                    rel={url ? "noopener noreferrer" : undefined}
-                                    data-simple-event="event_hero_cta"
-                                    class="inline-flex items-center gap-2 mt-2 px-5 py-3 font-medium transition-opacity hover:opacity-90 [clip-path:polygon(0_0,100%_0,100%_calc(100%-12px),12px_100%)]"
-                                    style={`background-color: ${onColor}; color: ${color};`}
-                                    itemprop="url"
-                                >
-                                    {url ? "Web oficial" : "Escribir al organizador"}
-                                </a>
-                            )
-                        }
                     </div>
                 </div>
             </div>
@@ -271,7 +256,7 @@ const breadcrumbSchema = {
                 </div>
                 {
                     image && (
-                        <aside class="lg:sticky lg:top-20 self-start">
+                        <aside class="lg:sticky lg:top-16 self-start">
                             <a
                                 href={image.toString()}
                                 target="_blank"

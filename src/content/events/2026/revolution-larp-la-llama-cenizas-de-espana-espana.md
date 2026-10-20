@@ -9,5 +9,3 @@ tags: ['Rol']
 ---
 
 Evento de rol en vivo organizado por ReVolution Larp, programado para el 22-24 de mayo de 2026.
-
-**Web oficial**: https://www.revolutionlarp.com/

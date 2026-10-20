@@ -11,6 +11,3 @@ tags: ['Simulación histórica', 'Festival']
 ---
 
 Zaragoza acogerá el encuentro anual de la comunidad de juegos de simulación histórica con eventos, torneos y artistas del sector.
-
-**Lugar**: Hotel Boston, Zaragoza
-**Web oficial**: https://www.batallador.es/

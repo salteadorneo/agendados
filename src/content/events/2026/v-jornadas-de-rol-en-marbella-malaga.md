@@ -12,6 +12,3 @@ tags: ['Rol', 'Juegos de mesa']
 ---
 
 Jornadas repletas de partidas épicas, juegos de mesa, charlas y sorpresas en Marbella.
-
-**Lugar**: IES Bahía Marbella, Marbella
-**Web oficial**: https://www.elfarodeoghma.com/jornadas/v-jornadas-rol-marbella
