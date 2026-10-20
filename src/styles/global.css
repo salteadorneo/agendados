@@ -108,7 +108,7 @@
 }
 
 .content > * + * {
-	margin-top: 1.15rem;
+	margin-top: .7rem;
 }
 
 .content h1,
@@ -116,7 +116,7 @@
 .content h3,
 .content h4 {
 	font-weight: 500;
-	margin-top: 2rem;
+	margin-top: 1rem;
 	margin-bottom: 0.75rem;
 	line-height: 1.25;
 }
@@ -157,10 +157,6 @@
 
 .content ol {
 	list-style: decimal;
-}
-
-.content li + li {
-	margin-top: 0.35rem;
 }
 
 .content li > ul,
