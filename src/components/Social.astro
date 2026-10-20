@@ -2,7 +2,7 @@
 import SocialLink from "./SocialLink.astro";
 
 const {
-    data: { instagram, twitter, discord, color },
+    data: { instagram, twitter, discord },
     class: classes,
 } = Astro.props;
 ---
@@ -13,7 +13,6 @@ const {
             <SocialLink
                 href={instagram}
                 title={instagram.replace("https://www.instagram.com/", "@")}
-                color={color}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +38,6 @@ const {
             <SocialLink
                 href={twitter}
                 title={twitter.replace("https://twitter.com/", "@")}
-                color={color}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +59,7 @@ const {
     }
     {
         discord && (
-            <SocialLink href={discord} color={color}>
+            <SocialLink href={discord}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

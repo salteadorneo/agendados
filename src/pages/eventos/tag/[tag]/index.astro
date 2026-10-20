@@ -94,7 +94,7 @@ const collectionSchema = {
                 <h2 class="text-3xl mb-4">Próximos eventos de {tag}</h2>
                 {
                     futures.length === 0 && (
-                        <p class="text-gray-500">No hay próximos eventos.</p>
+                        <p class="text-muted">No hay próximos eventos.</p>
                     )
                 }
                 <List events={futures} />

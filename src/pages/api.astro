@@ -9,13 +9,13 @@ import Layout from "@/layouts/Layout.astro";
     <Header />
     <main class="flex-1">
         <Title title="Documentación API" />
-        <div class="w-full max-w-6xl mx-auto px-4 py-6">
-            <div class="space-y-8">
-                <h2 class="text-2xl font-semibold mb-4">Endpoints</h2>
+        <div class="w-full max-w-6xl mx-auto px-4 py-8">
+            <div class="max-w-4xl space-y-10">
+                <h2 class="text-2xl mb-4">Endpoints</h2>
 
                 <div>
-                    <div class="flex items-center mb-4">
-                        <span class="px-2 py-1 bg-primary text-white mr-3">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-ink text-white px-2 py-0.5 font-mono text-xs tracking-wide">
                             GET
                         </span>
                         <h3 class="text-xl font-medium">/api/eventos.json</h3>
@@ -25,9 +25,9 @@ import Layout from "@/layouts/Layout.astro";
                     </p>
 
                     <div class="mb-4">
-                        <h4 class="font-semibold mb-2">Respuesta</h4>
+                        <h4 class="font-medium mb-2">Respuesta</h4>
                         <pre
-                            class="bg-primary text-white p-4 overflow-x-auto text-xs">{`[
+                            class="bg-ink text-white p-4 overflow-x-auto text-xs leading-relaxed">{`[
     {
         "id": "2025/event-name",
         "data": {
@@ -49,21 +49,22 @@ import Layout from "@/layouts/Layout.astro";
                     </div>
 
                     <div>
-                        <h4 class="font-semibold mb-2">Ejemplo de llamada</h4>
+                        <h4 class="font-medium mb-2">Ejemplo de llamada</h4>
                         <code
-                            class="block bg-gray-200 p-2 text-xs overflow-hidden"
+                            class="block bg-surface border border-line p-2 text-xs overflow-hidden"
                         >
                             fetch('<a
                                 href={`${Astro.site}api/eventos.json`}
-                                target="_blank">{Astro.site}api/eventos.json</a
+                                target="_blank"
+                                rel="noopener noreferrer">{Astro.site}api/eventos.json</a
                             >')
                         </code>
                     </div>
                 </div>
 
                 <div>
-                    <div class="flex items-center mb-4">
-                        <span class="px-2 py-1 bg-primary text-white mr-3">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-ink text-white px-2 py-0.5 font-mono text-xs tracking-wide">
                             GET
                         </span>
                         <h3 class="text-xl font-medium">
@@ -76,10 +77,10 @@ import Layout from "@/layouts/Layout.astro";
                     </p>
 
                     <div class="mb-4">
-                        <h4 class="font-semibold mb-2">Parámetros</h4>
-                        <table class="min-w-full border">
+                        <h4 class="font-medium mb-2">Parámetros</h4>
+                        <table class="min-w-full border border-line">
                             <thead>
-                                <tr class="bg-gray-200">
+                                <tr class="bg-surface">
                                     <th class="border p-2 text-left">Nombre</th>
                                     <th class="border p-2 text-left">Tipo</th>
                                     <th class="border p-2 text-left"
@@ -100,9 +101,9 @@ import Layout from "@/layouts/Layout.astro";
                     </div>
 
                     <div class="mb-4">
-                        <h4 class="font-semibold mb-2">Respuesta</h4>
+                        <h4 class="font-medium mb-2">Respuesta</h4>
                         <pre
-                            class="bg-primary text-white p-4 overflow-x-auto text-xs">{`{
+                            class="bg-ink text-white p-4 overflow-x-auto text-xs leading-relaxed">{`{
     "id": "2025/event-name",
     "data": {
         "title": "Event name",
@@ -125,13 +126,14 @@ import Layout from "@/layouts/Layout.astro";
                     </div>
 
                     <div>
-                        <h4 class="font-semibold mb-2">Ejemplo de llamada</h4>
+                        <h4 class="font-medium mb-2">Ejemplo de llamada</h4>
                         <code
-                            class="block bg-gray-200 p-2 text-xs overflow-hidden"
+                            class="block bg-surface border border-line p-2 text-xs overflow-hidden"
                         >
                             fetch('<a
                                 href={`${Astro.site}api/evento/2025/event-name.json`}
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 >{Astro.site}api/evento/2025/event-name.json</a
                             >')
                         </code>
@@ -139,14 +141,15 @@ import Layout from "@/layouts/Layout.astro";
                 </div>
 
                 <p
-                    class="bg-primary/70 text-white text-center p-4 [clip-path:polygon(1%_0,100%_0,99%_100%,0_100%)]"
+                    class="border border-line bg-surface p-4 text-sm text-muted"
                 >
                     Nota: el API sigue en desarrollo y se agregarán más
                     funcionalidades próximamente. Si quieres contribuir o tienes
                     alguna duda, por favor contacta en <a
                         href="https://github.com/salteadorneo/agendados"
                         target="_blank"
-                        class="underline">GitHub</a
+                        rel="noopener noreferrer"
+                        class="text-ink underline">GitHub</a
                     >.
                 </p>
             </div>

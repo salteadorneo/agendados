@@ -1,0 +1,23 @@
+---
+// Nota discreta al pie de la ficha: el dato de un evento se corrige en
+// el repositorio o escribiendo al equipo. Se mantiene en tono bajo para
+// no competir con el contenido del organizador.
+const { id, collection = "events" } = Astro.props;
+---
+
+<footer class="max-w-[42rem] border-t border-line pt-4 text-sm text-muted">
+    ¿Falta o sobra algún dato? Escríbenos a
+    <a
+        href="mailto:contacto@agendados.es"
+        data-simple-event="footer_event_mailto"
+        class="underline hover:no-underline"
+        >contacto@agendados.es</a
+    >, avísanos desde <a href="/contacto/" class="underline hover:no-underline">el formulario de contacto</a>
+    o corrígelo tú en
+    <a
+        href={`https://github.com/salteadorneo/agendados/blob/main/src/content/${collection}/${id}.md`}
+        class="underline hover:no-underline"
+        target="_blank"
+        rel="noopener noreferrer">GitHub</a
+    >.
+</footer>

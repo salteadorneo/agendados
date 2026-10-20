@@ -3,8 +3,10 @@ import type { CollectionEntry } from "astro:content";
 import Footer from "@/components/Footer.astro";
 import Layout from "./Layout.astro";
 import HeaderEvent from "@/components/HeaderEvent.astro";
+import EventLinks from "@/components/EventLinks.astro";
 import Tags from "@/components/Tags.astro";
-import Social from "@/components/Social.astro";
+import Contribute from "@/components/Contribute.astro";
+import { readableOn } from "@/color";
 
 type Props = CollectionEntry<"organizer">;
 
@@ -14,6 +16,8 @@ const {
 } = Astro.props;
 
 const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
+
+const onColor = readableOn(color);
 
 const organizerSchema = {
     "@context": "https://schema.org",
@@ -64,199 +68,62 @@ const breadcrumbSchema = {
 <Layout title={name} description={description}>
     <script type="application/ld+json" set:html={JSON.stringify(organizerSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <HeaderEvent title={name} color={color} />
+    <HeaderEvent title={name} color={color} url={url} />
     <main>
         <article itemscope itemtype="https://schema.org/Organization">
             <div
-                class={`relative flex items-end py-6 bg-primary bg-center bg-cover bg-no-repeat ${!image && "overflow-hidden2"}`}
-                style={`background-color: ${color};`}
+                class="bg-primary"
+                style={`background-color: ${color}; color: ${onColor};`}
             >
-                <div class="relative w-full max-w-6xl mx-auto px-4 space-y-2">
+                <div
+                    class="w-full max-w-6xl mx-auto px-4 py-8 md:py-12 grid gap-8 md:grid-cols-[minmax(0,1fr)_16rem] md:items-end"
+                >
                     {
                         image && (
                             <a
                                 href={image.toString()}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="block sm:absolute top-0 mx-auto right-6 z-30 w-[40dvw] sm:w-52 perspective-dramatic max-sm:mb-6"
+                                class="block md:order-2 w-44 sm:w-60 md:w-full justify-self-center md:justify-self-end"
                             >
                                 <img
                                     src={image.toString()}
                                     alt={name}
-                                    class="-rotate-y-4 hover:-rotate-y-2 hover:scale-110 transition-all shadow-md"
+                                    class="-rotate-y-4 hover:-rotate-y-2 hover:scale-105 transition-all shadow-lg w-full"
                                     itemprop="image"
                                     loading="lazy"
                                 />
                             </a>
                         )
                     }
-                    <!-- {
-                        !image && (
-                            <div class="max-sm:hidden absolute top-0 mx-auto right-6 z-30 w-[40dvw] sm:w-52 perspective-dramatic max-sm:mb-6">
-                                <div
-                                    class="aspect-9/14 bg-white text-sm p-6 -rotate-y-4 shadow-md"
-                                    style={`background-color2: ${color};`}
-                                >
-                                    {description}
-                                </div>
-                            </div>
-                        )
-                    } -->
-                    <h1
-                        class="text-3xl md:text-5xl text-balance text-white"
-                        transition:name={`title-${id}`}
-                        itemprop="name"
-                    >
-                        {name}
-                    </h1>
-                </div>
-            </div>
-            <div
-                class="bg-primary h-2 [clip-path:polygon(0_0,100%_0,90%_0,0%_100%)] sm:[clip-path:polygon(0_0,100%_0,60%_0,0%_100%)]"
-                style={`background-color: ${color};`}
-            >
-            </div>
-            <div
-                class="py-4 space-y-4 border-b"
-                style={`border-color: ${color};`}
-            >
-                <div
-                    class="w-full max-w-6xl mx-auto px-4 sm:pr-60 flex flex-col sm:flex-row flex-wrap justify-between gap-3"
-                >
-                    <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+                    <div class="md:order-1 space-y-4 min-w-0">
+                        <h1
+                            class="text-4xl md:text-6xl font-light text-balance"
+                            transition:name={`title-${id}`}
+                            itemprop="name"
+                        >
+                            {name}
+                        </h1>
                         {
-                            location && (
-                                <p
-                                    class="flex items-center gap-2"
-                                    transition:name={`location-${id}`}
-                                    itemprop="location"
-                                    itemscope
-                                    itemtype="https://schema.org/Place"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                            fill="none"
-                                        />
-                                        <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                                        <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
-                                    </svg>
-                                    <span
-                                        class="max-sm:truncate max-sm:max-w-xs"
-                                        itemprop="name"
-                                    >
-                                        {location}
-                                    </span>
-                                    <div
-                                        itemprop="address"
-                                        itemscope
-                                        itemtype="https://schema.org/PostalAddress"
-                                        style="display: none;"
-                                    >
-                                        <meta
-                                            itemprop="addressLocality"
-                                            content={province || "España"}
-                                        />
-                                        <meta
-                                            itemprop="addressCountry"
-                                            content="ES"
-                                        />
-                                    </div>
+                            description && (
+                                <p class="max-w-2xl text-sm md:text-base opacity-90">
+                                    {description}
                                 </p>
                             )
                         }
-                        {
-                            url && (
-                                <a
-                                    href={url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="flex items-center gap-2 hover:text-primary transition-colors"
-                                    onmouseover={`this.style.color='${color}'`}
-                                    onmouseout={`this.style.color='inherit'`}
-                                    itemprop="url"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                            fill="none"
-                                        />
-                                        <path d="M9 15l6 -6" />
-                                        <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
-                                        <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
-                                    </svg>
-                                    {new URL(url).hostname.replace("www.", "")}
-                                </a>
-                            )
-                        }
-                        {
-                            email && (
-                                <a
-                                    href={`mailto:${email}`}
-                                    data-simple-event="event_mailto"
-                                    class="flex items-center gap-2 hover:text-primary transition-colors"
-                                    onmouseover={`this.style.color='${color}'`}
-                                    onmouseout={`this.style.color='inherit'`}
-                                    itemprop="email"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                            fill="none"
-                                        />
-                                        <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
-                                        <path d="M3 7l9 6l9 -6" />
-                                    </svg>
-                                    <span>{email}</span>
-                                </a>
-                            )
-                        }
                     </div>
-                    <Social
-                        {...Astro.props}
-                        class="flex flex-col sm:flex-row flex-wrap gap-3"
-                    />
                 </div>
+            </div>
+            <div class="border-b border-line" style={`--event: ${color};`}>
+                <EventLinks {...Astro.props} />
             </div>
             {
                 location && (
                     <iframe
                         id="map"
                         width="100%"
-                        class="h-48 shadow-md"
+                        title={`Mapa de ${location}`}
+                        class="h-48 border-b border-line"
                         loading="lazy"
                         allowfullscreen
                         referrerpolicy="no-referrer-when-downgrade"
@@ -264,81 +131,17 @@ const breadcrumbSchema = {
                     />
                 )
             }
-            <div class="w-full max-w-6xl mx-auto py-6 px-4 md:pr-60 space-y-4">
+            <div class="w-full max-w-6xl mx-auto py-8 px-4">
                 <meta itemprop="description" content={description} />
                 <Tags {...Astro.props} />
-                <section class="content">
+                <section class="content mt-6">
                     <slot />
                 </section>
-            </div>
-            <div class="w-full max-w-6xl mx-auto pb-6 px-4">
-                <p
-                    class="bg-primary/70 text-white text-center text-sm p-4 [clip-path:polygon(1%_0,100%_0,99%_100%,0_100%)]"
-                >
-                    Si tienes más datos sobre este evento, por favor,
-                    <a href="/contacto/" class="underline hover:no-underline"
-                        >contáctanos</a
-                    >, escríbenos a
-                    <a
-                        href="mailto:contacto@agendados.es"
-                        data-simple-event="footer_event_mailto"
-                        class="underline hover:no-underline"
-                        >contacto@agendados.es</a
-                    >
-                    o edítalo en
-                    <a
-                        href={`https://github.com/salteadorneo/agendados/blob/main/src/content/events/${id}.md`}
-                        class="underline hover:no-underline"
-                        target="_blank"
-                        rel="noopener noreferrer">GitHub</a
-                    >
-                </p>
+                <div class="mt-8">
+                    <Contribute id={id} collection="organizers" />
+                </div>
             </div>
         </article>
     </main>
-    <Footer />
+    <Footer compact />
 </Layout>
-
-<style is:inline>
-    .content h1,
-    .content h2,
-    .content h3,
-    .content h4,
-    .content h5,
-    .content h6 {
-        font-weight: 500;
-        line-height: 1.8rem;
-        margin-bottom: 1rem;
-    }
-
-    .content h1 {
-        font-size: 2rem;
-    }
-
-    .content h2 {
-        font-size: 1.6rem;
-    }
-
-    .content h3 {
-        font-size: 1.3rem;
-    }
-
-    .content h4 {
-        font-size: 1.1rem;
-    }
-
-    .content a {
-        text-decoration: underline;
-    }
-
-    .content p,
-    .content ul,
-    .content ol {
-        margin-bottom: 1rem;
-    }
-
-    .content b,
-    .content strong {
-        font-weight: 600;
-    }
-</style>

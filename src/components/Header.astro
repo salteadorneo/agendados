@@ -3,8 +3,6 @@ import { getCollection } from "astro:content";
 import Logo from "./Logo.astro";
 import { getFutureEvents, slugify } from "@/utils";
 
-const { color } = Astro.props;
-
 const allEvents = await getCollection("event");
 const upcomingEvents = getFutureEvents(allEvents, true, 365);
 
@@ -17,10 +15,7 @@ const upcomingTags = Array.from(
 ).sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
 ---
 
-<header
-    class="sticky top-0 z-40 backdrop-blur-sm bg-white/80 border-b border-gray-200"
-    style={`background-color: ${color};`}
->
+<header class="sticky top-0 z-40 backdrop-blur-sm bg-white/85 border-b border-line">
     <nav
         class="w-full max-w-6xl mx-auto p-4 flex justify-between items-center gap-4"
     >
@@ -31,7 +26,7 @@ const upcomingTags = Array.from(
             {upcomingTags.slice(0, 10).map((tag) => (
                 <a
                     href={`/eventos/tag/${slugify(tag)}/`}
-                    class="px-2 py-1 hover:bg-white/10 text-sm transition-colors"
+                    class="px-2 py-1 hover:bg-surface text-sm transition-colors"
                 >
                     {tag}
                 </a>

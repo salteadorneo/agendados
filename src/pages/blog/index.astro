@@ -28,14 +28,14 @@ const fmt = new Intl.DateTimeFormat("es-ES", { dateStyle: "long" });
 							<a href={`/blog/${post.id}/`} class="group block">
 								<time
 									datetime={post.data.date.toISOString()}
-									class="text-sm text-gray-500"
+									class="text-sm text-muted"
 								>
 									{fmt.format(post.data.date)}
 								</time>
 								<h2 class="text-2xl group-hover:underline">
 									{post.data.title}
 								</h2>
-								<p class="text-gray-700">{post.data.description}</p>
+								<p class="text-muted">{post.data.description}</p>
 							</a>
 						</li>
 					))

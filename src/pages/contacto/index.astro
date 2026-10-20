@@ -13,24 +13,24 @@ import Layout from "@/layouts/Layout.astro";
             <form
                 action="https://formsubmit.co/c326780740dec55f6c648541c576ce48"
                 method="POST"
-                class="max-w-md space-y-4 flex flex-col p-4"
+                class="max-w-md flex flex-col gap-4 p-4"
             >
                 <input type="hidden" name="_next" value="https://agendados.es/contacto/gracias">
                 <input type="hidden" name="_captcha" value="false">
                 <input
                     type="email"
                     name="email"
-                    placeholder="Email"
-                    class="border p-2"
+                    placeholder="Tu email"
+                    class="control"
                     required
                 />
                 <textarea
                     name="message"
                     placeholder="Mensaje"
-                    class="border p-2"
-                    rows="4"
+                    class="control"
+                    rows="5"
                     required></textarea>
-                <button type="submit" class="bg-primary text-white p-2">Enviar</button>
+                <button type="submit" class="btn self-start">Enviar</button>
             </form>
         </section>
     </main>

@@ -5,8 +5,10 @@ import Dates from "@/components/Dates.astro";
 import Layout from "./Layout.astro";
 import { AddToCalendarButton } from "add-to-calendar-button-react";
 import HeaderEvent from "@/components/HeaderEvent.astro";
+import EventLinks from "@/components/EventLinks.astro";
 import Tags from "@/components/Tags.astro";
-import Social from "@/components/Social.astro";
+import Contribute from "@/components/Contribute.astro";
+import { readableOn } from "@/color";
 
 type Props = CollectionEntry<"event">;
 
@@ -29,7 +31,10 @@ const {
     },
 } = Astro.props;
 
-const API_KEY = "AIzaSyAsvWUikM_4YkcsTWBjWMPFK6-jXe7iVAs";
+// El color del evento tiñe la cabecera y los acentos; el texto que va
+// encima se calcula para que cualquier color siga siendo legible, porque
+// esta ficha funciona como landing del organizador.
+const onColor = readableOn(color);
 
 const startDateStr = start.toISOString().split("T")[0];
 const startDate = startTime ? `${startDateStr}T${startTime}:00` : start.toISOString();
@@ -44,6 +49,10 @@ if (end && endTime) {
 } else {
     endDate = start.toISOString();
 }
+
+const mapQuery = location
+    ? `${location}${province && !location.includes(province) ? `, ${province}` : ""}, España`
+    : "";
 
 const organizerUrl = url ?? Astro.url.toString();
 const organizerName = url
@@ -123,300 +132,327 @@ const breadcrumbSchema = {
 <Layout title={title} description={description}>
     <script type="application/ld+json" set:html={JSON.stringify(eventSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-    <HeaderEvent title={title} color={color} />
+    <HeaderEvent title={title} color={color} url={url} />
     <main>
         <article itemscope itemtype="https://schema.org/Event">
             <div
-                class={`relative flex items-end py-6 bg-primary bg-center bg-cover bg-no-repeat ${!image && "overflow-hidden2"}`}
-                style={`background-color: ${color};`}
+                class="bg-primary"
+                style={`background-color: ${color}; color: ${onColor};`}
             >
-                <div class="relative w-full max-w-6xl mx-auto px-4 space-y-2">
-                    {
-                        image && (
+                <div
+                    class="w-full max-w-6xl mx-auto px-4 py-10 md:py-14"
+                >
+                    <div class="max-w-3xl space-y-4">
+                        <p
+                            class="text-base md:text-lg"
+                            transition:name={`date-${id}`}
+                        >
+                            <Dates {...Astro.props.data} />
+                        </p>
+                        <h1
+                            class="text-4xl md:text-6xl font-light text-balance"
+                            transition:name={`title-${id}`}
+                            itemprop="name"
+                        >
+                            {title}
+                        </h1>
+                        <p class="max-w-2xl text-sm md:text-base opacity-90">
+                            {description}
+                        </p>
+                        {
+                            (url || email) && (
+                                <a
+                                    href={url ?? `mailto:${email}`}
+                                    target={url ? "_blank" : undefined}
+                                    rel={url ? "noopener noreferrer" : undefined}
+                                    data-simple-event="event_hero_cta"
+                                    class="inline-flex items-center gap-2 mt-2 px-5 py-3 font-medium transition-opacity hover:opacity-90 [clip-path:polygon(0_0,100%_0,100%_calc(100%-12px),12px_100%)]"
+                                    style={`background-color: ${onColor}; color: ${color};`}
+                                    itemprop="url"
+                                >
+                                    {url ? "Web oficial" : "Escribir al organizador"}
+                                </a>
+                            )
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="border-b border-line" style={`--event: ${color};`}>
+                <EventLinks {...Astro.props}>
+                    <div
+                        class="atcb-wrapper"
+                        style="--btn-background: #181818; --btn-hover-background: #333333; --btn-border: #181818; --btn-hover-border: #333333; --btn-text: #ffffff; --btn-hover-text: #ffffff; --btn-text-shadow: transparent;"
+                    >
+                        <AddToCalendarButton
+                            client:only
+                            label="Añadir al calendario"
+                            language="es"
+                            name={title}
+                            options="'Apple','Google','iCal','Outlook.com','Yahoo'"
+                            location={location}
+                            startDate={start.toISOString().split("T")[0]}
+                            endDate={end?.toISOString().split("T")[0]}
+                            startTime={startTime}
+                            endTime={endTime}
+                            timeZone="Europe/Madrid"
+                            buttonStyle="flat"
+                            lightMode="dark"
+                        />
+                    </div>
+                </EventLinks>
+            </div>
+            {
+                location && (
+                    <div
+                        id="event-map"
+                        class="relative z-0 h-48 border-b border-line"
+                        data-estado="cargando"
+                        data-query={mapQuery}
+                        data-title={`Mapa de ${location}`}
+                        data-label={location}
+                        data-province={province ?? ""}
+                        data-color={color ?? "#181818"}
+                    >
+                        <span
+                            data-map-cargando
+                            class="hidden [[data-estado=cargando]_&]:flex h-full w-full items-center justify-center text-sm text-muted"
+                        >
+                            Cargando mapa…
+                        </span>
+                        <a
+                            data-map-enlace
+                            class="hidden [[data-estado=fallback]_&]:flex h-full w-full items-center justify-center gap-2 text-sm text-muted hover:underline"
+                            href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(mapQuery)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Ver ubicación en OpenStreetMap
+                        </a>
+                        <noscript>
+                            <style>
+                                #event-map [data-map-enlace] {
+                                    display: flex;
+                                }
+                                #event-map [data-map-cargando] {
+                                    display: none;
+                                }
+                            </style>
+                        </noscript>
+                    </div>
+                )
+            }
+            <div
+                class:list={[
+                    "w-full max-w-6xl mx-auto py-8 px-4 grid gap-10 lg:items-start",
+                    image
+                        ? "lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14"
+                        : "",
+                ]}
+            >
+                <div class="min-w-0">
+                    <meta itemprop="description" content={description} />
+                    <span
+                        itemprop="organizer"
+                        itemscope
+                        itemtype="https://schema.org/Organization"
+                        style="display: none;"
+                    >
+                        <meta itemprop="name" content={organizerName} />
+                        <meta itemprop="url" content={organizerUrl} />
+                        {email && <meta itemprop="email" content={email} />}
+                    </span>
+                    <Tags {...Astro.props} />
+                    <section class="content mt-6">
+                        <slot />
+                    </section>
+                    <div class="mt-8">
+                        <Contribute id={id} collection="events" />
+                    </div>
+                </div>
+                {
+                    image && (
+                        <aside class="lg:sticky lg:top-20 self-start">
                             <a
                                 href={image.toString()}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="block sm:absolute top-0 mx-auto right-6 z-30 w-[40dvw] sm:w-52 perspective-dramatic max-sm:mb-6"
+                                class="block w-52 sm:w-64 lg:w-full mx-auto lg:mx-0"
                             >
                                 <img
                                     src={image.toString()}
                                     alt={title}
-                                    class="-rotate-y-4 hover:-rotate-y-2 hover:scale-110 transition-all shadow-md"
+                                    class="-rotate-y-4 hover:-rotate-y-2 hover:scale-105 transition-all shadow-lg w-full"
                                     itemprop="image"
                                     loading="lazy"
                                 />
                             </a>
-                        )
-                    }
-                    <div
-                        class="text-xl text-white"
-                        transition:name={`date-${id}`}
-                    >
-                        <Dates {...Astro.props.data} />
-                    </div>
-                    <h1
-                        class="text-3xl md:text-5xl text-balance text-white"
-                        transition:name={`title-${id}`}
-                        itemprop="name"
-                    >
-                        {title}
-                    </h1>
-                </div>
-            </div>
-            <div
-                class="bg-primary h-2 [clip-path:polygon(0_0,100%_0,90%_0,0%_100%)] sm:[clip-path:polygon(0_0,100%_0,60%_0,0%_100%)]"
-                style={`background-color: ${color};`}
-            >
-            </div>
-            <div
-                class="py-4 space-y-4 border-b"
-                style={`border-color: ${color};`}
-            >
-                <div
-                    class="w-full max-w-6xl mx-auto px-4 sm:pr-60 flex flex-col sm:flex-row flex-wrap justify-between gap-3"
-                >
-                    <div class="flex flex-col sm:flex-row flex-wrap gap-3">
-                        {
-                            location && (
-                                <p
-                                    class="flex items-center gap-2"
-                                    transition:name={`location-${id}`}
-                                    itemprop="location"
-                                    itemscope
-                                    itemtype="https://schema.org/Place"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                            fill="none"
-                                        />
-                                        <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                                        <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
-                                    </svg>
-                                    <span
-                                        class="max-sm:truncate max-sm:max-w-xs"
-                                        itemprop="name"
-                                    >
-                                        {location}
-                                    </span>
-                                    <div
-                                        itemprop="address"
-                                        itemscope
-                                        itemtype="https://schema.org/PostalAddress"
-                                        style="display: none;"
-                                    >
-                                        <meta
-                                            itemprop="addressLocality"
-                                            content={province || "España"}
-                                        />
-                                        <meta
-                                            itemprop="addressCountry"
-                                            content="ES"
-                                        />
-                                    </div>
-                                </p>
-                            )
-                        }
-                        {
-                            url && (
-                                <a
-                                    href={url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="flex items-center gap-2 hover:text-primary transition-colors"
-                                    onmouseover={`this.style.color='${color}'`}
-                                    onmouseout={`this.style.color='inherit'`}
-                                    itemprop="url"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                            fill="none"
-                                        />
-                                        <path d="M9 15l6 -6" />
-                                        <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" />
-                                        <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" />
-                                    </svg>
-                                    {new URL(url).hostname.replace("www.", "")}
-                                </a>
-                            )
-                        }
-                        {
-                            email && (
-                                <a
-                                    href={`mailto:${email}`}
-                                    data-simple-event="event_mailto"
-                                    class="flex items-center gap-2 hover:text-primary transition-colors"
-                                    onmouseover={`this.style.color='${color}'`}
-                                    onmouseout={`this.style.color='inherit'`}
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path
-                                            stroke="none"
-                                            d="M0 0h24v24H0z"
-                                            fill="none"
-                                        />
-                                        <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
-                                        <path d="M3 7l9 6l9 -6" />
-                                    </svg>
-                                    <span>{email}</span>
-                                </a>
-                            )
-                        }
-                    </div>
-                    <Social
-                        {...Astro.props}
-                        class="flex flex-col sm:flex-row flex-wrap gap-3"
-                    />
-                </div>
-            </div>
-            {
-                location && (
-                    <iframe
-                        id="map"
-                        width="100%"
-                        class="h-48 shadow-md"
-                        loading="lazy"
-                        allowfullscreen
-                        referrerpolicy="no-referrer-when-downgrade"
-                        src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${encodeURIComponent(location)}`}
-                    />
-                )
-            }
-            <div class="w-full max-w-6xl mx-auto py-6 px-4 md:pr-60 space-y-4">
-                <meta itemprop="description" content={description} />
-                <span
-                    itemprop="organizer"
-                    itemscope
-                    itemtype="https://schema.org/Organization"
-                    style="display: none;"
-                >
-                    <meta itemprop="name" content={organizerName} />
-                    <meta itemprop="url" content={organizerUrl} />
-                    {email && <meta itemprop="email" content={email} />}
-                </span>
-                <Tags {...Astro.props} />
-                <section class="content">
-                    <slot />
-                </section>
-                <section class="flex flex-wrap items-center gap-2">
-                    <AddToCalendarButton
-                        client:only
-                        label="Añadir al calendario"
-                        language="es"
-                        name={title}
-                        options="'Apple','Google','iCal','Outlook.com','Yahoo'"
-                        location={location}
-                        startDate={start.toISOString().split("T")[0]}
-                        endDate={end?.toISOString().split("T")[0]}
-                        startTime={startTime}
-                        endTime={endTime}
-                        timeZone="Europe/Madrid"
-                    />
-                </section>
-            </div>
-            <div class="w-full max-w-6xl mx-auto pb-6 px-4">
-                <p
-                    class="bg-primary/70 text-white text-center text-sm p-4 [clip-path:polygon(1%_0,100%_0,99%_100%,0_100%)]"
-                >
-                    Si tienes más datos sobre este evento, por favor,
-                    <a href="/contacto/" class="underline hover:no-underline"
-                        >contáctanos</a
-                    >, escríbenos a
-                    <a
-                        href="mailto:contacto@agendados.es"
-                        data-simple-event="footer_event_mailto"
-                        class="underline hover:no-underline"
-                        >contacto@agendados.es</a
-                    >
-                    o edítalo en
-                    <a
-                        href={`https://github.com/salteadorneo/agendados/blob/main/src/content/events/${id}.md`}
-                        class="underline hover:no-underline"
-                        target="_blank"
-                        rel="noopener noreferrer">GitHub</a
-                    >
-                </p>
+                        </aside>
+                    )
+                }
             </div>
         </article>
         <slot name="related" />
     </main>
-    <Footer />
+    <Footer compact />
 </Layout>
 
-<style is:inline>
-    .content h1,
-    .content h2,
-    .content h3,
-    .content h4,
-    .content h5,
-    .content h6 {
-        font-weight: 500;
-        line-height: 1.8rem;
-        margin-bottom: 1rem;
+<script>
+    const el = document.getElementById("event-map");
+    const query = el?.dataset.query;
+
+    const LEAFLET = "1.9.4";
+    const CACHE_KEY = "event-map-geo";
+    const PAUSA_MS = 350;
+
+    function loadLeaflet(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if ((window as any).L) return resolve((window as any).L);
+
+            const css = document.createElement("link");
+            css.rel = "stylesheet";
+            css.href = `https://unpkg.com/leaflet@${LEAFLET}/dist/leaflet.css`;
+            document.head.appendChild(css);
+
+            const js = document.createElement("script");
+            js.src = `https://unpkg.com/leaflet@${LEAFLET}/dist/leaflet.js`;
+            // Se espera tambien al CSS: sin el, Leaflet calcula mal el
+            // tamano de los controles al montar el mapa.
+            js.onload = () =>
+                css.sheet
+                    ? resolve((window as any).L)
+                    : (css.onload = () => resolve((window as any).L));
+            js.onerror = reject;
+            document.head.appendChild(js);
+        });
     }
 
-    .content h1 {
-        font-size: 2rem;
+    function candidatas(q: string, provincia: string): string[] {
+        const partes = q
+            .split(",")
+            .map((parte) => parte.trim())
+            .filter(Boolean);
+        const lista: string[] = [];
+        for (let i = 0; i < partes.length - 1; i++) {
+            lista.push(partes.slice(i).join(", "));
+        }
+
+        if (provincia && !partes.includes(provincia)) {
+            lista.push(`${provincia}, España`);
+        }
+
+        return lista.length > 0 ? lista : [q];
     }
 
-    .content h2 {
-        font-size: 1.6rem;
+    const pausa = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+    function leerCache(): Record<string, { lat: number; lon: number } | null> {
+        try {
+            return JSON.parse(sessionStorage.getItem(CACHE_KEY) ?? "{}");
+        } catch {
+            return {};
+        }
     }
 
-    .content h3 {
-        font-size: 1.3rem;
+    function escribirCache(cache: Record<string, unknown>) {
+        try {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+        } catch {
+            // Sin almacenamiento disponible el mapa sigue funcionando.
+        }
     }
 
-    .content h4 {
-        font-size: 1.1rem;
+    async function buscarUna(q: string) {
+        const url =
+            "https://nominatim.openstreetmap.org/search" +
+            `?format=jsonv2&limit=1&countrycodes=es&q=${encodeURIComponent(q)}`;
+
+        const res = await fetch(url, { headers: { Accept: "application/json" } });
+        if (!res.ok) return undefined;
+
+        const results: Array<{ lat: string; lon: string }> = await res.json();
+        const hit = results[0];
+        const lat = Number(hit?.lat);
+        const lon = Number(hit?.lon);
+        if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+        return { lat, lon };
     }
 
-    .content a {
-        text-decoration: underline;
+    async function geocode(q: string) {
+        const cache = leerCache();
+
+        const provincia = el?.dataset.province ?? "";
+
+        for (const intento of candidatas(q, provincia)) {
+            if (intento in cache) {
+                // null guardado significa "Nominatim no lo encuentra".
+                if (cache[intento]) return cache[intento];
+                continue;
+            }
+
+            const punto = await buscarUna(intento).catch(() => undefined);
+            await pausa(PAUSA_MS);
+
+            if (punto === undefined) continue;
+
+            // Se guardan tambien los no encontrados, para no repetirlos.
+            cache[intento] = punto;
+            escribirCache(cache);
+            if (punto) return punto;
+        }
+
+        return null;
     }
 
-    .content p,
-    .content ul,
-    .content ol {
-        margin-bottom: 1rem;
+    if (el && query) {
+        if (el.dataset.mapReady !== "1") {
+            el.dataset.mapReady = "1";
+
+            const estado = (valor: string) => el.setAttribute("data-estado", valor);
+
+            const sinMapa = () => estado("fallback");
+
+            geocode(query)
+                .then((point) => {
+                    if (!point) return sinMapa();
+                    return loadLeaflet().then((L) => render(L, point)).catch(sinMapa);
+                })
+                .catch(sinMapa);
+        }
     }
 
-    .content b,
-    .content strong {
-        font-weight: 600;
+    function render(L: any, point: { lat: number; lon: number }) {
+        if (!el) return;
+
+        const color = el.dataset.color ?? "#181818";
+        const label = el.dataset.label ?? "";
+
+        el.replaceChildren();
+
+        const map = L.map(el, {
+            zoomControl: false,
+            scrollWheelZoom: false,
+        }).setView([point.lat, point.lon], 15);
+
+        map.getPane("tilePane").style.filter = "grayscale(1) brightness(1.05)";
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }).addTo(map);
+
+        L.control.zoom({ position: "topright" }).addTo(map);
+
+        const icon = L.divIcon({
+            className: "",
+            html: `<span style="display:block;width:18px;height:18px;border-radius:50%;background:${color};border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)"></span>`,
+            iconSize: [18, 18],
+            iconAnchor: [9, 9],
+        });
+
+        const marker = L.marker([point.lat, point.lon], { icon }).addTo(map);
+        if (label) {
+            marker.bindPopup(label);
+        }
     }
-</style>
+</script>

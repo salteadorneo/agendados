@@ -1,12 +1,15 @@
 ---
 import Logo from "./Logo.astro";
+import { readableOn, withAlpha } from "@/color";
 
-const { title, color } = Astro.props;
+const { title, color, url } = Astro.props;
+
+const onColor = readableOn(color);
 ---
 
 <header
-    class="sticky top-0 z-40 backdrop-blur-sm bg-primary text-white"
-    style={`background-color: ${color}cc;`}
+    class="sticky top-0 z-40 backdrop-blur-sm"
+    style={`background-color: ${withAlpha(color, 0.92)}; color: ${onColor}; --event: ${color}; --on-event: ${onColor};`}
 >
     <nav
         class="w-full max-w-6xl mx-auto p-4 flex justify-between items-center gap-4"
@@ -14,10 +17,24 @@ const { title, color } = Astro.props;
         <a href="/">
             <Logo />
         </a>
-        <div class="flex gap-4">
+        <div class="flex items-center gap-3 text-sm">
+            {
+                url && (
+                    <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 border border-current px-3 py-1.5 font-medium transition-colors hover:bg-(--on-event) hover:text-(--event)"
+                        itemprop="url"
+                    >
+                        Web oficial
+                    </a>
+                )
+            }
             <button
-                class="flex items-center gap-2 transition-colors cursor-pointer"
-                onclick={`navigator.share({ title: '${title}', url: window.location.href })`}
+                data-share
+                data-share-title={title}
+                class="flex items-center gap-2 transition-colors cursor-pointer hover:opacity-70"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -36,8 +53,29 @@ const { title, color } = Astro.props;
                     ></path><path d="M8.7 10.7l6.6 -3.4"></path><path
                         d="M8.7 13.3l6.6 3.4"></path></svg
                 >
-                Compartir
+                <span class="max-sm:sr-only">Compartir</span>
             </button>
         </div>
     </nav>
 </header>
+
+<script>
+    if (typeof navigator.share !== "function") {
+        document
+            .querySelectorAll<HTMLButtonElement>("[data-share]")
+            .forEach((button) => button.remove());
+    } else {
+        document
+            .querySelectorAll<HTMLButtonElement>("[data-share]")
+            .forEach((button) => {
+                button.addEventListener("click", () => {
+                    navigator
+                        .share({
+                            title: button.dataset.shareTitle ?? document.title,
+                            url: window.location.href,
+                        })
+                        .catch(() => {});
+                });
+            });
+    }
+</script>

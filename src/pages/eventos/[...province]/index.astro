@@ -8,6 +8,7 @@ import List from "@/components/List.astro";
 import Title from "@/components/Title.astro";
 import Calendar from "@/components/Calendar.astro";
 import EventMini from "@/components/EventMini.astro";
+import ShopCard from "@/components/ShopCard.astro";
 
 export async function getStaticPaths() {
     return Array.from(provinces).map((province) => ({
@@ -88,21 +89,21 @@ const collectionSchema = {
                 </h2>
                 {
                     future.length === 0 && (
-                        <p class="text-gray-500">
+                        <p class="text-muted">
                             No hay eventos próximos en {province}.
                         </p>
                     )
                 }
                 <List events={future} />
 
-                <details class="mt-6 border p-4">
+                <details class="mt-6 border border-line bg-surface/60 p-4">
                     <summary class="cursor-pointer font-medium">
                         ¿Conoces un evento en {province}? Cuéntanoslo
                     </summary>
                     <form
                         action="https://formsubmit.co/c326780740dec55f6c648541c576ce48"
                         method="POST"
-                        class="space-y-4 flex flex-col mt-4"
+                        class="mt-4 flex flex-col gap-3"
                     >
                         <input type="hidden" name="_next" value="https://agendados.es/evento/gracias">
                         <input type="hidden" name="_captcha" value="false">
@@ -110,7 +111,7 @@ const collectionSchema = {
                         <textarea
                             name="event_description"
                             placeholder="Nombre, descripción, URL, red social, etc."
-                            class="border p-2"
+                            class="control"
                             rows="2"
                             required></textarea>
                         <input
@@ -118,7 +119,7 @@ const collectionSchema = {
                             name="_gotcha"
                             style="display:none !important"
                         />
-                        <button type="submit" class="bg-primary text-white p-2">Enviar</button>
+                        <button type="submit" class="btn self-start">Enviar</button>
                     </form>
                 </details>
 
@@ -152,27 +153,9 @@ const collectionSchema = {
                             <h2 class="text-3xl mb-4">
                                 Tiendas de juegos en {province}
                             </h2>
-                            <div class="space-y-2">
+                            <div class="grid gap-4 sm:grid-cols-2">
                                 {shops.map(({ data }) => (
-                                    <article
-                                        class="p-4 border-l-20 bg-center bg-cover bg-no-repeat hover:bg-[var(--event-color)] transition-colors"
-                                        style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
-                                    >
-                                        <a
-                                            href={data.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            {data.image && (
-                                                <img
-                                                    src={data.image.toString()}
-                                                    alt={data.name}
-                                                    class="h-12 object-contain"
-                                                    itemprop="image"
-                                                />
-                                            )}
-                                        </a>
-                                    </article>
+                                    <ShopCard data={data} />
                                 ))}
                             </div>
                         </section>

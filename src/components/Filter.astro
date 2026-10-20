@@ -14,11 +14,12 @@ events.forEach((event: CollectionEntry<"event">) => {
 
 <section class="flex flex-wrap justify-end gap-2">
     <select
-        class="p-2 border text-white max-sm:w-32"
+        class="control w-auto max-sm:w-40 py-2 text-sm"
+        aria-label="Ir a otro listado: provincia o tipo de evento"
         onchange="location = this.value"
     >
-        <option value="/" class="text-black">Filtro</option>
-        <optgroup label="Provincias" class="text-black">
+        <option value="/">Filtro</option>
+        <optgroup label="Provincias">
             {
                 Array.from(provinces)
                     .sort((a, b) =>
@@ -27,7 +28,6 @@ events.forEach((event: CollectionEntry<"event">) => {
                     .map((province) => (
                         <option
                             value={`/eventos/${slugify(province)}/`}
-                            class="text-black"
                             selected={
                                 Astro.params.province === slugify(province)
                             }
@@ -37,7 +37,7 @@ events.forEach((event: CollectionEntry<"event">) => {
                     ))
             }
         </optgroup>
-        <optgroup label="Por tipo" class="text-black">
+        <optgroup label="Por tipo">
             {
                 Array.from(tags)
                     .sort((a, b) =>
@@ -46,7 +46,6 @@ events.forEach((event: CollectionEntry<"event">) => {
                     .map((tag) => (
                         <option
                             value={`/eventos/tag/${slugify(tag)}/`}
-                            class="text-black"
                             selected={Astro.params.tag === slugify(tag)}
                         >
                             {tag}

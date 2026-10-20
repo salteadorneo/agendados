@@ -1,32 +1,40 @@
 ---
 import Dates from "./Dates.astro";
 import Tags from "./Tags.astro";
+import { readableText, withAlpha } from "@/color";
 
 const { id, data } = Astro.props;
+
+const titleColor = readableText(data.color);
 ---
 
 {
     data && (
         <article
-            class={`relative max-w-[98vw] px-4 py-3 border-l-10 bg-center bg-cover bg-no-repeat hover:bg-(--event-color) transition-colors ${Astro.props.class}`}
-            style={`border-color: ${data.color}; --event-color: ${data.color || "#181818"}11;`}
+            class={`relative max-w-[98vw] px-4 py-3 border-l-6 hover:bg-(--event-tint) transition-colors ${Astro.props.class}`}
+            style={`border-color: ${data.color}; --event: ${data.color}; --event-tint: ${withAlpha(data.color, 0.07)};`}
             data-event-start={new Date(data.start).toISOString().split("T")[0]}
         >
             <Tags id={id} data={data} class="mb-1 text-sm gap-x-1!" provinceOnly />
             <a href={`/evento/${id}/`}>
-                <p class="font-medium" transition:name={`date-${id}`}>
+                <p
+                    class="font-medium text-muted text-sm"
+                    transition:name={`date-${id}`}
+                >
                     <Dates {...data} />
                 </p>
                 <h3
                     class="text-lg md:text-xl font-medium text-balance"
-                    style={`color: ${data.color}`}
+                    style={titleColor ? `color: ${titleColor}` : undefined}
                     transition:name={`title-${id}`}
                 >
                     {data.title}
                 </h3>
-                <p class="text-sm mt-1 line-clamp-2">{data.description}</p>
+                <p class="text-sm mt-1 line-clamp-2 text-muted">
+                    {data.description}
+                </p>
             </a>
-            <Tags id={id} data={data} class="mt-4 text-sm gap-x-1!" showProvince={false} />
+            <Tags id={id} data={data} class="mt-3 text-sm gap-x-1!" showProvince={false} />
         </article>
     )
 }

@@ -130,7 +130,7 @@ const websiteSchema = {
 				class="max-w-6xl mx-auto px-4 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-stretch lg:gap-12"
 			>
 				<div class="flex flex-col justify-center">
-					<h1 class="text-3xl md:text-5xl text-balance mb-3">
+					<h1 class="text-3xl md:text-5xl font-light text-balance mb-3">
 						Tu agenda de eventos de juegos de mesa y rol en España
 					</h1>
 					<p class="max-w-3xl text-white/90 text-balance mb-6">
@@ -142,7 +142,7 @@ const websiteSchema = {
 					>
 						<a
 							data-user-province
-							class="hidden w-full items-center justify-center gap-2 bg-white px-6 py-3 text-center text-lg font-semibold text-primary transition-colors hover:bg-white/90 [clip-path:polygon(0_0,100%_0,100%_calc(100%-12px),12px_100%)] sm:w-auto"
+							class="btn btn-invert hidden w-full text-base sm:w-auto"
 						>
 							Ver eventos en tu provincia
 						</a>
@@ -182,35 +182,32 @@ const websiteSchema = {
 			</div>
 		</section>
 		<section
-			class="w-full border-y border-[#e2e0d9] bg-[#f1f0eb]"
+			class="w-full border-y border-line bg-surface"
 			aria-label="Agendados en cifras"
 		>
 			<div class="max-w-6xl mx-auto px-4 py-6 sm:py-8">
 				<dl class="grid grid-cols-3">
-					<div class="flex min-w-0 flex-col-reverse border-l border-[#d6d4cd] pl-3 first:border-0 first:pl-0 sm:pl-8">
-						<dt class="-mt-2 text-xs leading-snug text-[#55544e] sm:text-sm">
+					<div class="flex min-w-0 flex-col-reverse border-l border-line pl-3 first:border-0 first:pl-0 sm:pl-8">
+						<dt class="-mt-2 text-xs leading-snug text-muted sm:text-sm">
 							eventos publicados
 						</dt>
-						<dd class="text-3xl font-bold leading-none tabular-nums text-primary sm:text-5xl">
+						<dd class="text-3xl font-light leading-none tabular-nums text-primary sm:text-5xl">
 							{allEvents.length.toLocaleString("es-ES")}
 						</dd>
 					</div>
-					<div class="flex min-w-0 flex-col-reverse border-l border-[#d6d4cd] pl-3 sm:pl-8">
-						<dt class="-mt-2 text-xs leading-snug text-[#55544e] sm:text-sm">
+					<div class="flex min-w-0 flex-col-reverse border-l border-line pl-3 sm:pl-8">
+						<dt class="-mt-2 text-xs leading-snug text-muted sm:text-sm">
 							provincias
 						</dt>
-						<dd class="text-3xl font-bold leading-none tabular-nums text-primary sm:text-5xl">
+						<dd class="text-3xl font-light leading-none tabular-nums text-primary sm:text-5xl">
 							{provincesWithEvents.size}
 						</dd>
 					</div>
-					<div class="flex min-w-0 flex-col-reverse border-l border-[#d6d4cd] pl-3 sm:pl-8">
-						<dt class="-mt-2 text-xs leading-snug text-[#55544e] sm:text-sm">
+					<div class="flex min-w-0 flex-col-reverse border-l border-line pl-3 sm:pl-8">
+						<dt class="-mt-2 text-xs leading-snug text-muted sm:text-sm">
 							{activeYears === 1 ? "año" : "años"} online
-							<!-- <span class="mt-1 block text-[0.7rem] text-[#77766e] sm:text-xs">
-								desde {firstEventYear}
-							</span> -->
 						</dt>
-						<dd class="text-3xl font-bold leading-none tabular-nums text-primary sm:text-5xl">
+						<dd class="text-3xl font-light leading-none tabular-nums text-primary sm:text-5xl">
 							{activeYears}
 						</dd>
 					</div>
@@ -230,16 +227,16 @@ const websiteSchema = {
 					<ul class="flex flex-col">
 						{agendaDays.map((day, index) => (
 							<li
-								class="grid min-w-0 gap-3 py-5 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6 sm:border-t sm:border-gray-300"
+								class="grid min-w-0 gap-3 py-5 sm:grid-cols-[6rem_minmax(0,1fr)] sm:gap-6 sm:border-t sm:border-line"
 								class:list={[
 									index === 0 ? "sm:border-t-0 sm:pt-0" : "",
 								]}
 							>
-								<div class="bg-primary text-white px-3 py-2 text-center [clip-path:polygon(0_0,100%_0,100%_calc(100%-8px),0_100%)]">
+								<div class="bg-ink text-white px-3 py-2 text-center">
 									<p class="text-sm uppercase leading-tight tracking-wide">
 										{day.date.toLocaleDateString("es-ES", { weekday: "long" })}
 									</p>
-									<p class="text-4xl md:text-5xl font-bold leading-none tabular-nums mt-2">
+									<p class="text-4xl md:text-5xl font-light leading-none tabular-nums mt-2">
 										{day.date.getDate()}
 									</p>
 									<p class="text-sm leading-tight -mt-2">
@@ -258,7 +255,7 @@ const websiteSchema = {
 									)}
 									{day.recurring.length > 0 && (
 										<div>
-											<h4 class="mb-2 text-sm uppercase tracking-wide text-gray-500">
+											<h4 class="mb-2 text-sm uppercase tracking-wide text-muted">
 												Recurrentes
 											</h4>
 											<ul class="flex max-w-full gap-2 overflow-x-auto overscroll-x-contain pb-2 snap-x snap-mandatory">
@@ -275,7 +272,7 @@ const websiteSchema = {
 						))}
 					</ul>
 				) : (
-					<p class="text-gray-500">
+					<p class="text-muted">
 						No hay eventos programados {agendaRange.label}.
 					</p>
 				)

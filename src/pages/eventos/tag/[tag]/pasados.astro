@@ -55,7 +55,7 @@ const shops = (await getCollection("shop")).filter(
                 <h2 class="text-3xl mb-4">Eventos pasados de {tag}</h2>
                 {
                     past.length === 0 && (
-                        <p class="text-gray-500">No hay eventos pasados.</p>
+                        <p class="text-muted">No hay eventos pasados.</p>
                     )
                 }
                 <section class="space-y-2">

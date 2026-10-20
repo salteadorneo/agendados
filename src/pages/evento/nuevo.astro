@@ -31,60 +31,60 @@ import Layout from "@/layouts/Layout.astro";
             <form
                 action="https://formsubmit.co/c326780740dec55f6c648541c576ce48"
                 method="POST"
-                class="space-y-4 flex flex-col"
+                class="flex flex-col gap-4"
             >
                 <input type="hidden" name="_next" value="https://agendados.es/evento/gracias">
                 <input type="hidden" name="_captcha" value="false">
                 <input
                     name="event_name"
                     placeholder="Nombre del evento"
-                    class="border p-2"
+                    class="control"
                     required
                 />
-                <div class="grid sm:grid-cols-2 gap-2">
-                    <label>
-                        Fecha inicio<br />
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <label class="flex flex-col gap-1 text-sm text-muted">
+                        Fecha inicio
                         <input
                             name="event_start_date"
                             type="date"
-                            class="border p-2 w-full"
+                            class="control"
                             required
                         />
                     </label>
-                    <label>
-                        Fecha fin (opcional)<br />
+                    <label class="flex flex-col gap-1 text-sm text-muted">
+                        Fecha fin (opcional)
                         <input
                             name="event_end_date"
                             type="date"
-                            class="border p-2 w-full"
+                            class="control"
                         />
                     </label>
                 </div>
                 <input
                     name="event_location"
                     placeholder="Ubicación del evento"
-                    class="border p-2"
+                    class="control"
                     required
                 />
                 <textarea
                     name="event_description"
                     placeholder="Descripción del evento"
-                    class="border p-2"
+                    class="control"
                     rows="8"
                     required></textarea>
                 <input
                     type="email"
                     name="email"
                     placeholder="Email (opcional)"
-                    class="border p-2"
+                    class="control"
                 />
                 <input
                     type="hidden"
                     name="_gotcha"
                     style="display:none !important"
                 />
-                <button type="submit" class="bg-primary text-white p-2">Enviar</button>
-                <p class="text-sm text-gray-500">
+                <button type="submit" class="btn self-start">Enviar</button>
+                <p class="text-sm text-muted max-w-md">
                     Al enviar este formulario, aceptas que la información
                     proporcionada sea utilizada para publicar el evento en el
                     sitio web. No se compartirá tu email públicamente.

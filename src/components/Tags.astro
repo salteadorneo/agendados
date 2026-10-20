@@ -1,5 +1,6 @@
 ---
 import { provinceSlug, slugify } from "@/utils";
+import { readableOn } from "@/color";
 
 const {
     id,
@@ -8,19 +9,21 @@ const {
     provinceOnly = false,
     showProvince = true,
 } = Astro.props;
+
+const onColor = readableOn(color);
 ---
 
 <div
     class={`flex flex-wrap items-center gap-2 [&>a:first-child]:-ml-0.5 ${classes}`}
     transition:name={`tags-${id}`}
+    style={`--event: ${color}; --on-event: ${onColor};`}
 >
     {
         !provinceOnly &&
             tags?.map((tag: string) => (
                 <a
                     href={`/eventos/tag/${slugify(tag)}/`}
-                    class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
-                    style={`background-color: ${color};`}
+                    class="bg-(--event) text-(--on-event) py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
                 >
                     {tag}
                 </a>
@@ -30,8 +33,7 @@ const {
         province && showProvince && (
             <a
                 href={`/eventos/${provinceSlug(province)}/`}
-                class="bg-primary text-white py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
-                style={`background-color: ${color};`}
+                class="bg-(--event) text-(--on-event) py-0.5 px-3 [clip-path:polygon(5px_0,100%_0,95%_100%,0_100%)]"
             >
                 {province}
             </a>

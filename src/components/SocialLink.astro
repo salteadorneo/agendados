@@ -1,13 +1,11 @@
 ---
-const { color, ...rest } = Astro.props;
+const { color: _color, ...rest } = Astro.props;
 ---
 
 <a
     target="_blank"
     rel="noopener noreferrer"
-    class="flex items-center gap-2 hover:text-primary transition-colors"
-    onmouseover={`this.style.color='${color}'`}
-    onmouseout={`this.style.color='inherit'`}
+    class="flex items-center gap-2 hover:text-(--event) transition-colors"
     {...rest}
 >
     <slot />
