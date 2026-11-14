@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 
-export const prerender = false;
+export const prerender = true;
 
 async function getAllEvents(): Promise<any[]> {
     const events = await getCollection("event");
