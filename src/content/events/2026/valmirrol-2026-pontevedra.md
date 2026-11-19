@@ -7,6 +7,7 @@ location: 'Centro Comercial Siglo XXI'
 province: 'Pontevedra'
 color: '#4CAF50'
 tags: ['Rol', 'Juegos de mesa']
+instagram: 'https://www.instagram.com/valmirrol/'
 ---
 
 El encuentro reúne partidas de rol en gallego y castellano, juegos de mesa y cartas coleccionables.
