@@ -7,6 +7,7 @@ location: 'Recinto Ferial La Hípica'
 province: 'Cuenca'
 color: '#4CAF50'
 tags: ['Juegos de mesa', 'Rol', 'Familiar']
+url: 'https://cuencajuega.es/'
 ---
 
 La quinta edición reunirá juegos familiares, demostraciones, prototipos, rol, talleres y torneos. La entrada es gratuita.
