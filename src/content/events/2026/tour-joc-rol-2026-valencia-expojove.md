@@ -1,8 +1,8 @@
 ---
 title: 'Tour Joc & Rol 2026'
 description: 'Aventura itinerante que lleva la emoción del rol y los juegos de mesa a diferentes eventos en España.'
-start: '2026-11-21'
-end: '2026-11-22'
+start: '2026-12-26'
+end: '2026-12-27'
 location: 'Feria Valencia'
 province: 'Valencia'
 color: '#A82424'
