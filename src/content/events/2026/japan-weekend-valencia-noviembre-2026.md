@@ -5,6 +5,7 @@ start: "2026-11-21"
 end: "2026-11-22"
 location: "Feria Valencia, pabellón 7, València"
 province: "Valencia"
+color: "#E60012"
 url: "https://www.japanweekend.com/valencia/"
 tags: ["Festival", "Feria", "Familiar"]
 ---

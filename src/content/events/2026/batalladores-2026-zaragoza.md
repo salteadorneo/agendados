@@ -5,7 +5,7 @@ start: '2026-11-19'
 end: '2026-11-22'
 location: 'Hotel Boston, Zaragoza'
 province: 'Zaragoza'
-color: '#4CAF50'
+color: '#F3E3C9'
 url: 'https://www.batallador.es/'
 tags: ['Simulación histórica', 'Festival']
 ---

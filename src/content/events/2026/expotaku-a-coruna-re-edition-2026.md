@@ -5,6 +5,7 @@ start: "2026-11-21"
 end: "2026-11-22"
 location: "Recinto Ferial ExpoCoruña, A Coruña"
 province: "A Coruña"
+color: "#D62828"
 url: "https://www.expotaku.com/a-coruna/"
 tags: ["Festival", "Feria", "Familiar"]
 ---

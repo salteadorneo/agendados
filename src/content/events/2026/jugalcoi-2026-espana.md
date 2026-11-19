@@ -6,7 +6,7 @@ end: '2026-11-22'
 startTime: '10:00'
 endTime: '14:00'
 location: 'Espai Àgora'
-color: '#4CAF50'
+color: '#FF3A20'
 url: 'https://agendaalcoy.com/event/el-jugalcoi/'
 tags: ['Juegos de mesa', 'Rol', 'Torneo']
 ---

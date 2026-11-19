@@ -5,7 +5,7 @@ start: '2026-11-21'
 end: '2026-11-22'
 location: 'Recinto Ferial La Hípica'
 province: 'Cuenca'
-color: '#4CAF50'
+color: '#E91E63'
 tags: ['Juegos de mesa', 'Rol', 'Familiar']
 url: 'https://cuencajuega.es/'
 ---

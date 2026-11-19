@@ -5,7 +5,7 @@ start: '2026-11-21'
 end: '2026-11-22'
 location: 'Cúpula del Milenio'
 province: 'Valladolid'
-color: '#4CAF50'
+color: '#1F4E79'
 url: 'https://pucelawargames.es/grandes-torneos/open-pucela-wargames/'
 tags: ['Wargames', 'Competitivo']
 ---

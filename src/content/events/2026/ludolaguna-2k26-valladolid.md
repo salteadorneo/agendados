@@ -5,7 +5,7 @@ start: '2026-11-20'
 end: '2026-11-22'
 location: 'Polideportivo Municipal'
 province: 'Valladolid'
-color: '#4CAF50'
+color: '#35142F'
 tags: ['Juegos de mesa']
 url: 'https://ludolaguna.es/'
 ---
