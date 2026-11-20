@@ -175,7 +175,11 @@ export function getFutureEvents(events: CollectionEntry<"event">[], expandRecurr
             const startDay = new Date(start);
             startDay.setHours(0, 0, 0, 0);
 
-            if (startDay >= today) {
+            const end = event.data.end ? new Date(event.data.end) : new Date(start);
+            const endDay = new Date(end);
+            endDay.setHours(0, 0, 0, 0);
+
+            if (endDay >= today) {
                 allInstances.push(event);
             }
         }
@@ -287,7 +291,11 @@ export const getTodayEvents = (events: CollectionEntry<"event">[]): EventInstanc
             const startDay = new Date(start);
             startDay.setHours(0, 0, 0, 0);
 
-            if (startDay.getTime() === todayStart.getTime()) {
+            const end = event.data.end ? new Date(event.data.end) : new Date(start);
+            const endDay = new Date(end);
+            endDay.setHours(0, 0, 0, 0);
+
+            if (todayStart.getTime() >= startDay.getTime() && todayStart.getTime() <= endDay.getTime()) {
                 todayEvents.push(event);
             }
         }
